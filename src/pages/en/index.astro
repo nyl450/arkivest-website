@@ -4,140 +4,272 @@ import Base from "@layouts/Base.astro";
 const title = "Arkivest - Ship-ready websites for businesses that mean it";
 const description =
   "Indonesian web studio. We build websites, dashboards, and custom commerce systems for SMEs that mean business. Security practiced, SEO measured, code thought through. Starts at IDR 5M.";
+
+const pilars = [
+  {
+    no: "01",
+    label: "Security",
+    title: "Practiced, not paraded.",
+    body: "Row-Level Security, JWT + bcrypt, login rate limiter, private buckets with signed URLs, server-side price tamper guards. The Wearscrubs baseline. The Arkivest baseline.",
+  },
+  {
+    no: "02",
+    label: "SEO",
+    title: "Measured down to the meta.",
+    body: "Unique titles, structured data, ID-EN hreflang, auto sitemaps, branded OG images. Not a plugin checklist. Every page is built to earn traffic.",
+  },
+  {
+    no: "03",
+    label: "Logic",
+    title: "Code that's thought through.",
+    body: "Atomic transactions, server-side validation, business flows modeled on reality. If your admin is your busy spouse, the dashboard has to work without training.",
+  },
+];
+
+const projects = [
+  {
+    slug: "wearscrubs",
+    href: "/en/work/wearscrubs",
+    eyebrow: "E-commerce · Live",
+    title: "Wearscrubs",
+    subtitle: "From spreadsheet to live shop.",
+    stack: "Astro · Node · Supabase · Railway",
+    domain: "wearscrubs.id",
+  },
+];
 ---
 
 <Base title={title} description={description} lang="en">
-  <section class="relative pt-40 lg:pt-48">
-    <div class="mx-auto max-w-7xl px-6 lg:px-10">
-      <p class="font-mono text-caption uppercase tracking-widest text-muted">
-        Arkivest Studio · Tangerang, ID
-      </p>
-      <h1
-        class="mt-6 max-w-4xl text-display-2 font-semibold tracking-tight lg:text-display-1"
+  {/* ============ HERO ============ */}
+  <section class="relative flex min-h-[92vh] flex-col justify-end pb-16 pt-40 lg:min-h-screen lg:pb-24 lg:pt-48">
+    <div class="mx-auto w-full max-w-7xl px-6 lg:px-10">
+      <p
+        class="reveal font-mono text-caption uppercase tracking-[0.18em] text-muted"
       >
-        Ship-ready websites for businesses that
-        <span class="text-signal">mean it</span>.
+        Arkivest Studio · Tangerang, ID · {new Date().getFullYear()}
+      </p>
+
+      <h1
+        class="reveal reveal-delay-1 mt-8 max-w-[14ch] text-[clamp(2.75rem,9vw,7.5rem)] font-semibold leading-[0.95] tracking-[-0.03em]"
+      >
+        Ship-ready websites <br class="hidden sm:block" />for businesses that
+        <span class="italic text-signal">mean it</span>.
       </h1>
-      <p class="mt-8 max-w-2xl text-body-lg text-ink/70">
-        Not a template. Not a slogan. Code that's thought through, security
-        that's practiced, SEO that's measured. Proof of work: Wearscrubs.
-      </p>
-      <div class="mt-12 flex flex-wrap items-center gap-4">
-        <a
-          href="/en/contact"
-          class="rounded-full bg-ink px-6 py-3 text-body-sm font-medium text-paper transition hover:bg-signal"
-        >
-          Start a project
-        </a>
-        <a
-          href="/en/work"
-          class="rounded-full border border-line px-6 py-3 text-body-sm font-medium text-ink transition hover:border-ink"
-        >
-          See work
-        </a>
+
+      <div
+        class="reveal reveal-delay-2 mt-12 grid gap-10 md:grid-cols-[1fr_auto] md:items-end"
+      >
+        <p class="max-w-xl text-body-lg text-ink/70">
+          Not a template. Not a slogan. Code that's thought through, security
+          that's practiced, SEO that's measured. Proof of work: Wearscrubs.
+        </p>
+        <div class="flex flex-wrap items-center gap-3">
+          <a
+            href="/en/contact"
+            class="group inline-flex items-center gap-3 rounded-full bg-ink px-6 py-3.5 text-body-sm font-medium text-paper transition hover:bg-signal"
+          >
+            Start a project
+            <span
+              class="inline-block transition-transform duration-300 group-hover:translate-x-1"
+              aria-hidden="true">→</span
+            >
+          </a>
+          <a
+            href="#work"
+            class="rounded-full border border-ink/15 px-6 py-3.5 text-body-sm font-medium text-ink transition hover:border-ink hover:bg-ink/5"
+          >
+            See work
+          </a>
+        </div>
       </div>
     </div>
-  </section>
 
-  <section>
-    <div class="mx-auto max-w-7xl px-6 lg:px-10">
-      <p class="font-mono text-caption uppercase tracking-widest text-muted">
-        Pillars
-      </p>
-      <h2 class="mt-4 max-w-3xl text-h2 font-semibold tracking-tight">
-        Three things we won't compromise on.
-      </h2>
-
-      <div class="mt-16 grid gap-12 md:grid-cols-12">
-        <article class="md:col-span-5">
-          <p class="font-mono text-caption text-signal">01 / Security</p>
-          <h3 class="mt-3 text-h3 font-semibold">Practiced, not paraded.</h3>
-          <p class="mt-4 text-body text-ink/70">
-            Row-Level Security, JWT + bcrypt, login rate limiter, private
-            buckets with signed URLs, server-side price tamper guards. The
-            Wearscrubs baseline. The Arkivest baseline.
-          </p>
-        </article>
-
-        <article class="md:col-span-6 md:col-start-7">
-          <p class="font-mono text-caption text-signal">02 / SEO</p>
-          <h3 class="mt-3 text-h3 font-semibold">Measured down to the meta.</h3>
-          <p class="mt-4 text-body text-ink/70">
-            Unique titles, structured data, ID-EN hreflang, auto sitemaps,
-            branded OG images. Not a plugin checklist. Every page is built to
-            earn traffic, not just to be published.
-          </p>
-        </article>
-
-        <article class="md:col-span-7">
-          <p class="font-mono text-caption text-signal">03 / Logic</p>
-          <h3 class="mt-3 text-h3 font-semibold">Code that's thought through.</h3>
-          <p class="mt-4 text-body text-ink/70">
-            Atomic transactions, server-side validation, business flows modeled
-            on reality. If your admin is your busy spouse, the dashboard has to
-            work without training. That's our bar.
-          </p>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <section class="bg-paper-2">
-    <div class="mx-auto max-w-7xl px-6 lg:px-10">
-      <div class="flex flex-wrap items-end justify-between gap-6">
+    <div
+      class="reveal reveal-delay-3 mx-auto mt-16 w-full max-w-7xl px-6 lg:mt-24 lg:px-10"
+    >
+      <div
+        class="grid grid-cols-2 gap-6 border-t border-ink/10 pt-6 sm:grid-cols-4"
+      >
         <div>
-          <p class="font-mono text-caption uppercase tracking-widest text-muted">
-            Showcase
+          <p class="font-mono text-caption text-muted">LCP target</p>
+          <p class="mt-1 text-body font-medium">&lt;2.5s · 4G</p>
+        </div>
+        <div>
+          <p class="font-mono text-caption text-muted">JS budget</p>
+          <p class="mt-1 text-body font-medium">&lt;80KB gz</p>
+        </div>
+        <div>
+          <p class="font-mono text-caption text-muted">Languages</p>
+          <p class="mt-1 text-body font-medium">ID · EN</p>
+        </div>
+        <div>
+          <p class="font-mono text-caption text-muted">From</p>
+          <p class="mt-1 text-body font-medium">IDR 5M</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {/* ============ PILARS ============ */}
+  <section class="border-t border-ink/10">
+    <div class="mx-auto max-w-7xl px-6 lg:px-10">
+      <div class="reveal grid gap-10 md:grid-cols-[1fr_2fr]">
+        <p
+          class="font-mono text-caption uppercase tracking-[0.18em] text-muted"
+        >
+          Three pillars
+        </p>
+        <h2 class="max-w-3xl text-h2 font-semibold tracking-tight lg:text-h1">
+          Three things we won't compromise on.
+        </h2>
+      </div>
+
+      <div class="mt-20 space-y-20 lg:space-y-32">
+        {
+          pilars.map((p) => (
+            <article class="reveal grid gap-8 border-t border-ink/10 pt-12 md:grid-cols-12 lg:pt-16">
+              <div class="md:col-span-3">
+                <p class="font-mono text-caption text-signal">
+                  {p.no} / {p.label}
+                </p>
+              </div>
+              <div class="md:col-span-9">
+                <h3 class="max-w-3xl text-h2 font-semibold tracking-tight lg:text-[clamp(2rem,4vw,3.25rem)] lg:leading-[1.1]">
+                  {p.title}
+                </h3>
+                <p class="mt-6 max-w-2xl text-body-lg text-ink/70">{p.body}</p>
+              </div>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {/* ============ SHOWCASE / WORK ============ */}
+  <section id="work" class="bg-ink text-paper">
+    <div class="mx-auto max-w-7xl px-6 lg:px-10">
+      <div
+        class="reveal flex flex-wrap items-end justify-between gap-6 border-b border-paper/10 pb-8"
+      >
+        <div>
+          <p
+            class="font-mono text-caption uppercase tracking-[0.18em] text-paper/40"
+          >
+            Work
           </p>
-          <h2 class="mt-4 max-w-2xl text-h2 font-semibold tracking-tight">
-            Wearscrubs - from spreadsheet to live shop.
+          <h2 class="mt-4 text-h2 font-semibold tracking-tight lg:text-h1">
+            Case studies.
           </h2>
         </div>
         <a
-          href="/en/work/wearscrubs"
-          class="font-mono text-body-sm font-medium text-signal hover:underline"
+          href="/en/work"
+          class="font-mono text-body-sm font-medium text-paper/80 transition hover:text-signal"
         >
-          Read the case study →
+          All work →
         </a>
       </div>
 
-      <div class="mt-12 grid gap-6 md:grid-cols-[3fr_2fr]">
-        <div class="aspect-[16/10] rounded-3xl bg-ink"></div>
-        <div class="space-y-4">
-          <div class="rounded-2xl border border-line bg-paper p-6">
-            <p class="font-mono text-caption text-muted">Stack</p>
-            <p class="mt-2 text-body">Astro + Node + Supabase + Railway</p>
-          </div>
-          <div class="rounded-2xl border border-line bg-paper p-6">
-            <p class="font-mono text-caption text-muted">Live</p>
-            <p class="mt-2 font-mono text-body">wearscrubs.id</p>
-          </div>
-          <div class="rounded-2xl border border-line bg-paper p-6">
-            <p class="font-mono text-caption text-muted">Outcome</p>
-            <p class="mt-2 text-body">
-              Intuitive dashboard for a non-technical admin, RLS on 11 tables,
-              private buckets, 5-zone shipping, PO and custom-size flows.
-            </p>
-          </div>
-        </div>
+      <div
+        class="snap-row mt-12 flex gap-6 overflow-x-auto pb-6 md:grid md:grid-cols-1 md:overflow-visible md:pb-0"
+      >
+        {
+          projects.map((p) => (
+            <a
+              href={p.href}
+              class="reveal group relative block min-w-[85%] overflow-hidden rounded-3xl border border-paper/10 transition duration-500 hover:border-paper/30 md:min-w-0"
+            >
+              <div class="grid gap-0 md:grid-cols-[3fr_2fr]">
+                <div class="relative aspect-[16/10] bg-paper/5 md:aspect-auto">
+                  <div class="absolute inset-0 flex items-center justify-center">
+                    <p class="font-mono text-caption text-paper/30">
+                      [screenshot wearscrubs.id]
+                    </p>
+                  </div>
+                  <div
+                    class="absolute inset-0 bg-gradient-to-tr from-signal/10 via-transparent to-transparent opacity-0 transition duration-700 group-hover:opacity-100"
+                  />
+                </div>
+                <div class="flex flex-col justify-between gap-12 p-8 lg:p-12">
+                  <div>
+                    <p class="font-mono text-caption uppercase tracking-[0.18em] text-paper/40">
+                      {p.eyebrow}
+                    </p>
+                    <h3 class="mt-4 text-h2 font-semibold tracking-tight">
+                      {p.title}
+                    </h3>
+                    <p class="mt-3 text-body-lg text-paper/70">{p.subtitle}</p>
+                  </div>
+                  <dl class="grid grid-cols-2 gap-6 border-t border-paper/10 pt-6 text-body-sm">
+                    <div>
+                      <dt class="font-mono text-caption text-paper/40">
+                        Stack
+                      </dt>
+                      <dd class="mt-1 text-paper/90">{p.stack}</dd>
+                    </div>
+                    <div>
+                      <dt class="font-mono text-caption text-paper/40">
+                        Live
+                      </dt>
+                      <dd class="mt-1 font-mono text-paper/90">{p.domain}</dd>
+                    </div>
+                  </dl>
+                </div>
+              </div>
+            </a>
+          ))
+        }
       </div>
+
+      <p
+        class="reveal mt-10 max-w-2xl font-mono text-caption text-paper/40"
+      >
+        More case studies coming. Wearscrubs is first because it was built from
+        scratch by Arkivest and is already handling real orders.
+      </p>
     </div>
   </section>
 
+  {/* ============ CTA ============ */}
   <section>
-    <div class="mx-auto max-w-4xl px-6 text-center lg:px-10">
-      <h2 class="text-h1 font-semibold tracking-tight">
-        Got a product. Need a serious site?
-      </h2>
-      <p class="mt-6 text-body-lg text-ink/70">
-        Starts at IDR 5M. Clear timeline. You own the code.
-      </p>
-      <a
-        href="/en/contact"
-        class="mt-10 inline-flex rounded-full bg-signal px-8 py-4 text-body font-medium text-signal-fg transition hover:bg-ink"
+    <div class="mx-auto max-w-5xl px-6 lg:px-10">
+      <div
+        class="reveal relative overflow-hidden rounded-[2.5rem] border border-ink/10 p-12 lg:p-20"
       >
-        Start a project
-      </a>
+        <p
+          class="font-mono text-caption uppercase tracking-[0.18em] text-muted"
+        >
+          Start
+        </p>
+        <h2
+          class="mt-6 max-w-3xl text-[clamp(2rem,5.5vw,4.5rem)] font-semibold leading-[1.02] tracking-[-0.02em]"
+        >
+          Got a product. Need a serious site?
+        </h2>
+        <p class="mt-8 max-w-xl text-body-lg text-ink/70">
+          Starts at IDR 5M. Clear timeline. You own the code. Optional
+          maintenance.
+        </p>
+        <div class="mt-12 flex flex-wrap items-center gap-3">
+          <a
+            href="/en/contact"
+            class="group inline-flex items-center gap-3 rounded-full bg-signal px-8 py-4 text-body font-medium text-signal-fg transition hover:bg-ink"
+          >
+            Start a project
+            <span
+              class="inline-block transition-transform duration-300 group-hover:translate-x-1"
+              aria-hidden="true">→</span
+            >
+          </a>
+          <a
+            href="https://wa.me/6287887172220?text=Hi%20Arkivest%2C%20I%27d%20like%20to%20discuss%20a%20project"
+            class="rounded-full border border-ink/15 px-8 py-4 text-body font-medium text-ink transition hover:border-ink hover:bg-ink/5"
+            rel="noopener"
+          >
+            WhatsApp now
+          </a>
+        </div>
+      </div>
     </div>
   </section>
 </Base>

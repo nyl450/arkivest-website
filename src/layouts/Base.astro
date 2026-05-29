@@ -78,5 +78,28 @@ const altEN = new URL(enPath, SITE).toString();
       <slot />
     </main>
     <Footer lang={lang} />
+
+    <script>
+      // Scroll reveal: IntersectionObserver toggles .is-visible.
+      // ~600 bytes, GPU-accelerated (transform + opacity only).
+      const els = document.querySelectorAll(".reveal");
+      if ("IntersectionObserver" in window && els.length) {
+        const io = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((e) => {
+              if (e.isIntersecting) {
+                e.target.classList.add("is-visible");
+                io.unobserve(e.target);
+              }
+            });
+          },
+          { rootMargin: "0px 0px -10% 0px", threshold: 0.05 }
+        );
+        els.forEach((el) => io.observe(el));
+      } else {
+        // No-IO fallback: show everything immediately.
+        els.forEach((el) => el.classList.add("is-visible"));
+      }
+    </script>
   </body>
 </html>

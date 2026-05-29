@@ -4,140 +4,275 @@ import Base from "@layouts/Base.astro";
 const title = "Arkivest - Website siap konversi untuk usaha yang serius";
 const description =
   "Web studio Indonesia. Bangun website, dashboard, dan e-commerce custom untuk UKM yang serius. Security dipraktikkan, SEO terukur, kode yang dipikirkan. Mulai Rp5jt.";
+
+const pilars = [
+  {
+    no: "01",
+    label: "Security",
+    title: "Dipraktikkan, bukan dipajang.",
+    body: "Row-Level Security, JWT + bcrypt, rate limiter login, bucket privat dengan signed URL, anti-tamper harga server-side. Standar Wearscrubs, standar setiap project Arkivest.",
+  },
+  {
+    no: "02",
+    label: "SEO",
+    title: "Terukur sampai meta description.",
+    body: "Title unik, structured data, hreflang ID-EN, sitemap auto, OG image berbranding. Bukan checklist plugin. Setiap halaman dibuat untuk dapat traffic.",
+  },
+  {
+    no: "03",
+    label: "Logic",
+    title: "Kode yang dipikirkan.",
+    body: "Transaksi atomik, validasi server-side, alur bisnis yang dimodelkan sesuai realita. Kalau admin Anda istri yang sibuk anak, dashboard harus bisa dipakai tanpa training.",
+  },
+];
+
+const projects = [
+  {
+    slug: "wearscrubs",
+    href: "/work/wearscrubs",
+    eyebrow: "E-commerce · Live",
+    title: "Wearscrubs",
+    subtitle: "Dari spreadsheet ke toko hidup.",
+    stack: "Astro · Node · Supabase · Railway",
+    domain: "wearscrubs.id",
+  },
+];
 ---
 
 <Base title={title} description={description} lang="id">
-  <section class="relative pt-40 lg:pt-48">
-    <div class="mx-auto max-w-7xl px-6 lg:px-10">
-      <p class="font-mono text-caption uppercase tracking-widest text-muted">
-        Arkivest Studio · Tangerang, ID
-      </p>
-      <h1
-        class="mt-6 max-w-4xl text-display-2 font-semibold tracking-tight lg:text-display-1"
+  {/* ============ HERO ============ */}
+  <section class="relative flex min-h-[92vh] flex-col justify-end pb-16 pt-40 lg:min-h-screen lg:pb-24 lg:pt-48">
+    <div class="mx-auto w-full max-w-7xl px-6 lg:px-10">
+      <p
+        class="reveal font-mono text-caption uppercase tracking-[0.18em] text-muted"
       >
-        Website siap konversi untuk usaha yang
-        <span class="text-signal">serius</span>.
+        Arkivest Studio · Tangerang, ID · {new Date().getFullYear()}
+      </p>
+
+      <h1
+        class="reveal reveal-delay-1 mt-8 max-w-[14ch] text-[clamp(2.75rem,9vw,7.5rem)] font-semibold leading-[0.95] tracking-[-0.03em]"
+      >
+        Website siap konversi <br class="hidden sm:block" />untuk usaha yang
+        <span class="italic text-signal">serius</span>.
       </h1>
-      <p class="mt-8 max-w-2xl text-body-lg text-ink/70">
-        Bukan template generic. Bukan jualan tagline. Code yang dipikirkan,
-        security yang dipraktikkan, SEO yang terukur. Bukti karya: Wearscrubs.
-      </p>
-      <div class="mt-12 flex flex-wrap items-center gap-4">
-        <a
-          href="/contact"
-          class="rounded-full bg-ink px-6 py-3 text-body-sm font-medium text-paper transition hover:bg-signal"
-        >
-          Diskusi project
-        </a>
-        <a
-          href="/work"
-          class="rounded-full border border-line px-6 py-3 text-body-sm font-medium text-ink transition hover:border-ink"
-        >
-          Lihat karya
-        </a>
+
+      <div
+        class="reveal reveal-delay-2 mt-12 grid gap-10 md:grid-cols-[1fr_auto] md:items-end"
+      >
+        <p class="max-w-xl text-body-lg text-ink/70">
+          Bukan template generic. Bukan jualan tagline. Code yang dipikirkan,
+          security yang dipraktikkan, SEO yang terukur. Bukti karya: Wearscrubs.
+        </p>
+        <div class="flex flex-wrap items-center gap-3">
+          <a
+            href="/contact"
+            class="group inline-flex items-center gap-3 rounded-full bg-ink px-6 py-3.5 text-body-sm font-medium text-paper transition hover:bg-signal"
+          >
+            Diskusi project
+            <span
+              class="inline-block transition-transform duration-300 group-hover:translate-x-1"
+              aria-hidden="true">→</span
+            >
+          </a>
+          <a
+            href="#work"
+            class="rounded-full border border-ink/15 px-6 py-3.5 text-body-sm font-medium text-ink transition hover:border-ink hover:bg-ink/5"
+          >
+            Lihat karya
+          </a>
+        </div>
       </div>
     </div>
-  </section>
 
-  <section>
-    <div class="mx-auto max-w-7xl px-6 lg:px-10">
-      <p class="font-mono text-caption uppercase tracking-widest text-muted">
-        Pilar
-      </p>
-      <h2 class="mt-4 max-w-3xl text-h2 font-semibold tracking-tight">
-        Tiga hal yang tidak boleh kompromi.
-      </h2>
-
-      <div class="mt-16 grid gap-12 md:grid-cols-12">
-        <article class="md:col-span-5">
-          <p class="font-mono text-caption text-signal">01 / Security</p>
-          <h3 class="mt-3 text-h3 font-semibold">Dipraktikkan, bukan dipajang.</h3>
-          <p class="mt-4 text-body text-ink/70">
-            Row-Level Security, JWT + bcrypt, rate limiter login, bucket privat
-            dengan signed URL, anti-tamper harga server-side. Standar Wearscrubs,
-            standar setiap project Arkivest.
-          </p>
-        </article>
-
-        <article class="md:col-span-6 md:col-start-7">
-          <p class="font-mono text-caption text-signal">02 / SEO</p>
-          <h3 class="mt-3 text-h3 font-semibold">Terukur sampai meta description.</h3>
-          <p class="mt-4 text-body text-ink/70">
-            Title unik, structured data, hreflang ID-EN, sitemap auto, OG image
-            berbranding. Bukan checklist plugin. Setiap halaman dibuat untuk
-            dapat traffic, bukan sekedar dipublish.
-          </p>
-        </article>
-
-        <article class="md:col-span-7">
-          <p class="font-mono text-caption text-signal">03 / Logic</p>
-          <h3 class="mt-3 text-h3 font-semibold">Kode yang dipikirkan.</h3>
-          <p class="mt-4 text-body text-ink/70">
-            Transaksi atomik, validasi server-side, alur bisnis yang dimodelkan
-            sesuai realita. Kalau admin Anda istri yang sibuk anak, dashboard
-            harus bisa dipakai tanpa training. Itu ukuran kami.
-          </p>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <section class="bg-paper-2">
-    <div class="mx-auto max-w-7xl px-6 lg:px-10">
-      <div class="flex flex-wrap items-end justify-between gap-6">
+    {/* Scroll affordance: bukan dot/cue clichè, tapi mini ticker stack */}
+    <div
+      class="reveal reveal-delay-3 mx-auto mt-16 w-full max-w-7xl px-6 lg:mt-24 lg:px-10"
+    >
+      <div
+        class="grid grid-cols-2 gap-6 border-t border-ink/10 pt-6 sm:grid-cols-4"
+      >
         <div>
-          <p class="font-mono text-caption uppercase tracking-widest text-muted">
-            Showcase
+          <p class="font-mono text-caption text-muted">LCP target</p>
+          <p class="mt-1 text-body font-medium">&lt;2.5s · 4G</p>
+        </div>
+        <div>
+          <p class="font-mono text-caption text-muted">JS budget</p>
+          <p class="mt-1 text-body font-medium">&lt;80KB gz</p>
+        </div>
+        <div>
+          <p class="font-mono text-caption text-muted">Bahasa</p>
+          <p class="mt-1 text-body font-medium">ID · EN</p>
+        </div>
+        <div>
+          <p class="font-mono text-caption text-muted">Mulai</p>
+          <p class="mt-1 text-body font-medium">Rp 5 juta</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {/* ============ PILARS ============ */}
+  <section class="border-t border-ink/10">
+    <div class="mx-auto max-w-7xl px-6 lg:px-10">
+      <div class="reveal grid gap-10 md:grid-cols-[1fr_2fr]">
+        <p
+          class="font-mono text-caption uppercase tracking-[0.18em] text-muted"
+        >
+          Tiga pilar
+        </p>
+        <h2 class="max-w-3xl text-h2 font-semibold tracking-tight lg:text-h1">
+          Tiga hal yang tidak boleh kompromi.
+        </h2>
+      </div>
+
+      <div class="mt-20 space-y-20 lg:space-y-32">
+        {
+          pilars.map((p, i) => (
+            <article class="reveal grid gap-8 border-t border-ink/10 pt-12 md:grid-cols-12 lg:pt-16">
+              <div class="md:col-span-3">
+                <p class="font-mono text-caption text-signal">
+                  {p.no} / {p.label}
+                </p>
+              </div>
+              <div class="md:col-span-9">
+                <h3 class="max-w-3xl text-h2 font-semibold tracking-tight lg:text-[clamp(2rem,4vw,3.25rem)] lg:leading-[1.1]">
+                  {p.title}
+                </h3>
+                <p class="mt-6 max-w-2xl text-body-lg text-ink/70">{p.body}</p>
+              </div>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {/* ============ SHOWCASE / WORK ============ */}
+  <section id="work" class="bg-ink text-paper">
+    <div class="mx-auto max-w-7xl px-6 lg:px-10">
+      <div
+        class="reveal flex flex-wrap items-end justify-between gap-6 border-b border-paper/10 pb-8"
+      >
+        <div>
+          <p
+            class="font-mono text-caption uppercase tracking-[0.18em] text-paper/40"
+          >
+            Karya
           </p>
-          <h2 class="mt-4 max-w-2xl text-h2 font-semibold tracking-tight">
-            Wearscrubs - dari spreadsheet ke toko hidup.
+          <h2 class="mt-4 text-h2 font-semibold tracking-tight lg:text-h1">
+            Studi kasus.
           </h2>
         </div>
         <a
-          href="/work/wearscrubs"
-          class="font-mono text-body-sm font-medium text-signal hover:underline"
+          href="/work"
+          class="font-mono text-body-sm font-medium text-paper/80 transition hover:text-signal"
         >
-          Baca case study →
+          Semua karya →
         </a>
       </div>
 
-      <div class="mt-12 grid gap-6 md:grid-cols-[3fr_2fr]">
-        <div class="aspect-[16/10] rounded-3xl bg-ink"></div>
-        <div class="space-y-4">
-          <div class="rounded-2xl border border-line bg-paper p-6">
-            <p class="font-mono text-caption text-muted">Stack</p>
-            <p class="mt-2 text-body">Astro + Node + Supabase + Railway</p>
-          </div>
-          <div class="rounded-2xl border border-line bg-paper p-6">
-            <p class="font-mono text-caption text-muted">Live</p>
-            <p class="mt-2 font-mono text-body">wearscrubs.id</p>
-          </div>
-          <div class="rounded-2xl border border-line bg-paper p-6">
-            <p class="font-mono text-caption text-muted">Hasil</p>
-            <p class="mt-2 text-body">
-              Dashboard intuitif untuk admin non-teknis, RLS 11 tabel, bucket
-              privat, ongkir 5 zona, alur PO + custom size.
-            </p>
-          </div>
-        </div>
+      {/* Desktop: stacked editorial cards. Mobile: scroll-snap row. */}
+      <div
+        class="snap-row mt-12 flex gap-6 overflow-x-auto pb-6 md:grid md:grid-cols-1 md:overflow-visible md:pb-0"
+      >
+        {
+          projects.map((p) => (
+            <a
+              href={p.href}
+              class="reveal group relative block min-w-[85%] overflow-hidden rounded-3xl border border-paper/10 transition duration-500 hover:border-paper/30 md:min-w-0"
+            >
+              <div class="grid gap-0 md:grid-cols-[3fr_2fr]">
+                <div class="relative aspect-[16/10] bg-paper/5 md:aspect-auto">
+                  {/* Placeholder real screenshot Wearscrubs di sini nanti */}
+                  <div class="absolute inset-0 flex items-center justify-center">
+                    <p class="font-mono text-caption text-paper/30">
+                      [screenshot wearscrubs.id]
+                    </p>
+                  </div>
+                  <div
+                    class="absolute inset-0 bg-gradient-to-tr from-signal/10 via-transparent to-transparent opacity-0 transition duration-700 group-hover:opacity-100"
+                  />
+                </div>
+                <div class="flex flex-col justify-between gap-12 p-8 lg:p-12">
+                  <div>
+                    <p class="font-mono text-caption uppercase tracking-[0.18em] text-paper/40">
+                      {p.eyebrow}
+                    </p>
+                    <h3 class="mt-4 text-h2 font-semibold tracking-tight">
+                      {p.title}
+                    </h3>
+                    <p class="mt-3 text-body-lg text-paper/70">{p.subtitle}</p>
+                  </div>
+                  <dl class="grid grid-cols-2 gap-6 border-t border-paper/10 pt-6 text-body-sm">
+                    <div>
+                      <dt class="font-mono text-caption text-paper/40">
+                        Stack
+                      </dt>
+                      <dd class="mt-1 text-paper/90">{p.stack}</dd>
+                    </div>
+                    <div>
+                      <dt class="font-mono text-caption text-paper/40">
+                        Live
+                      </dt>
+                      <dd class="mt-1 font-mono text-paper/90">{p.domain}</dd>
+                    </div>
+                  </dl>
+                </div>
+              </div>
+            </a>
+          ))
+        }
       </div>
+
+      <p
+        class="reveal mt-10 max-w-2xl font-mono text-caption text-paper/40"
+      >
+        Lebih banyak case study menyusul. Wearscrubs jadi yang pertama karena
+        di-build dari nol oleh Arkivest dan sudah jalan menanggung order asli.
+      </p>
     </div>
   </section>
 
+  {/* ============ CTA ============ */}
   <section>
-    <div class="mx-auto max-w-4xl px-6 text-center lg:px-10">
-      <h2 class="text-h1 font-semibold tracking-tight">
-        Punya produk, butuh website yang serius?
-      </h2>
-      <p class="mt-6 text-body-lg text-ink/70">
-        Mulai Rp5jt. Timeline jelas. Kode jadi milik Anda.
-      </p>
-      <a
-        href="/contact"
-        class="mt-10 inline-flex rounded-full bg-signal px-8 py-4 text-body font-medium text-signal-fg transition hover:bg-ink"
+    <div class="mx-auto max-w-5xl px-6 lg:px-10">
+      <div
+        class="reveal relative overflow-hidden rounded-[2.5rem] border border-ink/10 p-12 lg:p-20"
       >
-        Diskusi project
-      </a>
+        <p
+          class="font-mono text-caption uppercase tracking-[0.18em] text-muted"
+        >
+          Mulai
+        </p>
+        <h2
+          class="mt-6 max-w-3xl text-[clamp(2rem,5.5vw,4.5rem)] font-semibold leading-[1.02] tracking-[-0.02em]"
+        >
+          Punya produk, butuh website yang serius?
+        </h2>
+        <p class="mt-8 max-w-xl text-body-lg text-ink/70">
+          Mulai Rp 5 juta. Timeline jelas. Kode jadi milik Anda. Maintenance
+          opsional.
+        </p>
+        <div class="mt-12 flex flex-wrap items-center gap-3">
+          <a
+            href="/contact"
+            class="group inline-flex items-center gap-3 rounded-full bg-signal px-8 py-4 text-body font-medium text-signal-fg transition hover:bg-ink"
+          >
+            Diskusi project
+            <span
+              class="inline-block transition-transform duration-300 group-hover:translate-x-1"
+              aria-hidden="true">→</span
+            >
+          </a>
+          <a
+            href="https://wa.me/6287887172220?text=Halo%20Arkivest%2C%20saya%20ingin%20diskusi%20project"
+            class="rounded-full border border-ink/15 px-8 py-4 text-body font-medium text-ink transition hover:border-ink hover:bg-ink/5"
+            rel="noopener"
+          >
+            WhatsApp langsung
+          </a>
+        </div>
+      </div>
     </div>
   </section>
 </Base>

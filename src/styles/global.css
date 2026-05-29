@@ -13,13 +13,13 @@
    Source of truth: D:\Project Ark\_system\BRAND_GUIDELINES.md
    ============================================================= */
 @theme {
-  /* Color palette (final, James konfirmasi 28 Mei 2026) */
-  --color-ink: #0A0A0B;          /* off-black body + headlines */
-  --color-paper: #FAFAF7;        /* warm white background, NOT pure #fff */
-  --color-paper-2: #F0EFEB;      /* panel/card subtle layer */
-  --color-signal: #1E4FFF;       /* cobalt accent - tech-credible */
+  /* Color palette (final v2, James konfirmasi 29 Mei 2026 - align dgn logo SVG canvas) */
+  --color-ink: #191818;          /* warm near-black, sama dgn logo canvas dark */
+  --color-paper: #E8E6E6;        /* cool light gray, sama dgn logo canvas light */
+  --color-paper-2: #DCDAD8;      /* panel/card subtle layer, 1 step darker */
+  --color-signal: #1E4FFF;       /* cobalt accent - 1 accent rule */
   --color-signal-fg: #FFFFFF;
-  --color-line: #E5E4DF;         /* border halus */
+  --color-line: #C9C7C5;         /* border halus, di atas paper */
   --color-muted: #6B6A66;        /* caption, footer text */
   --color-success: #2A8C5F;
   --color-warn: #C6543D;
@@ -84,4 +84,55 @@
   section {
     padding-block: clamp(4rem, 8vw, 8rem);
   }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+/* =============================================================
+   Scroll reveal utility (IntersectionObserver toggled, ~1KB JS)
+   Use: <div class="reveal">…</div>  +  <div class="reveal reveal-delay-1">
+   ============================================================= */
+@layer utilities {
+  .reveal {
+    opacity: 0;
+    transform: translate3d(0, 24px, 0);
+    transition:
+      opacity 700ms var(--ease-out-expo),
+      transform 700ms var(--ease-out-expo);
+    will-change: transform, opacity;
+  }
+  .reveal.is-visible {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+  .reveal-delay-1 { transition-delay: 80ms; }
+  .reveal-delay-2 { transition-delay: 160ms; }
+  .reveal-delay-3 { transition-delay: 240ms; }
+  .reveal-delay-4 { transition-delay: 320ms; }
+
+  /* Glass card backdrop (Cuberto-inspired, perf-disciplined) */
+  .glass {
+    background-color: color-mix(in srgb, var(--color-paper) 70%, transparent);
+    backdrop-filter: blur(14px) saturate(140%);
+    -webkit-backdrop-filter: blur(14px) saturate(140%);
+  }
+
+  /* Horizontal scroll-snap for mobile showcase carousel */
+  .snap-row {
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .snap-row::-webkit-scrollbar { display: none; }
+  .snap-row > * { scroll-snap-align: start; }
 }
