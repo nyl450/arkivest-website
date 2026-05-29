@@ -1,0 +1,30 @@
+---
+import Base from "@layouts/Base.astro";
+---
+
+<Base
+  title="404 - Halaman tidak ditemukan - Arkivest"
+  description="Halaman yang Anda cari tidak ada. Kembali ke beranda Arkivest."
+  lang="id"
+>
+  <section class="flex min-h-[70vh] items-center">
+    <div class="mx-auto max-w-3xl px-6 text-center lg:px-10">
+      <p class="font-mono text-caption uppercase tracking-widest text-signal">
+        Error 404
+      </p>
+      <h1 class="mt-6 text-display-2 font-semibold tracking-tight">
+        Halaman tidak ditemukan.
+      </h1>
+      <p class="mt-6 text-body-lg text-ink/70">
+        URL yang Anda buka tidak ada di Arkivest. Mungkin sudah dipindah atau
+        salah ketik.
+      </p>
+      <a
+        href="/"
+        class="mt-10 inline-flex rounded-full bg-ink px-6 py-3 text-body-sm font-medium text-paper transition hover:bg-signal"
+      >
+        Kembali ke beranda
+      </a>
+    </div>
+  </section>
+</Base>

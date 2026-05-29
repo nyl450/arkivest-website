@@ -1,0 +1,74 @@
+---
+interface Props {
+  lang?: "id" | "en";
+}
+const { lang = "id" } = Astro.props;
+
+const isEN = lang === "en";
+const prefix = isEN ? "/en" : "";
+
+const nav = isEN
+  ? [
+      { href: `${prefix}/work`, label: "Work" },
+      { href: `${prefix}/services`, label: "Services" },
+      { href: `${prefix}/contact`, label: "Contact" },
+    ]
+  : [
+      { href: "/work", label: "Karya" },
+      { href: "/services", label: "Layanan" },
+      { href: "/contact", label: "Kontak" },
+    ];
+
+const homeHref = isEN ? "/en" : "/";
+const switchHref = isEN
+  ? Astro.url.pathname.replace(/^\/en/, "") || "/"
+  : `/en${Astro.url.pathname === "/" ? "" : Astro.url.pathname}`;
+const switchLabel = isEN ? "ID" : "EN";
+---
+
+<header class="absolute inset-x-0 top-0 z-50">
+  <div class="mx-auto flex max-w-7xl items-center justify-between px-6 py-6 lg:px-10">
+    <a href={homeHref} class="block" aria-label="Arkivest home">
+      <img
+        src="/brand/logo-light.svg"
+        alt="Arkivest"
+        width="120"
+        height="32"
+        class="h-7 w-auto"
+      />
+    </a>
+
+    <nav class="hidden items-center gap-8 md:flex" aria-label="Primary">
+      {
+        nav.map((item) => (
+          <a
+            href={item.href}
+            class="text-body-sm font-medium text-ink/80 transition hover:text-ink"
+          >
+            {item.label}
+          </a>
+        ))
+      }
+      <a
+        href={switchHref}
+        class="font-mono text-caption text-muted transition hover:text-ink"
+        aria-label={`Switch to ${switchLabel}`}
+      >
+        {switchLabel}
+      </a>
+      <a
+        href={`${prefix}/contact`}
+        class="rounded-full bg-ink px-5 py-2.5 text-body-sm font-medium text-paper transition hover:bg-signal"
+      >
+        {isEN ? "Get in touch" : "Hubungi kami"}
+      </a>
+    </nav>
+
+    <a
+      href={`${prefix}/contact`}
+      class="rounded-full bg-ink px-4 py-2 text-body-sm font-medium text-paper md:hidden"
+    >
+      {isEN ? "Contact" : "Kontak"}
+    </a>
+  </div>
+</header>

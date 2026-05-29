@@ -1,0 +1,143 @@
+---
+import Base from "@layouts/Base.astro";
+
+const title = "Arkivest - Website siap konversi untuk usaha yang serius";
+const description =
+  "Web studio Indonesia. Bangun website, dashboard, dan e-commerce custom untuk UKM yang serius. Security dipraktikkan, SEO terukur, kode yang dipikirkan. Mulai Rp5jt.";
+---
+
+<Base title={title} description={description} lang="id">
+  <section class="relative pt-40 lg:pt-48">
+    <div class="mx-auto max-w-7xl px-6 lg:px-10">
+      <p class="font-mono text-caption uppercase tracking-widest text-muted">
+        Arkivest Studio · Tangerang, ID
+      </p>
+      <h1
+        class="mt-6 max-w-4xl text-display-2 font-semibold tracking-tight lg:text-display-1"
+      >
+        Website siap konversi untuk usaha yang
+        <span class="text-signal">serius</span>.
+      </h1>
+      <p class="mt-8 max-w-2xl text-body-lg text-ink/70">
+        Bukan template generic. Bukan jualan tagline. Code yang dipikirkan,
+        security yang dipraktikkan, SEO yang terukur. Bukti karya: Wearscrubs.
+      </p>
+      <div class="mt-12 flex flex-wrap items-center gap-4">
+        <a
+          href="/contact"
+          class="rounded-full bg-ink px-6 py-3 text-body-sm font-medium text-paper transition hover:bg-signal"
+        >
+          Diskusi project
+        </a>
+        <a
+          href="/work"
+          class="rounded-full border border-line px-6 py-3 text-body-sm font-medium text-ink transition hover:border-ink"
+        >
+          Lihat karya
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="mx-auto max-w-7xl px-6 lg:px-10">
+      <p class="font-mono text-caption uppercase tracking-widest text-muted">
+        Pilar
+      </p>
+      <h2 class="mt-4 max-w-3xl text-h2 font-semibold tracking-tight">
+        Tiga hal yang tidak boleh kompromi.
+      </h2>
+
+      <div class="mt-16 grid gap-12 md:grid-cols-12">
+        <article class="md:col-span-5">
+          <p class="font-mono text-caption text-signal">01 / Security</p>
+          <h3 class="mt-3 text-h3 font-semibold">Dipraktikkan, bukan dipajang.</h3>
+          <p class="mt-4 text-body text-ink/70">
+            Row-Level Security, JWT + bcrypt, rate limiter login, bucket privat
+            dengan signed URL, anti-tamper harga server-side. Standar Wearscrubs,
+            standar setiap project Arkivest.
+          </p>
+        </article>
+
+        <article class="md:col-span-6 md:col-start-7">
+          <p class="font-mono text-caption text-signal">02 / SEO</p>
+          <h3 class="mt-3 text-h3 font-semibold">Terukur sampai meta description.</h3>
+          <p class="mt-4 text-body text-ink/70">
+            Title unik, structured data, hreflang ID-EN, sitemap auto, OG image
+            berbranding. Bukan checklist plugin. Setiap halaman dibuat untuk
+            dapat traffic, bukan sekedar dipublish.
+          </p>
+        </article>
+
+        <article class="md:col-span-7">
+          <p class="font-mono text-caption text-signal">03 / Logic</p>
+          <h3 class="mt-3 text-h3 font-semibold">Kode yang dipikirkan.</h3>
+          <p class="mt-4 text-body text-ink/70">
+            Transaksi atomik, validasi server-side, alur bisnis yang dimodelkan
+            sesuai realita. Kalau admin Anda istri yang sibuk anak, dashboard
+            harus bisa dipakai tanpa training. Itu ukuran kami.
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-paper-2">
+    <div class="mx-auto max-w-7xl px-6 lg:px-10">
+      <div class="flex flex-wrap items-end justify-between gap-6">
+        <div>
+          <p class="font-mono text-caption uppercase tracking-widest text-muted">
+            Showcase
+          </p>
+          <h2 class="mt-4 max-w-2xl text-h2 font-semibold tracking-tight">
+            Wearscrubs - dari spreadsheet ke toko hidup.
+          </h2>
+        </div>
+        <a
+          href="/work/wearscrubs"
+          class="font-mono text-body-sm font-medium text-signal hover:underline"
+        >
+          Baca case study →
+        </a>
+      </div>
+
+      <div class="mt-12 grid gap-6 md:grid-cols-[3fr_2fr]">
+        <div class="aspect-[16/10] rounded-3xl bg-ink"></div>
+        <div class="space-y-4">
+          <div class="rounded-2xl border border-line bg-paper p-6">
+            <p class="font-mono text-caption text-muted">Stack</p>
+            <p class="mt-2 text-body">Astro + Node + Supabase + Railway</p>
+          </div>
+          <div class="rounded-2xl border border-line bg-paper p-6">
+            <p class="font-mono text-caption text-muted">Live</p>
+            <p class="mt-2 font-mono text-body">wearscrubs.id</p>
+          </div>
+          <div class="rounded-2xl border border-line bg-paper p-6">
+            <p class="font-mono text-caption text-muted">Hasil</p>
+            <p class="mt-2 text-body">
+              Dashboard intuitif untuk admin non-teknis, RLS 11 tabel, bucket
+              privat, ongkir 5 zona, alur PO + custom size.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="mx-auto max-w-4xl px-6 text-center lg:px-10">
+      <h2 class="text-h1 font-semibold tracking-tight">
+        Punya produk, butuh website yang serius?
+      </h2>
+      <p class="mt-6 text-body-lg text-ink/70">
+        Mulai Rp5jt. Timeline jelas. Kode jadi milik Anda.
+      </p>
+      <a
+        href="/contact"
+        class="mt-10 inline-flex rounded-full bg-signal px-8 py-4 text-body font-medium text-signal-fg transition hover:bg-ink"
+      >
+        Diskusi project
+      </a>
+    </div>
+  </section>
+</Base>

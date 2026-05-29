@@ -1,0 +1,25 @@
+{
+  "name": "arkivest-website",
+  "type": "module",
+  "version": "0.0.1",
+  "private": true,
+  "description": "Arkivest agency website - Astro 5 + Tailwind v4 + Geist",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/sitemap": "^3.6.0",
+    "@fontsource/geist-mono": "^5.2.8",
+    "@fontsource/geist-sans": "^5.2.5",
+    "@tailwindcss/vite": "^4.1.13",
+    "astro": "^5.14.1",
+    "tailwindcss": "^4.1.13"
+  },
+  "devDependencies": {
+    "typescript": "^5.7.0"
+  }
+}

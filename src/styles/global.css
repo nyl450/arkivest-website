@@ -1,0 +1,87 @@
+@import "tailwindcss";
+
+/* Self-host Geist via @fontsource (no Google Fonts CDN) */
+@import "@fontsource/geist-sans/400.css";
+@import "@fontsource/geist-sans/500.css";
+@import "@fontsource/geist-sans/600.css";
+@import "@fontsource/geist-sans/700.css";
+@import "@fontsource/geist-mono/400.css";
+@import "@fontsource/geist-mono/500.css";
+
+/* =============================================================
+   Arkivest brand tokens - Tailwind v4 @theme directive
+   Source of truth: D:\Project Ark\_system\BRAND_GUIDELINES.md
+   ============================================================= */
+@theme {
+  /* Color palette (final, James konfirmasi 28 Mei 2026) */
+  --color-ink: #0A0A0B;          /* off-black body + headlines */
+  --color-paper: #FAFAF7;        /* warm white background, NOT pure #fff */
+  --color-paper-2: #F0EFEB;      /* panel/card subtle layer */
+  --color-signal: #1E4FFF;       /* cobalt accent - tech-credible */
+  --color-signal-fg: #FFFFFF;
+  --color-line: #E5E4DF;         /* border halus */
+  --color-muted: #6B6A66;        /* caption, footer text */
+  --color-success: #2A8C5F;
+  --color-warn: #C6543D;
+
+  /* Typography */
+  --font-sans: "Geist Sans", system-ui, -apple-system, sans-serif;
+  --font-mono: "Geist Mono", ui-monospace, "SF Mono", monospace;
+
+  /* Type scale (modular 1.250 ratio) */
+  --text-display-1: 4.5rem;      /* 72px */
+  --text-display-1--line-height: 1.05;
+  --text-display-1--letter-spacing: -0.02em;
+  --text-display-2: 3.5rem;      /* 56px */
+  --text-display-2--line-height: 1.05;
+  --text-display-2--letter-spacing: -0.015em;
+  --text-h1: 3rem;               /* 48px */
+  --text-h1--line-height: 1.1;
+  --text-h1--letter-spacing: -0.01em;
+  --text-h2: 2.25rem;            /* 36px */
+  --text-h2--line-height: 1.15;
+  --text-h2--letter-spacing: -0.005em;
+  --text-h3: 1.75rem;            /* 28px */
+  --text-h3--line-height: 1.2;
+  --text-h4: 1.375rem;           /* 22px */
+  --text-h4--line-height: 1.25;
+  --text-body-lg: 1.125rem;      /* 18px */
+  --text-body-lg--line-height: 1.55;
+  --text-body: 1rem;             /* 16px */
+  --text-body--line-height: 1.6;
+  --text-body-sm: 0.875rem;      /* 14px */
+  --text-body-sm--line-height: 1.5;
+  --text-caption: 0.8125rem;     /* 13px */
+  --text-caption--line-height: 1.4;
+
+  /* Easing */
+  --ease-out-expo: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* =============================================================
+   Base reset + defaults
+   ============================================================= */
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    background-color: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-feature-settings: "ss01", "ss02";
+  }
+
+  ::selection {
+    background-color: var(--color-signal);
+    color: var(--color-signal-fg);
+  }
+
+  /* Editorial breathing room - section default min-height vertical 96px */
+  section {
+    padding-block: clamp(4rem, 8vw, 8rem);
+  }
+}

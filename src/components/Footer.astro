@@ -1,0 +1,110 @@
+---
+interface Props {
+  lang?: "id" | "en";
+}
+const { lang = "id" } = Astro.props;
+
+const isEN = lang === "en";
+const year = new Date().getFullYear();
+
+const copy = isEN
+  ? {
+      tagline: "Ship-ready websites for businesses that mean it.",
+      sections: {
+        explore: "Explore",
+        contact: "Contact",
+      },
+      nav: [
+        { href: "/en/work", label: "Work" },
+        { href: "/en/services", label: "Services" },
+        { href: "/en/contact", label: "Contact" },
+      ],
+      rights: "All rights reserved.",
+    }
+  : {
+      tagline: "Website siap konversi untuk usaha yang serius.",
+      sections: {
+        explore: "Telusuri",
+        contact: "Kontak",
+      },
+      nav: [
+        { href: "/work", label: "Karya" },
+        { href: "/services", label: "Layanan" },
+        { href: "/contact", label: "Kontak" },
+      ],
+      rights: "Hak cipta dilindungi.",
+    };
+---
+
+<footer class="mt-32 bg-ink text-paper">
+  <div class="mx-auto max-w-7xl px-6 py-20 lg:px-10">
+    <div class="grid gap-16 md:grid-cols-[2fr_1fr_1fr]">
+      <div>
+        <img
+          src="/brand/logo-black.svg"
+          alt="Arkivest"
+          width="160"
+          height="42"
+          class="h-9 w-auto"
+        />
+        <p class="mt-6 max-w-md text-body-lg text-paper/70">
+          {copy.tagline}
+        </p>
+      </div>
+
+      <div>
+        <h2 class="font-mono text-caption uppercase tracking-widest text-paper/40">
+          {copy.sections.explore}
+        </h2>
+        <ul class="mt-5 space-y-3">
+          {
+            copy.nav.map((item) => (
+              <li>
+                <a
+                  href={item.href}
+                  class="text-body-sm text-paper/80 transition hover:text-signal"
+                >
+                  {item.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <div>
+        <h2 class="font-mono text-caption uppercase tracking-widest text-paper/40">
+          {copy.sections.contact}
+        </h2>
+        <ul class="mt-5 space-y-3 text-body-sm text-paper/80">
+          <li>
+            <a
+              href="https://wa.me/6287887172220"
+              class="transition hover:text-signal"
+              rel="noopener"
+            >
+              WhatsApp
+            </a>
+          </li>
+          <li>
+            <a
+              href="mailto:halo@arkivest.id"
+              class="transition hover:text-signal"
+            >
+              halo@arkivest.id
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div
+      class="mt-16 flex flex-col gap-3 border-t border-paper/10 pt-8 text-caption text-paper/40 md:flex-row md:items-center md:justify-between"
+    >
+      <p>
+        © {year} Arkivest. {copy.rights}
+      </p>
+      <p class="font-mono">arkivest.id</p>
+    </div>
+  </div>
+</footer>

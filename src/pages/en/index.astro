@@ -1,0 +1,143 @@
+---
+import Base from "@layouts/Base.astro";
+
+const title = "Arkivest - Ship-ready websites for businesses that mean it";
+const description =
+  "Indonesian web studio. We build websites, dashboards, and custom commerce systems for SMEs that mean business. Security practiced, SEO measured, code thought through. Starts at IDR 5M.";
+---
+
+<Base title={title} description={description} lang="en">
+  <section class="relative pt-40 lg:pt-48">
+    <div class="mx-auto max-w-7xl px-6 lg:px-10">
+      <p class="font-mono text-caption uppercase tracking-widest text-muted">
+        Arkivest Studio · Tangerang, ID
+      </p>
+      <h1
+        class="mt-6 max-w-4xl text-display-2 font-semibold tracking-tight lg:text-display-1"
+      >
+        Ship-ready websites for businesses that
+        <span class="text-signal">mean it</span>.
+      </h1>
+      <p class="mt-8 max-w-2xl text-body-lg text-ink/70">
+        Not a template. Not a slogan. Code that's thought through, security
+        that's practiced, SEO that's measured. Proof of work: Wearscrubs.
+      </p>
+      <div class="mt-12 flex flex-wrap items-center gap-4">
+        <a
+          href="/en/contact"
+          class="rounded-full bg-ink px-6 py-3 text-body-sm font-medium text-paper transition hover:bg-signal"
+        >
+          Start a project
+        </a>
+        <a
+          href="/en/work"
+          class="rounded-full border border-line px-6 py-3 text-body-sm font-medium text-ink transition hover:border-ink"
+        >
+          See work
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="mx-auto max-w-7xl px-6 lg:px-10">
+      <p class="font-mono text-caption uppercase tracking-widest text-muted">
+        Pillars
+      </p>
+      <h2 class="mt-4 max-w-3xl text-h2 font-semibold tracking-tight">
+        Three things we won't compromise on.
+      </h2>
+
+      <div class="mt-16 grid gap-12 md:grid-cols-12">
+        <article class="md:col-span-5">
+          <p class="font-mono text-caption text-signal">01 / Security</p>
+          <h3 class="mt-3 text-h3 font-semibold">Practiced, not paraded.</h3>
+          <p class="mt-4 text-body text-ink/70">
+            Row-Level Security, JWT + bcrypt, login rate limiter, private
+            buckets with signed URLs, server-side price tamper guards. The
+            Wearscrubs baseline. The Arkivest baseline.
+          </p>
+        </article>
+
+        <article class="md:col-span-6 md:col-start-7">
+          <p class="font-mono text-caption text-signal">02 / SEO</p>
+          <h3 class="mt-3 text-h3 font-semibold">Measured down to the meta.</h3>
+          <p class="mt-4 text-body text-ink/70">
+            Unique titles, structured data, ID-EN hreflang, auto sitemaps,
+            branded OG images. Not a plugin checklist. Every page is built to
+            earn traffic, not just to be published.
+          </p>
+        </article>
+
+        <article class="md:col-span-7">
+          <p class="font-mono text-caption text-signal">03 / Logic</p>
+          <h3 class="mt-3 text-h3 font-semibold">Code that's thought through.</h3>
+          <p class="mt-4 text-body text-ink/70">
+            Atomic transactions, server-side validation, business flows modeled
+            on reality. If your admin is your busy spouse, the dashboard has to
+            work without training. That's our bar.
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-paper-2">
+    <div class="mx-auto max-w-7xl px-6 lg:px-10">
+      <div class="flex flex-wrap items-end justify-between gap-6">
+        <div>
+          <p class="font-mono text-caption uppercase tracking-widest text-muted">
+            Showcase
+          </p>
+          <h2 class="mt-4 max-w-2xl text-h2 font-semibold tracking-tight">
+            Wearscrubs - from spreadsheet to live shop.
+          </h2>
+        </div>
+        <a
+          href="/en/work/wearscrubs"
+          class="font-mono text-body-sm font-medium text-signal hover:underline"
+        >
+          Read the case study →
+        </a>
+      </div>
+
+      <div class="mt-12 grid gap-6 md:grid-cols-[3fr_2fr]">
+        <div class="aspect-[16/10] rounded-3xl bg-ink"></div>
+        <div class="space-y-4">
+          <div class="rounded-2xl border border-line bg-paper p-6">
+            <p class="font-mono text-caption text-muted">Stack</p>
+            <p class="mt-2 text-body">Astro + Node + Supabase + Railway</p>
+          </div>
+          <div class="rounded-2xl border border-line bg-paper p-6">
+            <p class="font-mono text-caption text-muted">Live</p>
+            <p class="mt-2 font-mono text-body">wearscrubs.id</p>
+          </div>
+          <div class="rounded-2xl border border-line bg-paper p-6">
+            <p class="font-mono text-caption text-muted">Outcome</p>
+            <p class="mt-2 text-body">
+              Intuitive dashboard for a non-technical admin, RLS on 11 tables,
+              private buckets, 5-zone shipping, PO and custom-size flows.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="mx-auto max-w-4xl px-6 text-center lg:px-10">
+      <h2 class="text-h1 font-semibold tracking-tight">
+        Got a product. Need a serious site?
+      </h2>
+      <p class="mt-6 text-body-lg text-ink/70">
+        Starts at IDR 5M. Clear timeline. You own the code.
+      </p>
+      <a
+        href="/en/contact"
+        class="mt-10 inline-flex rounded-full bg-signal px-8 py-4 text-body font-medium text-signal-fg transition hover:bg-ink"
+      >
+        Start a project
+      </a>
+    </div>
+  </section>
+</Base>
