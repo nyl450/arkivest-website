@@ -73,7 +73,7 @@ const iconSize: Record<Tool["size"], string> = {
 ---
 
 <section
-  class="floating-tools relative overflow-hidden border-t border-ink/10"
+  class="floating-tools relative overflow-hidden"
 >
   {/* Floating icons layer */}
   <div class="pointer-events-none absolute inset-0 -z-0">
@@ -155,23 +155,41 @@ const iconSize: Record<Tool["size"], string> = {
     }
   </div>
 
-  {/* Center content */}
-  <div class="relative z-10 mx-auto max-w-3xl px-6 py-32 text-center lg:py-48 lg:px-10">
-    <p
-      class="reveal font-mono text-caption uppercase tracking-[0.18em] text-muted"
+  {/* Central anchor card (Lumio pattern - floating card on page, icons orbit it) */}
+  <div class="relative z-10 mx-auto max-w-6xl px-6 py-24 lg:py-40 lg:px-10">
+    <div
+      class="reveal mx-auto max-w-2xl rounded-[2rem] border border-ink/10 bg-paper-2/80 px-8 py-14 text-center shadow-[0_24px_64px_-28px_rgba(25,24,24,0.22)] backdrop-blur-md lg:px-16 lg:py-20"
     >
-      {copy.eyebrow}
-    </p>
-    <h2
-      class="reveal reveal-delay-1 mt-6 text-[clamp(2rem,5.5vw,4rem)] font-semibold leading-[1.05] tracking-[-0.02em]"
-    >
-      {copy.title}
-    </h2>
-    <p
-      class="reveal reveal-delay-2 mx-auto mt-8 max-w-xl text-body-lg text-ink/70"
-    >
-      {copy.body}
-    </p>
+      <p
+        class="font-mono text-caption uppercase tracking-[0.18em] text-muted"
+      >
+        {copy.eyebrow}
+      </p>
+      <h2
+        class="mt-6 text-[clamp(2rem,5vw,3.5rem)] font-semibold leading-[1.05] tracking-[-0.02em]"
+      >
+        {copy.title}
+      </h2>
+      <p class="mx-auto mt-6 max-w-xl text-body-lg text-ink/70">
+        {copy.body}
+      </p>
+
+      {/* Inline tool list - tipografi, reinforce honest claim */}
+      <div
+        class="mt-10 flex flex-wrap items-center justify-center gap-x-4 gap-y-2 border-t border-ink/10 pt-8 font-mono text-caption text-muted"
+      >
+        <span>Astro</span><span class="text-ink/20">·</span>
+        <span>Tailwind</span><span class="text-ink/20">·</span>
+        <span>TypeScript</span><span class="text-ink/20">·</span>
+        <span style="color:#3ECF8E">Supabase</span><span class="text-ink/20">·</span>
+        <span>Vercel</span><span class="text-ink/20">·</span>
+        <span>Railway</span><span class="text-ink/20">·</span>
+        <span>GitHub</span><span class="text-ink/20">·</span>
+        <span>Cloudflare</span><span class="text-ink/20">·</span>
+        <span>Node</span><span class="text-ink/20">·</span>
+        <span style="color:#336791">Postgres</span>
+      </div>
+    </div>
   </div>
 </section>
 
