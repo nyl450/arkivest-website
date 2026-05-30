@@ -2,9 +2,12 @@
 import Base from "@layouts/Base.astro";
 import FloatingTools from "@components/FloatingTools.astro";
 
-const title = "Arkivest - Website siap konversi untuk usaha yang serius";
+const title = "Arkivest - Web studio yang serius untuk usaha yang siap scale";
 const description =
-  "Web studio Indonesia. Bangun website, dashboard, dan e-commerce custom untuk UKM yang serius. Security dipraktikkan, SEO terukur, kode yang dipikirkan. Mulai Rp5jt.";
+  "Studio web untuk usaha yang siap scale online. Custom build, security dipraktikkan, SEO terukur. Bukti karya: Wearscrubs. Mulai Rp 5 juta.";
+
+// Rotating headline words (ID)
+const words = ["Sistem Bisnis", "Web Modern", "E-commerce", "Dashboard Admin", "Brand Digital"];
 
 const pilars = [
   {
@@ -27,93 +30,264 @@ const pilars = [
   },
 ];
 
+// 8 karya - tier honest framing (Arkivest case / Freelance / Built at PT X)
 const projects = [
   {
     slug: "wearscrubs",
     href: "/work/wearscrubs",
-    eyebrow: "E-commerce · Live",
+    eyebrow: "Arkivest case · Live",
     title: "Wearscrubs",
-    subtitle: "Dari spreadsheet ke toko hidup.",
+    subtitle: "Dari spreadsheet manual istri admin ke toko scrubs dokter yang hidup.",
     stack: "Astro · Node · Supabase · Railway",
     domain: "wearscrubs.id",
+    accent: true,
+  },
+  {
+    slug: "mitra-niaga",
+    href: "/work",
+    eyebrow: "Freelance · 2024",
+    title: "PT Mitra Niaga Madani",
+    subtitle: "Profil perusahaan + product showcase distributor.",
+    stack: "HTML · CSS · JavaScript",
+    domain: "—",
+  },
+  {
+    slug: "salon-andoyun",
+    href: "/work",
+    eyebrow: "Freelance · 2024",
+    title: "Salon Ando & Yun",
+    subtitle: "Layanan + booking untuk salon premium di Tangerang.",
+    stack: "HTML · CSS · JavaScript",
+    domain: "—",
+  },
+  {
+    slug: "la-demoiselle",
+    href: "/work",
+    eyebrow: "Freelance · 2024",
+    title: "La Demoiselle",
+    subtitle: "Editorial brand site untuk lini wedding & lifestyle.",
+    stack: "HTML · CSS · JavaScript",
+    domain: "—",
+  },
+  {
+    slug: "dcimage",
+    href: "/work",
+    eyebrow: "Lead Dev di PT DCI · 2023",
+    title: "Digital Communication Image",
+    subtitle: "Redesign corporate + integrasi CMS internal.",
+    stack: "WordPress · PHP · jQuery",
+    domain: "dcimage.id",
+  },
+  {
+    slug: "arthavest",
+    href: "/work",
+    eyebrow: "Built di PT Arthavest TBK · 2021",
+    title: "Arthavest TBK",
+    subtitle: "Investor relations site + listing real estate.",
+    stack: "Laravel · MySQL · Bootstrap",
+    domain: "arthavest.com",
+  },
+  {
+    slug: "digisign",
+    href: "/work",
+    eyebrow: "Built di PT Solusi Net · 2019",
+    title: "Digisign",
+    subtitle: "Marketing site untuk SaaS e-signature.",
+    stack: "CodeIgniter · MySQL",
+    domain: "digisign.id",
+  },
+  {
+    slug: "griya-gadai",
+    href: "/work",
+    eyebrow: "Built di PT Griya Gadai · 2018",
+    title: "Griya Gadai Indonesia",
+    subtitle: "Multi-branch pegadaian dgn locator + simulasi.",
+    stack: "CodeIgniter · MySQL",
+    domain: "griya-gadai.co.id",
   },
 ];
 ---
 
 <Base title={title} description={description} lang="id">
   {/* ============ HERO ============ */}
-  <section class="relative flex min-h-[88vh] flex-col justify-end pb-16 pt-28 lg:min-h-[92vh] lg:pb-24 lg:pt-32">
+  <section class="relative pt-20 pb-12 lg:pt-28 lg:pb-20">
     <div class="mx-auto w-full max-w-7xl px-6 lg:px-10">
-      <p
-        class="reveal font-mono text-caption uppercase tracking-[0.18em] text-muted"
-      >
-        Arkivest Studio · Tangerang, ID · {new Date().getFullYear()}
-      </p>
-
       <h1
-        class="reveal reveal-delay-1 mt-8 max-w-[14ch] text-[clamp(2.75rem,9vw,7.5rem)] font-semibold leading-[0.95] tracking-[-0.03em]"
+        class="mx-auto max-w-4xl text-center text-[clamp(2.5rem,8.5vw,6.5rem)] font-semibold leading-[1.02] tracking-[-0.03em]"
       >
-        Website siap konversi <br class="hidden sm:block" />untuk usaha yang
-        <span class="italic text-signal">serius</span>.
+        <span class="block text-ink/90">Kami membangun</span>
+        <span class="rotator relative mt-2 inline-block italic text-signal">
+          <span class="rotator-sizer">Dashboard Admin</span>
+          {
+            words.map((w, i) => (
+              <span class:list={["word", i === 0 && "is-active"]}>{w}</span>
+            ))
+          }
+        </span>
       </h1>
 
-      <div
-        class="reveal reveal-delay-2 mt-12 grid gap-10 md:grid-cols-[1fr_auto] md:items-end"
+      <p
+        class="mx-auto mt-10 max-w-xl text-center text-body-lg text-ink/70"
       >
-        <p class="max-w-xl text-body-lg text-ink/70">
-          Bukan template generic. Bukan jualan tagline. Code yang dipikirkan,
-          security yang dipraktikkan, SEO yang terukur. Bukti karya: Wearscrubs.
-        </p>
-        <div class="flex flex-wrap items-center gap-3">
-          <a
-            href="/contact"
-            class="group inline-flex items-center gap-3 rounded-full bg-ink px-6 py-3.5 text-body-sm font-medium text-paper transition hover:bg-signal"
-          >
-            Diskusi project
-            <span
-              class="inline-block transition-transform duration-300 group-hover:translate-x-1"
-              aria-hidden="true">→</span
-            >
-          </a>
-          <a
-            href="#work"
-            class="rounded-full border border-ink/15 px-6 py-3.5 text-body-sm font-medium text-ink transition hover:border-ink hover:bg-ink/5"
-          >
-            Lihat karya
-          </a>
-        </div>
-      </div>
-    </div>
+        Studio web untuk usaha yang siap scale online. Custom build,
+        security dipraktikkan, kode jadi milik Anda.
+      </p>
 
-    {/* Scroll affordance: bukan dot/cue clichè, tapi mini ticker stack */}
-    <div
-      class="reveal reveal-delay-3 mx-auto mt-16 w-full max-w-7xl px-6 lg:mt-24 lg:px-10"
-    >
-      <div
-        class="grid grid-cols-2 gap-6 border-t border-ink/10 pt-6 sm:grid-cols-4"
-      >
-        <div>
-          <p class="font-mono text-caption text-muted">LCP target</p>
-          <p class="mt-1 text-body font-medium">&lt;2.5s · 4G</p>
-        </div>
-        <div>
-          <p class="font-mono text-caption text-muted">JS budget</p>
-          <p class="mt-1 text-body font-medium">&lt;80KB gz</p>
-        </div>
-        <div>
-          <p class="font-mono text-caption text-muted">Bahasa</p>
-          <p class="mt-1 text-body font-medium">ID · EN</p>
-        </div>
-        <div>
-          <p class="font-mono text-caption text-muted">Mulai</p>
-          <p class="mt-1 text-body font-medium">Rp 5 juta</p>
-        </div>
+      <div class="mt-10 flex flex-wrap items-center justify-center gap-3">
+        <a
+          href="/contact"
+          class="group inline-flex items-center gap-2 rounded-full bg-ink px-6 py-3.5 text-body-sm font-medium text-paper transition hover:bg-signal"
+        >
+          Diskusi project
+          <span
+            class="inline-block transition-transform duration-300 group-hover:translate-x-1"
+            aria-hidden="true">→</span
+          >
+        </a>
+        <a
+          href="https://wa.me/6287887172220?text=Halo%20Arkivest%2C%20saya%20ingin%20diskusi%20project"
+          class="rounded-full border border-ink/15 px-6 py-3.5 text-body-sm font-medium text-ink transition hover:border-ink hover:bg-ink/5"
+          rel="noopener"
+        >
+          WhatsApp
+        </a>
       </div>
     </div>
   </section>
 
-  {/* ============ PILARS ============ */}
-  <section class="border-t border-ink/10">
+  {/* ============ HERO IMAGE (Lumio seamless break) ============ */}
+  <section class="pb-16 lg:pb-24">
+    <div class="mx-auto max-w-7xl px-6 lg:px-10">
+      <div
+        class="reveal relative aspect-[16/9] overflow-hidden rounded-[2rem] bg-ink shadow-[0_40px_80px_-40px_rgba(25,24,24,0.4)] lg:aspect-[21/9] lg:rounded-[2.5rem]"
+      >
+        {/* TODO: ganti dgn foto real (workspace / device mockup / brand asset) */}
+        <div class="absolute inset-0 bg-gradient-to-br from-ink via-ink to-signal/30"></div>
+        <div class="absolute inset-0 flex flex-col items-center justify-center gap-4 px-6 text-center">
+          <p
+            class="font-mono text-caption uppercase tracking-[0.18em] text-paper/40"
+          >
+            Hero asset
+          </p>
+          <p class="text-h3 font-semibold tracking-tight text-paper/90">
+            Foto workspace · device mockup · brand visual
+          </p>
+          <p class="max-w-md text-body-sm text-paper/50">
+            Placeholder. Ganti file ini dgn foto real (1920×1080 atau 2520×1080)
+            di slot ini saat aset siap.
+          </p>
+        </div>
+        {/* Subtle vignette */}
+        <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink/40 to-transparent"></div>
+      </div>
+    </div>
+  </section>
+
+  {/* ============ STACK (FloatingTools central anchor) ============ */}
+  <FloatingTools lang="id" />
+
+  {/* ============ KARYA (Showcase - horizontal slide multi project) ============ */}
+  <section id="work" class="bg-ink py-20 text-paper lg:py-32">
+    <div class="mx-auto max-w-7xl px-6 lg:px-10">
+      <div
+        class="reveal flex flex-wrap items-end justify-between gap-6 border-b border-paper/10 pb-8"
+      >
+        <div>
+          <p
+            class="font-mono text-caption uppercase tracking-[0.18em] text-paper/40"
+          >
+            Karya · {projects.length} project
+          </p>
+          <h2 class="mt-4 text-h2 font-semibold tracking-tight lg:text-h1">
+            Yang sudah kami kirim.
+          </h2>
+        </div>
+        <div class="hidden items-center gap-3 md:flex">
+          <button
+            type="button"
+            data-karya-prev
+            class="inline-flex h-11 w-11 items-center justify-center rounded-full border border-paper/20 text-paper transition hover:border-paper/60 hover:bg-paper/5"
+            aria-label="Previous"
+          >←</button>
+          <button
+            type="button"
+            data-karya-next
+            class="inline-flex h-11 w-11 items-center justify-center rounded-full border border-paper/20 text-paper transition hover:border-paper/60 hover:bg-paper/5"
+            aria-label="Next"
+          >→</button>
+        </div>
+      </div>
+
+      {/* Horizontal scroll snap row - works on all breakpoints */}
+      <div
+        class="snap-row mt-12 flex gap-6 overflow-x-auto pb-6 lg:gap-8"
+        data-karya-track
+      >
+        {
+          projects.map((p) => (
+            <a
+              href={p.href}
+              class="reveal group block shrink-0 basis-[88%] md:basis-[58%] lg:basis-[48%]"
+            >
+              {/* Image area (top) */}
+              <div class="relative aspect-[16/10] overflow-hidden rounded-3xl border border-paper/10 bg-paper/5 transition duration-500 group-hover:border-paper/30">
+                <div class="absolute inset-0 flex items-center justify-center">
+                  <p class="font-mono text-caption text-paper/30">
+                    [screenshot {p.domain !== "—" ? p.domain : p.title}]
+                  </p>
+                </div>
+                <div
+                  class="absolute inset-0 bg-gradient-to-tr from-signal/15 via-transparent to-transparent opacity-0 transition duration-700 group-hover:opacity-100"
+                />
+                {p.accent && (
+                  <span class="absolute left-4 top-4 inline-flex items-center gap-1.5 rounded-full bg-signal px-2.5 py-1 font-mono text-[10px] uppercase tracking-widest text-signal-fg">
+                    <span class="h-1.5 w-1.5 rounded-full bg-signal-fg" />
+                    Featured
+                  </span>
+                )}
+              </div>
+
+              {/* Text section (bottom) */}
+              <div class="mt-6 grid gap-6 md:grid-cols-[2fr_1fr] md:items-end">
+                <div>
+                  <p class="font-mono text-caption uppercase tracking-[0.18em] text-paper/40">
+                    {p.eyebrow}
+                  </p>
+                  <h3 class="mt-3 text-h3 font-semibold tracking-tight lg:text-[clamp(1.5rem,2.5vw,2.25rem)]">
+                    {p.title}
+                  </h3>
+                  <p class="mt-3 max-w-md text-body text-paper/70">
+                    {p.subtitle}
+                  </p>
+                </div>
+                <dl class="grid grid-cols-1 gap-3 border-t border-paper/10 pt-4 text-body-sm md:border-l md:border-t-0 md:pl-6 md:pt-0">
+                  <div>
+                    <dt class="font-mono text-caption text-paper/40">Stack</dt>
+                    <dd class="mt-1 text-paper/85">{p.stack}</dd>
+                  </div>
+                  <div>
+                    <dt class="font-mono text-caption text-paper/40">Live</dt>
+                    <dd class="mt-1 font-mono text-paper/85">{p.domain}</dd>
+                  </div>
+                </dl>
+              </div>
+            </a>
+          ))
+        }
+      </div>
+
+      <p
+        class="reveal mt-10 max-w-2xl font-mono text-caption text-paper/40"
+      >
+        Geser ke kanan untuk lihat semua. Karya korporat (Arthavest, Digisign,
+        Griya Gadai, DCImage) dikerjakan saat James memimpin tim dev di
+        perusahaan tersebut.
+      </p>
+    </div>
+  </section>
+
+  {/* ============ PILARS (3 pilar - di akhir per user req) ============ */}
+  <section class="py-20 lg:py-32">
     <div class="mx-auto max-w-7xl px-6 lg:px-10">
       <div class="reveal grid gap-10 md:grid-cols-[1fr_2fr]">
         <p
@@ -128,7 +302,7 @@ const projects = [
 
       <div class="mt-20 space-y-20 lg:space-y-32">
         {
-          pilars.map((p, i) => (
+          pilars.map((p) => (
             <article class="reveal grid gap-8 border-t border-ink/10 pt-12 md:grid-cols-12 lg:pt-16">
               <div class="md:col-span-3">
                 <p class="font-mono text-caption text-signal">
@@ -147,93 +321,6 @@ const projects = [
       </div>
     </div>
   </section>
-
-  {/* ============ SHOWCASE / WORK ============ */}
-  <section id="work" class="bg-ink text-paper">
-    <div class="mx-auto max-w-7xl px-6 lg:px-10">
-      <div
-        class="reveal flex flex-wrap items-end justify-between gap-6 border-b border-paper/10 pb-8"
-      >
-        <div>
-          <p
-            class="font-mono text-caption uppercase tracking-[0.18em] text-paper/40"
-          >
-            Karya
-          </p>
-          <h2 class="mt-4 text-h2 font-semibold tracking-tight lg:text-h1">
-            Studi kasus.
-          </h2>
-        </div>
-        <a
-          href="/work"
-          class="font-mono text-body-sm font-medium text-paper/80 transition hover:text-signal"
-        >
-          Semua karya →
-        </a>
-      </div>
-
-      {/* Lumio kartu pattern: image-over-text-under, mobile-native vertical */}
-      <div
-        class="snap-row mt-12 flex gap-6 overflow-x-auto pb-6 md:grid md:grid-cols-1 md:gap-10 md:overflow-visible md:pb-0"
-      >
-        {
-          projects.map((p) => (
-            <a
-              href={p.href}
-              class="reveal group block min-w-[85%] md:min-w-0"
-            >
-              {/* Image area (top, full-width) */}
-              <div class="relative aspect-[16/10] overflow-hidden rounded-3xl border border-paper/10 bg-paper/5 transition duration-500 group-hover:border-paper/30 md:aspect-[21/10]">
-                <div class="absolute inset-0 flex items-center justify-center">
-                  <p class="font-mono text-caption text-paper/30">
-                    [screenshot wearscrubs.id]
-                  </p>
-                </div>
-                <div
-                  class="absolute inset-0 bg-gradient-to-tr from-signal/15 via-transparent to-transparent opacity-0 transition duration-700 group-hover:opacity-100"
-                />
-              </div>
-
-              {/* Text section (bottom) */}
-              <div class="mt-6 grid gap-8 md:mt-8 md:grid-cols-[2fr_1fr] md:items-end">
-                <div>
-                  <p class="font-mono text-caption uppercase tracking-[0.18em] text-paper/40">
-                    {p.eyebrow}
-                  </p>
-                  <h3 class="mt-3 text-h2 font-semibold tracking-tight lg:text-[clamp(2rem,4vw,3rem)]">
-                    {p.title}
-                  </h3>
-                  <p class="mt-3 max-w-xl text-body-lg text-paper/70">
-                    {p.subtitle}
-                  </p>
-                </div>
-                <dl class="grid grid-cols-2 gap-6 border-t border-paper/10 pt-6 text-body-sm md:border-l md:border-t-0 md:pl-8 md:pt-0">
-                  <div>
-                    <dt class="font-mono text-caption text-paper/40">Stack</dt>
-                    <dd class="mt-1 text-paper/90">{p.stack}</dd>
-                  </div>
-                  <div>
-                    <dt class="font-mono text-caption text-paper/40">Live</dt>
-                    <dd class="mt-1 font-mono text-paper/90">{p.domain}</dd>
-                  </div>
-                </dl>
-              </div>
-            </a>
-          ))
-        }
-      </div>
-
-      <p
-        class="reveal mt-10 max-w-2xl font-mono text-caption text-paper/40"
-      >
-        Lebih banyak case study menyusul. Wearscrubs jadi yang pertama karena
-        di-build dari nol oleh Arkivest dan sudah jalan menanggung order asli.
-      </p>
-    </div>
-  </section>
-
-  {/* ============ FLOATING TOOLS (above CTA, before footer) ============ */}
-  <FloatingTools lang="id" />
 
   {/* ============ CTA ============ */}
   <section>
@@ -278,3 +365,80 @@ const projects = [
     </div>
   </section>
 </Base>
+
+<script>
+  // Rotating hero word: vanilla swap-by-class (~700B, no lib)
+  const rotator = document.querySelector<HTMLElement>(".rotator");
+  if (
+    rotator &&
+    !window.matchMedia("(prefers-reduced-motion: reduce)").matches
+  ) {
+    const words = rotator.querySelectorAll<HTMLElement>(".word");
+    let active = 0;
+    if (words.length > 1) {
+      setInterval(() => {
+        words[active].classList.remove("is-active");
+        words[active].classList.add("is-prev");
+        active = (active + 1) % words.length;
+        words.forEach((w, i) => {
+          if (i !== active) w.classList.remove("is-active");
+        });
+        setTimeout(() => {
+          words.forEach((w) => w.classList.remove("is-prev"));
+          words[active].classList.add("is-active");
+        }, 30);
+      }, 2200);
+    }
+  }
+
+  // Karya horizontal slide arrow nav
+  const track = document.querySelector<HTMLElement>("[data-karya-track]");
+  const prevBtn = document.querySelector<HTMLButtonElement>("[data-karya-prev]");
+  const nextBtn = document.querySelector<HTMLButtonElement>("[data-karya-next]");
+  if (track && prevBtn && nextBtn) {
+    const scrollByCard = (dir: 1 | -1) => {
+      const card = track.querySelector<HTMLElement>("a");
+      if (!card) return;
+      const step = card.getBoundingClientRect().width + 24; // gap-6
+      track.scrollBy({ left: step * dir, behavior: "smooth" });
+    };
+    prevBtn.addEventListener("click", () => scrollByCard(-1));
+    nextBtn.addEventListener("click", () => scrollByCard(1));
+  }
+</script>
+
+<style>
+  /* Rotating hero word */
+  .rotator {
+    overflow: hidden;
+    vertical-align: bottom;
+  }
+  .rotator-sizer {
+    visibility: hidden;
+    pointer-events: none;
+    display: inline-block;
+  }
+  .word {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    opacity: 0;
+    transform: translate3d(0, 100%, 0);
+    transition:
+      opacity 500ms cubic-bezier(0.22, 1, 0.36, 1),
+      transform 500ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .word.is-active {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+  .word.is-prev {
+    opacity: 0;
+    transform: translate3d(0, -100%, 0);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .word { transition: none; }
+  }
+</style>

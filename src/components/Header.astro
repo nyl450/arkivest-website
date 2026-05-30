@@ -24,42 +24,143 @@ const switchHref = isEN
   ? Astro.url.pathname.replace(/^\/en/, "") || "/"
   : `/en${Astro.url.pathname === "/" ? "" : Astro.url.pathname}`;
 const switchLabel = isEN ? "ID" : "EN";
-const ctaLabel = isEN ? "Get in touch" : "Hubungi";
+const ctaLabel = isEN ? "Hubungi" : "Hubungi";
+const menuLabel = isEN ? "Menu" : "Menu";
 ---
 
-{/* Sticky band - transparent. Inner contains 3-segment pill setup. */}
-<header
-  class="sticky top-0 z-50 w-full transition-shadow"
-  id="site-header"
+{/* Sticky band, transparent. Inner = single Wearscrubs-style nav-floating pill. */}
+<header class="sticky top-0 z-50 w-full" id="site-header">
+  <div class="mx-auto max-w-7xl px-4 pb-3 pt-4 lg:px-6">
+    <div
+      class="nav-pill relative flex items-center justify-between gap-4 rounded-full border border-ink/10 bg-paper/80 px-3 py-2 backdrop-blur-xl transition-shadow lg:px-4 lg:py-2.5"
+    >
+      {/* LEFT: Logo (bigger - h-9 mobile / h-10 desktop) */}
+      <a
+        href={homeHref}
+        class="flex shrink-0 items-center pl-2 transition-opacity hover:opacity-80"
+        aria-label="Arkivest home"
+      >
+        <img
+          src="/brand/logo-light.svg"
+          alt="Arkivest"
+          width="140"
+          height="38"
+          class="h-9 w-auto lg:h-10"
+        />
+      </a>
+
+      {/* CENTER: Nav (hidden on mobile, opens via drawer) */}
+      <nav
+        class="hidden items-center gap-1 md:flex"
+        aria-label="Primary"
+      >
+        {
+          nav.map((item) => (
+            <a
+              href={item.href}
+              class="rounded-full px-4 py-2 text-body-sm font-medium text-ink/75 transition hover:bg-ink/5 hover:text-ink"
+            >
+              {item.label}
+            </a>
+          ))
+        }
+      </nav>
+
+      {/* RIGHT: Lang + CTA (desktop) / Hamburger + CTA (mobile) */}
+      <div class="flex shrink-0 items-center gap-2">
+        <a
+          href={switchHref}
+          class="hidden h-9 items-center justify-center rounded-full border border-ink/10 px-3 font-mono text-caption text-ink/70 transition hover:bg-ink/5 hover:text-ink md:inline-flex"
+          aria-label={`Switch to ${switchLabel}`}
+        >
+          {switchLabel}
+        </a>
+        <a
+          href={`${prefix}/contact`}
+          class="group inline-flex items-center gap-2 rounded-full bg-ink px-5 py-2 text-body-sm font-medium text-paper transition hover:bg-signal"
+        >
+          <span>{ctaLabel}</span>
+          <span
+            class="inline-block transition-transform duration-300 group-hover:translate-x-0.5"
+            aria-hidden="true"
+          >→</span>
+        </a>
+        <button
+          type="button"
+          class="inline-flex h-9 w-9 items-center justify-center rounded-full border border-ink/10 text-ink transition hover:bg-ink/5 md:hidden"
+          aria-label={menuLabel}
+          data-mobile-menu-toggle
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="h-5 w-5"
+            aria-hidden="true"
+          >
+            <line x1="4" y1="8" x2="20" y2="8" />
+            <line x1="4" y1="16" x2="20" y2="16" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</header>
+
+{/* Mobile drawer (full-screen overlay, slide from right) */}
+<div
+  class="fixed inset-0 z-[60] hidden md:!hidden"
+  data-mobile-drawer
+  aria-hidden="true"
 >
   <div
-    class="mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 pb-3 pt-4 lg:px-6"
+    class="absolute inset-0 bg-ink/40 backdrop-blur-sm opacity-0 transition-opacity duration-300"
+    data-mobile-backdrop
+  ></div>
+  <aside
+    class="absolute right-0 top-0 flex h-full w-[88%] max-w-sm translate-x-full flex-col bg-paper p-6 shadow-2xl transition-transform duration-300"
+    data-mobile-panel
   >
-    {/* Segment 1: Logo (left, own pill for visual weight balance) */}
-    <a
-      href={homeHref}
-      class="group flex items-center rounded-full border border-ink/10 bg-paper/80 px-4 py-2 backdrop-blur-md transition hover:bg-paper"
-      aria-label="Arkivest home"
-    >
+    <div class="flex items-center justify-between">
       <img
         src="/brand/logo-light.svg"
         alt="Arkivest"
-        width="96"
-        height="26"
-        class="h-6 w-auto"
+        width="120"
+        height="32"
+        class="h-8 w-auto"
       />
-    </a>
+      <button
+        type="button"
+        class="inline-flex h-9 w-9 items-center justify-center rounded-full border border-ink/10 text-ink transition hover:bg-ink/5"
+        aria-label="Close"
+        data-mobile-menu-close
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="h-5 w-5"
+        >
+          <line x1="6" y1="6" x2="18" y2="18" />
+          <line x1="6" y1="18" x2="18" y2="6" />
+        </svg>
+      </button>
+    </div>
 
-    {/* Segment 2: Nav pill (center, hidden on mobile) */}
-    <nav
-      class="hidden items-center gap-1 rounded-full border border-ink/10 bg-paper/80 px-2 py-1.5 backdrop-blur-md md:flex"
-      aria-label="Primary"
-    >
+    <nav class="mt-12 flex flex-col gap-1" aria-label="Mobile primary">
       {
         nav.map((item) => (
           <a
             href={item.href}
-            class="rounded-full px-4 py-2 text-body-sm font-medium text-ink/75 transition hover:bg-ink/5 hover:text-ink"
+            class="rounded-2xl px-4 py-4 text-h4 font-semibold tracking-tight text-ink transition hover:bg-ink/5"
           >
             {item.label}
           </a>
@@ -67,50 +168,79 @@ const ctaLabel = isEN ? "Get in touch" : "Hubungi";
       }
     </nav>
 
-    {/* Segment 3: Actions (right - lang switch + CTA) */}
-    <div class="flex items-center gap-2">
+    <div class="mt-auto space-y-3 border-t border-ink/10 pt-6">
       <a
         href={switchHref}
-        class="hidden h-10 w-10 items-center justify-center rounded-full border border-ink/10 bg-paper/80 font-mono text-caption text-ink/70 backdrop-blur-md transition hover:bg-paper hover:text-ink sm:inline-flex"
-        aria-label={`Switch to ${switchLabel}`}
+        class="flex items-center justify-between rounded-2xl px-4 py-3 font-mono text-body-sm text-ink/70 transition hover:bg-ink/5"
       >
-        {switchLabel}
+        <span>{isEN ? "Bahasa" : "Language"}</span>
+        <span class="font-medium text-ink">{switchLabel}</span>
       </a>
       <a
         href={`${prefix}/contact`}
-        class="group inline-flex items-center gap-2 rounded-full bg-ink px-5 py-2.5 text-body-sm font-medium text-paper transition hover:bg-signal"
+        class="group inline-flex w-full items-center justify-center gap-2 rounded-full bg-ink px-6 py-3.5 text-body-sm font-medium text-paper transition hover:bg-signal"
       >
-        <span class="hidden sm:inline">{ctaLabel}</span>
-        <span class="sm:hidden">{isEN ? "Contact" : "Kontak"}</span>
-        <span
-          class="inline-block transition-transform duration-300 group-hover:translate-x-0.5"
-          aria-hidden="true"
-        >→</span>
+        <span>{ctaLabel}</span>
+        <span aria-hidden="true">→</span>
       </a>
     </div>
-  </div>
-</header>
+  </aside>
+</div>
 
 <script>
-  // Optional: scroll past hero -> nav pill shadow lifts (subtle depth cue).
+  // Scroll past 16px -> add shadow to pill (subtle depth cue).
   const header = document.getElementById("site-header");
   if (header) {
     const setShadow = () => {
-      if (window.scrollY > 16) {
-        header.classList.add("scrolled");
-      } else {
-        header.classList.remove("scrolled");
-      }
+      header.classList.toggle("scrolled", window.scrollY > 16);
     };
     setShadow();
     window.addEventListener("scroll", setShadow, { passive: true });
   }
+
+  // Mobile drawer: toggle open/close with backdrop + body lock.
+  const drawer = document.querySelector<HTMLElement>("[data-mobile-drawer]");
+  const panel = document.querySelector<HTMLElement>("[data-mobile-panel]");
+  const backdrop = document.querySelector<HTMLElement>("[data-mobile-backdrop]");
+  const toggleBtn = document.querySelector<HTMLButtonElement>("[data-mobile-menu-toggle]");
+  const closeBtn = document.querySelector<HTMLButtonElement>("[data-mobile-menu-close]");
+
+  const openMenu = () => {
+    if (!drawer || !panel || !backdrop) return;
+    drawer.classList.remove("hidden");
+    drawer.setAttribute("aria-hidden", "false");
+    document.body.style.overflow = "hidden";
+    requestAnimationFrame(() => {
+      backdrop.classList.add("opacity-100");
+      backdrop.classList.remove("opacity-0");
+      panel.classList.remove("translate-x-full");
+    });
+  };
+  const closeMenu = () => {
+    if (!drawer || !panel || !backdrop) return;
+    backdrop.classList.add("opacity-0");
+    backdrop.classList.remove("opacity-100");
+    panel.classList.add("translate-x-full");
+    document.body.style.overflow = "";
+    setTimeout(() => {
+      drawer.classList.add("hidden");
+      drawer.setAttribute("aria-hidden", "true");
+    }, 300);
+  };
+
+  toggleBtn?.addEventListener("click", openMenu);
+  closeBtn?.addEventListener("click", closeMenu);
+  backdrop?.addEventListener("click", closeMenu);
+  document.querySelectorAll<HTMLAnchorElement>(
+    "[data-mobile-panel] a[href]"
+  ).forEach((a) => a.addEventListener("click", closeMenu));
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") closeMenu();
+  });
 </script>
 
 <style>
-  #site-header.scrolled > div > a:first-child,
-  #site-header.scrolled > div > nav,
-  #site-header.scrolled > div > div > a:first-child {
-    box-shadow: 0 8px 24px -16px rgba(25, 24, 24, 0.25);
+  #site-header.scrolled .nav-pill {
+    box-shadow: 0 12px 32px -20px rgba(25, 24, 24, 0.3);
   }
 </style>
