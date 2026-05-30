@@ -32,7 +32,7 @@ const menuLabel = isEN ? "Menu" : "Menu";
 <header class="sticky top-0 z-50 w-full" id="site-header">
   <div class="mx-auto max-w-7xl px-4 pb-3 pt-4 lg:px-6">
     <div
-      class="nav-pill relative flex items-center justify-between gap-4 rounded-full border border-ink/10 bg-paper/80 px-3 py-2 backdrop-blur-xl transition-shadow lg:px-4 lg:py-2.5"
+      class="nav-pill relative flex items-center justify-between gap-4 rounded-3xl border border-ink/10 bg-paper/80 px-3 py-2 backdrop-blur-xl transition-shadow lg:px-4 lg:py-2.5"
     >
       {/* LEFT: Logo (bigger - h-9 mobile / h-10 desktop) */}
       <a
@@ -58,7 +58,7 @@ const menuLabel = isEN ? "Menu" : "Menu";
           nav.map((item) => (
             <a
               href={item.href}
-              class="rounded-full px-4 py-2 text-body-sm font-medium text-ink/75 transition hover:bg-ink/5 hover:text-ink"
+              class="rounded-2xl px-4 py-2 text-body-sm font-medium text-ink/75 transition hover:bg-ink/5 hover:text-ink"
             >
               {item.label}
             </a>
@@ -70,14 +70,14 @@ const menuLabel = isEN ? "Menu" : "Menu";
       <div class="flex shrink-0 items-center gap-2">
         <a
           href={switchHref}
-          class="hidden h-9 items-center justify-center rounded-full border border-ink/10 px-3 font-mono text-caption text-ink/70 transition hover:bg-ink/5 hover:text-ink md:inline-flex"
+          class="hidden h-9 items-center justify-center rounded-2xl border border-ink/10 px-3 font-mono text-caption text-ink/70 transition hover:bg-ink/5 hover:text-ink md:inline-flex"
           aria-label={`Switch to ${switchLabel}`}
         >
           {switchLabel}
         </a>
         <a
           href={`${prefix}/contact`}
-          class="group inline-flex items-center gap-2 rounded-full bg-ink px-5 py-2 text-body-sm font-medium text-paper transition hover:bg-signal"
+          class="group inline-flex items-center gap-2 rounded-2xl bg-ink px-5 py-2 text-body-sm font-medium text-paper transition hover:bg-ink/85"
         >
           <span>{ctaLabel}</span>
           <span
@@ -87,7 +87,7 @@ const menuLabel = isEN ? "Menu" : "Menu";
         </a>
         <button
           type="button"
-          class="inline-flex h-9 w-9 items-center justify-center rounded-full border border-ink/10 text-ink transition hover:bg-ink/5 md:hidden"
+          class="inline-flex h-9 w-9 items-center justify-center rounded-2xl border border-ink/10 text-ink transition hover:bg-ink/5 md:hidden"
           aria-label={menuLabel}
           data-mobile-menu-toggle
         >
@@ -135,7 +135,7 @@ const menuLabel = isEN ? "Menu" : "Menu";
       />
       <button
         type="button"
-        class="inline-flex h-9 w-9 items-center justify-center rounded-full border border-ink/10 text-ink transition hover:bg-ink/5"
+        class="inline-flex h-9 w-9 items-center justify-center rounded-2xl border border-ink/10 text-ink transition hover:bg-ink/5"
         aria-label="Close"
         data-mobile-menu-close
       >
@@ -178,7 +178,7 @@ const menuLabel = isEN ? "Menu" : "Menu";
       </a>
       <a
         href={`${prefix}/contact`}
-        class="group inline-flex w-full items-center justify-center gap-2 rounded-full bg-ink px-6 py-3.5 text-body-sm font-medium text-paper transition hover:bg-signal"
+        class="group inline-flex w-full items-center justify-center gap-2 rounded-2xl bg-ink px-6 py-3.5 text-body-sm font-medium text-paper transition hover:bg-ink/85"
       >
         <span>{ctaLabel}</span>
         <span aria-hidden="true">→</span>

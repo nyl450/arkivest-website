@@ -116,7 +116,7 @@ const projects = [
         class="mx-auto max-w-4xl text-center text-[clamp(2.5rem,8.5vw,6.5rem)] font-semibold leading-[1.02] tracking-[-0.03em]"
       >
         <span class="block text-ink/90">Kami membangun</span>
-        <span class="rotator relative mt-2 inline-block italic text-signal">
+        <span class="rotator relative mt-2 inline-block italic text-ink/65">
           <span class="rotator-sizer">Dashboard Admin</span>
           {
             words.map((w, i) => (
@@ -127,58 +127,30 @@ const projects = [
       </h1>
 
       <p
-        class="mx-auto mt-10 max-w-xl text-center text-body-lg text-ink/70"
+        class="mx-auto mt-10 max-w-2xl text-center text-h4 text-ink/70 lg:text-[1.5rem] lg:leading-[1.5]"
       >
-        Studio web untuk usaha yang siap scale online. Custom build,
-        security dipraktikkan, kode jadi milik Anda.
+        Kami membantu perusahaan mengembangkan produk digital yang dapat
+        diskalakan dengan sistem desain yang matang dan proses pengembangan
+        yang dirancang secara cermat.
       </p>
-
-      <div class="mt-10 flex flex-wrap items-center justify-center gap-3">
-        <a
-          href="/contact"
-          class="group inline-flex items-center gap-2 rounded-full bg-ink px-6 py-3.5 text-body-sm font-medium text-paper transition hover:bg-signal"
-        >
-          Diskusi project
-          <span
-            class="inline-block transition-transform duration-300 group-hover:translate-x-1"
-            aria-hidden="true">→</span
-          >
-        </a>
-        <a
-          href="https://wa.me/6287887172220?text=Halo%20Arkivest%2C%20saya%20ingin%20diskusi%20project"
-          class="rounded-full border border-ink/15 px-6 py-3.5 text-body-sm font-medium text-ink transition hover:border-ink hover:bg-ink/5"
-          rel="noopener"
-        >
-          WhatsApp
-        </a>
-      </div>
     </div>
   </section>
 
-  {/* ============ HERO IMAGE (Lumio seamless break) ============ */}
+  {/* ============ HERO IMAGE (Lumio seamless break - real asset hero.png 2520×1080) ============ */}
   <section class="pb-16 lg:pb-24">
     <div class="mx-auto max-w-7xl px-6 lg:px-10">
       <div
-        class="reveal relative aspect-[16/9] overflow-hidden rounded-[2rem] bg-ink shadow-[0_40px_80px_-40px_rgba(25,24,24,0.4)] lg:aspect-[21/9] lg:rounded-[2.5rem]"
+        class="reveal relative aspect-[21/9] overflow-hidden rounded-[2rem] bg-ink shadow-[0_40px_80px_-40px_rgba(25,24,24,0.4)] lg:rounded-[2.5rem]"
       >
-        {/* TODO: ganti dgn foto real (workspace / device mockup / brand asset) */}
-        <div class="absolute inset-0 bg-gradient-to-br from-ink via-ink to-signal/30"></div>
-        <div class="absolute inset-0 flex flex-col items-center justify-center gap-4 px-6 text-center">
-          <p
-            class="font-mono text-caption uppercase tracking-[0.18em] text-paper/40"
-          >
-            Hero asset
-          </p>
-          <p class="text-h3 font-semibold tracking-tight text-paper/90">
-            Foto workspace · device mockup · brand visual
-          </p>
-          <p class="max-w-md text-body-sm text-paper/50">
-            Placeholder. Ganti file ini dgn foto real (1920×1080 atau 2520×1080)
-            di slot ini saat aset siap.
-          </p>
-        </div>
-        {/* Subtle vignette */}
-        <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink/40 to-transparent"></div>
+        <img
+          src="/brand/hero.png"
+          alt="Arkivest studio hero"
+          width="2520"
+          height="1080"
+          class="absolute inset-0 h-full w-full object-cover"
+          loading="eager"
+          fetchpriority="high"
+        />
       </div>
     </div>
   </section>
@@ -237,11 +209,11 @@ const projects = [
                   </p>
                 </div>
                 <div
-                  class="absolute inset-0 bg-gradient-to-tr from-signal/15 via-transparent to-transparent opacity-0 transition duration-700 group-hover:opacity-100"
+                  class="absolute inset-0 bg-gradient-to-tr from-paper/10 via-transparent to-transparent opacity-0 transition duration-700 group-hover:opacity-100"
                 />
                 {p.accent && (
-                  <span class="absolute left-4 top-4 inline-flex items-center gap-1.5 rounded-full bg-signal px-2.5 py-1 font-mono text-[10px] uppercase tracking-widest text-signal-fg">
-                    <span class="h-1.5 w-1.5 rounded-full bg-signal-fg" />
+                  <span class="absolute left-4 top-4 inline-flex items-center gap-1.5 rounded-full bg-paper px-2.5 py-1 font-mono text-[10px] uppercase tracking-widest text-ink">
+                    <span class="h-1.5 w-1.5 rounded-full bg-ink" />
                     Featured
                   </span>
                 )}
@@ -305,7 +277,7 @@ const projects = [
           pilars.map((p) => (
             <article class="reveal grid gap-8 border-t border-ink/10 pt-12 md:grid-cols-12 lg:pt-16">
               <div class="md:col-span-3">
-                <p class="font-mono text-caption text-signal">
+                <p class="font-mono text-caption text-ink/45">
                   {p.no} / {p.label}
                 </p>
               </div>
@@ -345,7 +317,7 @@ const projects = [
         <div class="mt-12 flex flex-wrap items-center gap-3">
           <a
             href="/contact"
-            class="group inline-flex items-center gap-3 rounded-full bg-signal px-8 py-4 text-body font-medium text-signal-fg transition hover:bg-ink"
+            class="group inline-flex items-center gap-3 rounded-2xl bg-ink px-8 py-4 text-body font-medium text-paper transition hover:bg-ink/85"
           >
             Diskusi project
             <span

@@ -22,14 +22,18 @@ const isEN = lang === "en";
 
 const copy = isEN
   ? {
-      eyebrow: "Stack",
-      title: "Tools we actually use.",
-      body: "Modern, opinionated, production-tested. No legacy bloat. No vendor lock-in we can't escape.",
+      eyebrow: "Approach",
+      title: "Our approach.",
+      body: "We've helped our clients find the best solutions for their business, creating websites and digital products that leave a mark.",
+      cta: "Start a project",
+      ctaHref: "/en/contact",
     }
   : {
-      eyebrow: "Stack",
-      title: "Tools yang benar-benar kami pakai.",
-      body: "Modern, opinionated, sudah teruji production. Tanpa legacy bloat. Tanpa vendor lock yang tak bisa keluar.",
+      eyebrow: "Pendekatan",
+      title: "Pendekatan kami.",
+      body: "Kami telah membantu klien kami menemukan solusi terbaik untuk bisnis mereka, dengan menciptakan situs web dan produk digital yang berkesan.",
+      cta: "Diskusi project",
+      ctaHref: "/contact",
     };
 
 type Tool = {
@@ -44,19 +48,19 @@ type Tool = {
   color?: string; // optional brand color override
 };
 
-// 2 tool ber-warna (Supabase + Postgres). 8 lainnya monochrome ink/55.
+// All 10 tools monochrome ink/55 (uniform - James req 30 Mei).
 // Depth: icon "lebih dekat" (besar) dapat depth tinggi, icon kecil rendah.
 const tools: Tool[] = [
   { name: "astro",      label: "Astro",        pos: "top-[8%] left-[8%]",      size: "lg", mobile: true,  delay: "0s",   duration: "11s",   depth: 1.0 },
   { name: "tailwind",   label: "Tailwind CSS", pos: "top-[15%] right-[12%]",   size: "md", mobile: true,  delay: "1.2s", duration: "9s",    depth: 0.7 },
   { name: "typescript", label: "TypeScript",   pos: "top-[42%] left-[4%]",     size: "sm", mobile: false, delay: "0.5s", duration: "10s",   depth: 0.4 },
-  { name: "supabase",   label: "Supabase",     pos: "top-[68%] left-[14%]",    size: "md", mobile: true,  delay: "2.1s", duration: "13s",   depth: 0.8, color: "#3ECF8E" },
+  { name: "supabase",   label: "Supabase",     pos: "top-[68%] left-[14%]",    size: "md", mobile: true,  delay: "2.1s", duration: "13s",   depth: 0.8 },
   { name: "vercel",     label: "Vercel",       pos: "top-[78%] right-[10%]",   size: "lg", mobile: true,  delay: "0.8s", duration: "12s",   depth: 1.0 },
   { name: "railway",    label: "Railway",      pos: "top-[38%] right-[6%]",    size: "sm", mobile: false, delay: "1.6s", duration: "11s",   depth: 0.4 },
   { name: "github",     label: "GitHub",       pos: "top-[58%] right-[28%]",   size: "md", mobile: false, delay: "0.3s", duration: "10s",   depth: 0.7 },
   { name: "cloudflare", label: "Cloudflare",   pos: "top-[22%] left-[32%]",    size: "sm", mobile: false, delay: "2.4s", duration: "14s",   depth: 0.5 },
   { name: "node",       label: "Node.js",      pos: "top-[75%] left-[42%]",    size: "md", mobile: true,  delay: "1.0s", duration: "9.5s",  depth: 0.6 },
-  { name: "postgres",   label: "PostgreSQL",   pos: "top-[12%] left-[58%]",    size: "sm", mobile: true,  delay: "1.8s", duration: "12s",   depth: 0.5, color: "#336791" },
+  { name: "postgres",   label: "PostgreSQL",   pos: "top-[12%] left-[58%]",    size: "sm", mobile: true,  delay: "1.8s", duration: "12s",   depth: 0.5 },
 ];
 
 const sizeClass: Record<Tool["size"], string> = {
@@ -174,20 +178,18 @@ const iconSize: Record<Tool["size"], string> = {
         {copy.body}
       </p>
 
-      {/* Inline tool list - tipografi, reinforce honest claim */}
-      <div
-        class="mt-10 flex flex-wrap items-center justify-center gap-x-4 gap-y-2 border-t border-ink/10 pt-8 font-mono text-caption text-muted"
-      >
-        <span>Astro</span><span class="text-ink/20">·</span>
-        <span>Tailwind</span><span class="text-ink/20">·</span>
-        <span>TypeScript</span><span class="text-ink/20">·</span>
-        <span style="color:#3ECF8E">Supabase</span><span class="text-ink/20">·</span>
-        <span>Vercel</span><span class="text-ink/20">·</span>
-        <span>Railway</span><span class="text-ink/20">·</span>
-        <span>GitHub</span><span class="text-ink/20">·</span>
-        <span>Cloudflare</span><span class="text-ink/20">·</span>
-        <span>Node</span><span class="text-ink/20">·</span>
-        <span style="color:#336791">Postgres</span>
+      {/* CTA - Diskusi project (moved from hero per user req) */}
+      <div class="mt-10 flex justify-center">
+        <a
+          href={copy.ctaHref}
+          class="group inline-flex items-center gap-2 rounded-2xl bg-ink px-7 py-3.5 text-body-sm font-medium text-paper transition hover:bg-ink/85"
+        >
+          {copy.cta}
+          <span
+            class="inline-block transition-transform duration-300 group-hover:translate-x-1"
+            aria-hidden="true">→</span
+          >
+        </a>
       </div>
     </div>
   </div>

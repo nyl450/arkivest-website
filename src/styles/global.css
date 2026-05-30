@@ -17,7 +17,9 @@
   --color-ink: #191818;          /* warm near-black, sama dgn logo canvas dark */
   --color-paper: #E8E6E6;        /* cool light gray, sama dgn logo canvas light */
   --color-paper-2: #DCDAD8;      /* panel/card subtle layer, 1 step darker */
-  --color-signal: #1E4FFF;       /* cobalt accent - 1 accent rule */
+  /* Cobalt token kept defined but NOT used in UI per James req 30 Mei 2026.
+     Monochrome ink/paper only. Reactivate by referencing text-signal/bg-signal in components. */
+  --color-signal: #1E4FFF;       /* cobalt accent - reserved (inactive) */
   --color-signal-fg: #FFFFFF;
   --color-line: #C9C7C5;         /* border halus, di atas paper */
   --color-muted: #6B6A66;        /* caption, footer text */
@@ -76,8 +78,8 @@
   }
 
   ::selection {
-    background-color: var(--color-signal);
-    color: var(--color-signal-fg);
+    background-color: var(--color-ink);
+    color: var(--color-paper);
   }
 
   /* Editorial breathing room - section default min-height vertical 96px */
