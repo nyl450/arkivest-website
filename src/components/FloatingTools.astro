@@ -1,17 +1,18 @@
 ---
 /**
- * FloatingTools - section dgn floating SVG icons (CSS-only, no JS lib).
+ * FloatingTools v2 - parallax + hover tooltip + 2 brand-color accents.
  *
- * Spirit Cuberto-style "floating elements above CTA" tapi:
- * - Zero dependency (no React, no Framer Motion)
- * - HONEST stack (tool Arkivest beneran pakai, bukan fake "Trusted by")
- * - Mobile-aware (4 icon hidden di <md)
- * - Honors prefers-reduced-motion (CSS @media level)
- * - GPU-only (transform + opacity)
- * - Bundle cost: ~0KB JS, ~1KB CSS (in global @keyframes)
+ * Spirit Cuberto-style tanpa biaya React/Framer:
+ * - Mouse parallax ringan: max 4px per axis, rAF-throttled, single listener
+ * - Hover: scale 1.05, drift paused, tooltip ::after slide-up
+ * - 2 brand-color accents (Supabase green + Postgres navy) - sisanya mono
+ * - GPU-only transforms, prefers-reduced-motion honored
+ * - Bundle: ~1KB JS, ~1KB CSS, 0 framework cost
  *
- * Note penempatan: dipakai sebelum CTA, sebagai "context bridge" yg ngajak
- * baca kompetensi teknis sebelum CTA terakhir.
+ * Composability:
+ * - wrapper .tool: parallax translate + hover scale
+ * - inner .tool-card: drift @keyframes + glass styling (paused on hover)
+ * - ::after: tooltip dgn content: attr(data-name)
  */
 interface Props {
   lang?: "id" | "en";
@@ -31,28 +32,31 @@ const copy = isEN
       body: "Modern, opinionated, sudah teruji production. Tanpa legacy bloat. Tanpa vendor lock yang tak bisa keluar.",
     };
 
-// 10 tool, monochrome silhouette, posisi acak terkomposisi.
-// Mobile: hide 4 (kelas hidden md:flex) supaya gak crowded.
 type Tool = {
   name: string;
+  label: string;
   pos: string;
   size: "sm" | "md" | "lg";
   mobile: boolean;
   delay: string;
   duration: string;
+  depth: number; // 0.3 to 1.0 - higher = more parallax movement
+  color?: string; // optional brand color override
 };
 
+// 2 tool ber-warna (Supabase + Postgres). 8 lainnya monochrome ink/55.
+// Depth: icon "lebih dekat" (besar) dapat depth tinggi, icon kecil rendah.
 const tools: Tool[] = [
-  { name: "astro", pos: "top-[8%] left-[8%]", size: "lg", mobile: true, delay: "0s", duration: "11s" },
-  { name: "tailwind", pos: "top-[15%] right-[12%]", size: "md", mobile: true, delay: "1.2s", duration: "9s" },
-  { name: "typescript", pos: "top-[42%] left-[4%]", size: "sm", mobile: false, delay: "0.5s", duration: "10s" },
-  { name: "supabase", pos: "top-[68%] left-[14%]", size: "md", mobile: true, delay: "2.1s", duration: "13s" },
-  { name: "vercel", pos: "top-[78%] right-[10%]", size: "lg", mobile: true, delay: "0.8s", duration: "12s" },
-  { name: "railway", pos: "top-[38%] right-[6%]", size: "sm", mobile: false, delay: "1.6s", duration: "11s" },
-  { name: "github", pos: "top-[58%] right-[28%]", size: "md", mobile: false, delay: "0.3s", duration: "10s" },
-  { name: "cloudflare", pos: "top-[22%] left-[32%]", size: "sm", mobile: false, delay: "2.4s", duration: "14s" },
-  { name: "node", pos: "top-[75%] left-[42%]", size: "md", mobile: true, delay: "1.0s", duration: "9.5s" },
-  { name: "postgres", pos: "top-[12%] left-[58%]", size: "sm", mobile: true, delay: "1.8s", duration: "12s" },
+  { name: "astro",      label: "Astro",        pos: "top-[8%] left-[8%]",      size: "lg", mobile: true,  delay: "0s",   duration: "11s",   depth: 1.0 },
+  { name: "tailwind",   label: "Tailwind CSS", pos: "top-[15%] right-[12%]",   size: "md", mobile: true,  delay: "1.2s", duration: "9s",    depth: 0.7 },
+  { name: "typescript", label: "TypeScript",   pos: "top-[42%] left-[4%]",     size: "sm", mobile: false, delay: "0.5s", duration: "10s",   depth: 0.4 },
+  { name: "supabase",   label: "Supabase",     pos: "top-[68%] left-[14%]",    size: "md", mobile: true,  delay: "2.1s", duration: "13s",   depth: 0.8, color: "#3ECF8E" },
+  { name: "vercel",     label: "Vercel",       pos: "top-[78%] right-[10%]",   size: "lg", mobile: true,  delay: "0.8s", duration: "12s",   depth: 1.0 },
+  { name: "railway",    label: "Railway",      pos: "top-[38%] right-[6%]",    size: "sm", mobile: false, delay: "1.6s", duration: "11s",   depth: 0.4 },
+  { name: "github",     label: "GitHub",       pos: "top-[58%] right-[28%]",   size: "md", mobile: false, delay: "0.3s", duration: "10s",   depth: 0.7 },
+  { name: "cloudflare", label: "Cloudflare",   pos: "top-[22%] left-[32%]",    size: "sm", mobile: false, delay: "2.4s", duration: "14s",   depth: 0.5 },
+  { name: "node",       label: "Node.js",      pos: "top-[75%] left-[42%]",    size: "md", mobile: true,  delay: "1.0s", duration: "9.5s",  depth: 0.6 },
+  { name: "postgres",   label: "PostgreSQL",   pos: "top-[12%] left-[58%]",    size: "sm", mobile: true,  delay: "1.8s", duration: "12s",   depth: 0.5, color: "#336791" },
 ];
 
 const sizeClass: Record<Tool["size"], string> = {
@@ -68,71 +72,83 @@ const iconSize: Record<Tool["size"], string> = {
 };
 ---
 
-<section class="relative overflow-hidden border-t border-ink/10">
-  {/* Floating icons background layer */}
-  <div class="pointer-events-none absolute inset-0 -z-0" aria-hidden="true">
+<section
+  class="floating-tools relative overflow-hidden border-t border-ink/10"
+>
+  {/* Floating icons layer */}
+  <div class="pointer-events-none absolute inset-0 -z-0">
     {
       tools.map((t) => (
         <div
           class:list={[
-            "tool absolute flex items-center justify-center rounded-2xl border border-ink/10 bg-paper/70 backdrop-blur-md shadow-[0_8px_24px_-12px_rgba(25,24,24,0.18)]",
+            "tool absolute pointer-events-auto",
             t.pos,
             sizeClass[t.size],
-            !t.mobile && "hidden md:flex",
+            !t.mobile && "hidden md:block",
           ]}
-          style={`--d:${t.delay};--dur:${t.duration}`}
+          data-name={t.label}
+          data-depth={t.depth}
+          aria-label={t.label}
         >
-          <div class={["text-ink/55", iconSize[t.size]].join(" ")}>
-            {t.name === "astro" && (
-              <svg viewBox="0 0 256 256" fill="currentColor" xmlns="http://www.w3.org/2000/svg" class="h-full w-full">
-                <path d="M101.84 5.16c2.62-1.93 6.4-2.86 10.15-2.5l38.78 3.75c5.96.57 11.04 4.71 12.83 10.45l72.4 232.36c1.43 4.6-2.4 9.18-7.17 8.58l-65.46-8.27c-3.5-.44-6.32-3.04-7.06-6.49l-29.31-137-29.3 137c-.74 3.45-3.57 6.05-7.07 6.49l-65.46 8.27c-4.77.6-8.6-3.98-7.17-8.58L89.4 15.66a14.2 14.2 0 0 1 12.44-10.5z" />
-              </svg>
-            )}
-            {t.name === "tailwind" && (
-              <svg viewBox="0 0 256 154" fill="currentColor" xmlns="http://www.w3.org/2000/svg" class="h-full w-full">
-                <path d="M128 0C93.867 0 72.533 17.067 64 51.2 76.8 34.133 91.733 27.733 108.8 32c9.737 2.434 16.697 9.499 24.401 17.318C145.751 62.057 160.275 76.8 192 76.8c34.133 0 55.467-17.067 64-51.2-12.8 17.067-27.733 23.467-44.8 19.2-9.737-2.434-16.697-9.499-24.401-17.318C174.249 14.743 159.725 0 128 0zM64 76.8C29.867 76.8 8.533 93.867 0 128c12.8-17.067 27.733-23.467 44.8-19.2 9.737 2.434 16.697 9.499 24.401 17.318C81.751 138.857 96.275 153.6 128 153.6c34.133 0 55.467-17.067 64-51.2-12.8 17.067-27.733 23.467-44.8 19.2-9.737-2.434-16.697-9.499-24.401-17.318C110.249 91.543 95.725 76.8 64 76.8z" />
-              </svg>
-            )}
-            {t.name === "typescript" && (
-              <svg viewBox="0 0 256 256" fill="currentColor" xmlns="http://www.w3.org/2000/svg" class="h-full w-full">
-                <path d="M0 128v128h256V0H0v128zm206.79-19.27c6.5 1.63 11.46 4.51 16.02 9.09 2.36 2.54 5.86 7.11 6.14 8.21.08.32-11.06 7.8-17.79 11.97-.25.16-1.23-.9-2.34-2.5-3.32-4.83-6.8-6.91-12.13-7.28-7.85-.53-12.9 3.58-12.86 10.45 0 2.01.28 3.21 1.07 4.81 1.67 3.45 4.76 5.51 14.51 9.75 17.93 7.73 25.6 12.82 30.37 20.07 5.34 8.09 6.54 21 2.9 30.62-4 10.45-13.91 17.57-27.83 19.96-4.31.76-14.51.64-19.14-.2-10.1-1.81-19.7-6.79-25.6-13.31-2.34-2.54-6.85-9.21-6.58-9.7.12-.16 1.16-.81 2.34-1.49 1.14-.64 5.34-3.06 9.29-5.34l7.13-4.14 1.5 2.18c2.09 3.21 6.66 7.6 9.42 9.05 7.93 4.18 18.83 3.61 24.21-1.21 2.3-2.1 3.25-4.31 3.25-7.45 0-2.83-.36-4.07-1.82-6.21-1.91-2.74-5.81-5.04-16.92-9.86-12.7-5.47-18.16-8.85-23.18-14.27-2.89-3.13-5.62-8.13-6.78-12.31-.95-3.49-1.2-12.21-.4-15.74 2.74-12.86 12.39-21.79 26.34-24.41 4.52-.84 14.99-.52 19.42.56zm-44.7 9.96l-.08 10.5h-33.45v95.07h-23.57v-95.07H71.54v-10.29c0-5.7.12-10.45.28-10.57.12-.16 20.84-.24 45.96-.2l45.7.12.04 10.45z" />
-              </svg>
-            )}
-            {t.name === "supabase" && (
-              <svg viewBox="0 0 109 113" fill="currentColor" xmlns="http://www.w3.org/2000/svg" class="h-full w-full">
-                <path d="M63.708 110.284c-2.86 3.601-8.658 1.628-8.727-2.97l-1.007-67.251h45.22c8.19 0 12.758 9.46 7.665 15.874l-43.151 54.347zM45.317 2.071c2.86-3.601 8.657-1.628 8.726 2.97l.442 67.251H9.83c-8.19 0-12.758-9.46-7.665-15.875L45.317 2.071z" />
-              </svg>
-            )}
-            {t.name === "vercel" && (
-              <svg viewBox="0 0 256 222" fill="currentColor" xmlns="http://www.w3.org/2000/svg" class="h-full w-full">
-                <path d="M128 0L256 221.705H0z" />
-              </svg>
-            )}
-            {t.name === "railway" && (
-              <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" class="h-full w-full">
-                <path d="M.954 6.561v1.838h22.092V6.561H.954zm1.014 4.518v1.838h22.078v-1.838H1.968zm.708 4.518v1.838h6.34v-1.838h-6.34zm9.86 0v1.838h6.34v-1.838h-6.34z" />
-              </svg>
-            )}
-            {t.name === "github" && (
-              <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" class="h-full w-full">
-                <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" />
-              </svg>
-            )}
-            {t.name === "cloudflare" && (
-              <svg viewBox="0 0 256 110" fill="currentColor" xmlns="http://www.w3.org/2000/svg" class="h-full w-full">
-                <path d="M202.357 53.21l-2.881-9.953c-1.726-5.94-7.087-9.953-13.234-9.953h-89.96v74.187h106.075v-54.281zm-78.46 50.97h-9.61V72.27h-9.61v31.91h-9.61V58.36h28.83zm15.16 0c-7.95 0-14.14-6.19-14.14-14.14s6.19-14.14 14.14-14.14 14.14 6.19 14.14 14.14-6.19 14.14-14.14 14.14zm45.66-.001l-7.66-13.4-7.66 13.4h-10.84l13.04-23.05-13.04-22.74h11.07l7.43 13.04 7.43-13.04h11.06l-13.04 22.74 13.04 23.05h-10.83zM77.155 53.21H68.4v37.96h26.69v-7.84H77.155z" />
-              </svg>
-            )}
-            {t.name === "node" && (
-              <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" class="h-full w-full">
-                <path d="M11.998 24c-.321 0-.641-.084-.922-.247l-2.936-1.737c-.438-.245-.224-.332-.08-.383.585-.203.703-.25 1.328-.604.065-.037.151-.023.218.017l2.256 1.339c.082.045.197.045.272 0l8.795-5.076c.082-.047.134-.141.134-.238V6.921c0-.099-.053-.192-.137-.242l-8.791-5.072c-.081-.047-.189-.047-.271 0L2.075 6.68c-.084.049-.139.144-.139.241v10.15c0 .097.055.19.139.237l2.409 1.392c1.307.654 2.108-.116 2.108-.89V7.787c0-.142.114-.253.256-.253h1.115c.139 0 .255.111.255.253v10.021c0 1.745-.95 2.745-2.604 2.745-.508 0-.909 0-2.026-.551L1.288 18.675c-.567-.328-.92-.937-.92-1.594V6.921c0-.659.353-1.265.92-1.591L9.075.246c.555-.314 1.295-.314 1.847 0l8.792 5.084c.567.327.921.933.921 1.591v10.158c0 .657-.354 1.264-.921 1.594l-8.792 5.075c-.275.165-.595.246-.924.246z" />
-              </svg>
-            )}
-            {t.name === "postgres" && (
-              <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" class="h-full w-full">
-                <path d="M23.111 5.441c-.777-2.443-3.026-3.385-5.793-2.41.099-.842-.273-1.704-.99-2.262-2.027-1.564-5.626-.21-7.604 1.262C7.515.97 5.83.677 4.444 1.236c-1.49.59-1.96 2.218-1.96 4.115 0 1.474.387 3.062.79 4.516-.5.296-.965.747-1.358 1.394-1.027 1.687-1.358 4.226.43 5.92.875.836 1.945 1.225 2.952 1.225.84 0 1.598-.272 2.18-.717.298 2.034 1.066 4.106 2.61 5.295.728.56 1.677.832 2.61.832 1.234 0 2.42-.485 3.198-1.412 1.32-1.572 1.43-3.83.95-5.886.518.014 1.02-.084 1.487-.288 1.097-.476 1.69-1.498 1.747-2.875.063-1.486-.59-3.398-1.726-4.93.486-.69.69-1.46.62-2.32-.073-.886-.46-1.74-1.213-2.61z" />
-              </svg>
-            )}
+          <div
+            class="tool-card relative flex h-full w-full items-center justify-center rounded-2xl border border-ink/10 bg-paper/70 backdrop-blur-md shadow-[0_8px_24px_-12px_rgba(25,24,24,0.18)] transition-shadow duration-300 group-hover:shadow-[0_16px_36px_-12px_rgba(25,24,24,0.28)]"
+            style={`--d:${t.delay};--dur:${t.duration}`}
+          >
+            <div
+              class={["tool-icon", iconSize[t.size]].join(" ")}
+              style={t.color ? `color: ${t.color}` : ""}
+            >
+              {t.name === "astro" && (
+                <svg viewBox="0 0 256 256" fill="currentColor" xmlns="http://www.w3.org/2000/svg" class="h-full w-full">
+                  <path d="M101.84 5.16c2.62-1.93 6.4-2.86 10.15-2.5l38.78 3.75c5.96.57 11.04 4.71 12.83 10.45l72.4 232.36c1.43 4.6-2.4 9.18-7.17 8.58l-65.46-8.27c-3.5-.44-6.32-3.04-7.06-6.49l-29.31-137-29.3 137c-.74 3.45-3.57 6.05-7.07 6.49l-65.46 8.27c-4.77.6-8.6-3.98-7.17-8.58L89.4 15.66a14.2 14.2 0 0 1 12.44-10.5z" />
+                </svg>
+              )}
+              {t.name === "tailwind" && (
+                <svg viewBox="0 0 256 154" fill="currentColor" xmlns="http://www.w3.org/2000/svg" class="h-full w-full">
+                  <path d="M128 0C93.867 0 72.533 17.067 64 51.2 76.8 34.133 91.733 27.733 108.8 32c9.737 2.434 16.697 9.499 24.401 17.318C145.751 62.057 160.275 76.8 192 76.8c34.133 0 55.467-17.067 64-51.2-12.8 17.067-27.733 23.467-44.8 19.2-9.737-2.434-16.697-9.499-24.401-17.318C174.249 14.743 159.725 0 128 0zM64 76.8C29.867 76.8 8.533 93.867 0 128c12.8-17.067 27.733-23.467 44.8-19.2 9.737 2.434 16.697 9.499 24.401 17.318C81.751 138.857 96.275 153.6 128 153.6c34.133 0 55.467-17.067 64-51.2-12.8 17.067-27.733 23.467-44.8 19.2-9.737-2.434-16.697-9.499-24.401-17.318C110.249 91.543 95.725 76.8 64 76.8z" />
+                </svg>
+              )}
+              {t.name === "typescript" && (
+                <svg viewBox="0 0 256 256" fill="currentColor" xmlns="http://www.w3.org/2000/svg" class="h-full w-full">
+                  <path d="M0 128v128h256V0H0v128zm206.79-19.27c6.5 1.63 11.46 4.51 16.02 9.09 2.36 2.54 5.86 7.11 6.14 8.21.08.32-11.06 7.8-17.79 11.97-.25.16-1.23-.9-2.34-2.5-3.32-4.83-6.8-6.91-12.13-7.28-7.85-.53-12.9 3.58-12.86 10.45 0 2.01.28 3.21 1.07 4.81 1.67 3.45 4.76 5.51 14.51 9.75 17.93 7.73 25.6 12.82 30.37 20.07 5.34 8.09 6.54 21 2.9 30.62-4 10.45-13.91 17.57-27.83 19.96-4.31.76-14.51.64-19.14-.2-10.1-1.81-19.7-6.79-25.6-13.31-2.34-2.54-6.85-9.21-6.58-9.7.12-.16 1.16-.81 2.34-1.49 1.14-.64 5.34-3.06 9.29-5.34l7.13-4.14 1.5 2.18c2.09 3.21 6.66 7.6 9.42 9.05 7.93 4.18 18.83 3.61 24.21-1.21 2.3-2.1 3.25-4.31 3.25-7.45 0-2.83-.36-4.07-1.82-6.21-1.91-2.74-5.81-5.04-16.92-9.86-12.7-5.47-18.16-8.85-23.18-14.27-2.89-3.13-5.62-8.13-6.78-12.31-.95-3.49-1.2-12.21-.4-15.74 2.74-12.86 12.39-21.79 26.34-24.41 4.52-.84 14.99-.52 19.42.56zm-44.7 9.96l-.08 10.5h-33.45v95.07h-23.57v-95.07H71.54v-10.29c0-5.7.12-10.45.28-10.57.12-.16 20.84-.24 45.96-.2l45.7.12.04 10.45z" />
+                </svg>
+              )}
+              {t.name === "supabase" && (
+                <svg viewBox="0 0 109 113" fill="currentColor" xmlns="http://www.w3.org/2000/svg" class="h-full w-full">
+                  <path d="M63.708 110.284c-2.86 3.601-8.658 1.628-8.727-2.97l-1.007-67.251h45.22c8.19 0 12.758 9.46 7.665 15.874l-43.151 54.347zM45.317 2.071c2.86-3.601 8.657-1.628 8.726 2.97l.442 67.251H9.83c-8.19 0-12.758-9.46-7.665-15.875L45.317 2.071z" />
+                </svg>
+              )}
+              {t.name === "vercel" && (
+                <svg viewBox="0 0 256 222" fill="currentColor" xmlns="http://www.w3.org/2000/svg" class="h-full w-full">
+                  <path d="M128 0L256 221.705H0z" />
+                </svg>
+              )}
+              {t.name === "railway" && (
+                <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" class="h-full w-full">
+                  <path d="M.954 6.561v1.838h22.092V6.561H.954zm1.014 4.518v1.838h22.078v-1.838H1.968zm.708 4.518v1.838h6.34v-1.838h-6.34zm9.86 0v1.838h6.34v-1.838h-6.34z" />
+                </svg>
+              )}
+              {t.name === "github" && (
+                <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" class="h-full w-full">
+                  <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" />
+                </svg>
+              )}
+              {t.name === "cloudflare" && (
+                <svg viewBox="0 0 256 110" fill="currentColor" xmlns="http://www.w3.org/2000/svg" class="h-full w-full">
+                  <path d="M202.357 53.21l-2.881-9.953c-1.726-5.94-7.087-9.953-13.234-9.953h-89.96v74.187h106.075v-54.281zm-78.46 50.97h-9.61V72.27h-9.61v31.91h-9.61V58.36h28.83zm15.16 0c-7.95 0-14.14-6.19-14.14-14.14s6.19-14.14 14.14-14.14 14.14 6.19 14.14 14.14-6.19 14.14-14.14 14.14zm45.66-.001l-7.66-13.4-7.66 13.4h-10.84l13.04-23.05-13.04-22.74h11.07l7.43 13.04 7.43-13.04h11.06l-13.04 22.74 13.04 23.05h-10.83zM77.155 53.21H68.4v37.96h26.69v-7.84H77.155z" />
+                </svg>
+              )}
+              {t.name === "node" && (
+                <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" class="h-full w-full">
+                  <path d="M11.998 24c-.321 0-.641-.084-.922-.247l-2.936-1.737c-.438-.245-.224-.332-.08-.383.585-.203.703-.25 1.328-.604.065-.037.151-.023.218.017l2.256 1.339c.082.045.197.045.272 0l8.795-5.076c.082-.047.134-.141.134-.238V6.921c0-.099-.053-.192-.137-.242l-8.791-5.072c-.081-.047-.189-.047-.271 0L2.075 6.68c-.084.049-.139.144-.139.241v10.15c0 .097.055.19.139.237l2.409 1.392c1.307.654 2.108-.116 2.108-.89V7.787c0-.142.114-.253.256-.253h1.115c.139 0 .255.111.255.253v10.021c0 1.745-.95 2.745-2.604 2.745-.508 0-.909 0-2.026-.551L1.288 18.675c-.567-.328-.92-.937-.92-1.594V6.921c0-.659.353-1.265.92-1.591L9.075.246c.555-.314 1.295-.314 1.847 0l8.792 5.084c.567.327.921.933.921 1.591v10.158c0 .657-.354 1.264-.921 1.594l-8.792 5.075c-.275.165-.595.246-.924.246z" />
+                </svg>
+              )}
+              {t.name === "postgres" && (
+                <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" class="h-full w-full">
+                  <path d="M23.111 5.441c-.777-2.443-3.026-3.385-5.793-2.41.099-.842-.273-1.704-.99-2.262-2.027-1.564-5.626-.21-7.604 1.262C7.515.97 5.83.677 4.444 1.236c-1.49.59-1.96 2.218-1.96 4.115 0 1.474.387 3.062.79 4.516-.5.296-.965.747-1.358 1.394-1.027 1.687-1.358 4.226.43 5.92.875.836 1.945 1.225 2.952 1.225.84 0 1.598-.272 2.18-.717.298 2.034 1.066 4.106 2.61 5.295.728.56 1.677.832 2.61.832 1.234 0 2.42-.485 3.198-1.412 1.32-1.572 1.43-3.83.95-5.886.518.014 1.02-.084 1.487-.288 1.097-.476 1.69-1.498 1.747-2.875.063-1.486-.59-3.398-1.726-4.93.486-.69.69-1.46.62-2.32-.073-.886-.46-1.74-1.213-2.61z" />
+                </svg>
+              )}
+            </div>
           </div>
         </div>
       ))
@@ -160,13 +176,69 @@ const iconSize: Record<Tool["size"], string> = {
 </section>
 
 <style>
-  /* Floating drift loop - GPU-only (translate + rotate), per-icon
-     timing via inline --d / --dur custom props for organic feel. */
+  /* Wrapper: parallax via --mx/--my (set from JS) + hover scale */
   .tool {
-    animation: drift var(--dur, 10s) ease-in-out var(--d, 0s) infinite;
+    transform: translate3d(var(--mx, 0px), var(--my, 0px), 0);
+    transition: transform 400ms cubic-bezier(0.22, 1, 0.36, 1);
     will-change: transform;
   }
 
+  /* Card: drift loop (paused on hover) + glass */
+  .tool-card {
+    animation: drift var(--dur, 10s) ease-in-out var(--d, 0s) infinite;
+    will-change: transform;
+    transform-origin: center;
+    transition:
+      transform 320ms cubic-bezier(0.22, 1, 0.36, 1),
+      border-color 320ms ease;
+  }
+
+  .tool-icon {
+    color: rgba(25, 24, 24, 0.55);
+    transition: color 320ms ease;
+  }
+
+  /* Hover: scale, lift, brighten, pause drift */
+  .tool:hover {
+    z-index: 20;
+  }
+  .tool:hover .tool-card {
+    transform: scale(1.08);
+    animation-play-state: paused;
+    border-color: rgba(25, 24, 24, 0.25);
+    background-color: rgba(232, 230, 230, 0.95);
+  }
+  .tool:hover .tool-icon {
+    color: rgba(25, 24, 24, 0.9);
+  }
+
+  /* Tooltip via ::after, content from data-name attr */
+  .tool::after {
+    content: attr(data-name);
+    position: absolute;
+    left: 50%;
+    bottom: calc(100% + 8px);
+    transform: translate3d(-50%, 4px, 0);
+    padding: 4px 10px;
+    border-radius: 999px;
+    background: rgb(25, 24, 24);
+    color: rgb(232, 230, 230);
+    font-family: "Geist Mono", ui-monospace, monospace;
+    font-size: 11px;
+    line-height: 1;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition:
+      opacity 240ms ease,
+      transform 240ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .tool:hover::after {
+    opacity: 1;
+    transform: translate3d(-50%, 0, 0);
+  }
+
+  /* Floating drift loop - GPU-only (translate + rotate) */
   @keyframes drift {
     0%   { transform: translate3d(0, 0, 0) rotate(0deg); }
     25%  { transform: translate3d(6px, -8px, 0) rotate(3deg); }
@@ -176,6 +248,54 @@ const iconSize: Record<Tool["size"], string> = {
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .tool { animation: none; }
+    .tool { transition: none; }
+    .tool-card { animation: none; }
+  }
+
+  /* Mobile: tooltip slightly larger tap-friendly */
+  @media (hover: none) {
+    .tool::after { display: none; }
   }
 </style>
+
+<script>
+  // Parallax: max 4px per axis, rAF-throttled, single listener.
+  // Touch devices: skip (no hover, parallax irrelevant).
+  const section = document.querySelector(".floating-tools");
+  if (
+    section &&
+    !window.matchMedia("(prefers-reduced-motion: reduce)").matches &&
+    window.matchMedia("(hover: hover)").matches
+  ) {
+    const tools = section.querySelectorAll<HTMLElement>(".tool");
+    let mx = 0;
+    let my = 0;
+    let raf: number | null = null;
+
+    const update = () => {
+      tools.forEach((el) => {
+        const depth = parseFloat(el.dataset.depth || "1");
+        el.style.setProperty("--mx", `${mx * depth}px`);
+        el.style.setProperty("--my", `${my * depth}px`);
+      });
+      raf = null;
+    };
+
+    section.addEventListener("pointermove", (e) => {
+      const pe = e as PointerEvent;
+      if (pe.pointerType !== "mouse") return;
+      const rect = (section as HTMLElement).getBoundingClientRect();
+      const nx = (pe.clientX - rect.left) / rect.width - 0.5;
+      const ny = (pe.clientY - rect.top) / rect.height - 0.5;
+      mx = nx * 8; // -4 to +4 px (axis)
+      my = ny * 8;
+      if (raf === null) raf = requestAnimationFrame(update);
+    });
+
+    section.addEventListener("pointerleave", () => {
+      mx = 0;
+      my = 0;
+      if (raf === null) raf = requestAnimationFrame(update);
+    });
+  }
+</script>
