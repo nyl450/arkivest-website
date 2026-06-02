@@ -13,15 +13,15 @@
    Source of truth: D:\Project Ark\_system\BRAND_GUIDELINES.md
    ============================================================= */
 @theme {
-  /* Color palette (final v2, James konfirmasi 29 Mei 2026 - align dgn logo SVG canvas) */
+  /* Color palette (v3, James konfirmasi 30 Mei 2026 - lighter base #fdfdfd) */
   --color-ink: #191818;          /* warm near-black, sama dgn logo canvas dark */
-  --color-paper: #E8E6E6;        /* cool light gray, sama dgn logo canvas light */
-  --color-paper-2: #DCDAD8;      /* panel/card subtle layer, 1 step darker */
+  --color-paper: #FDFDFD;        /* near-white base (cleaner Lumio/Cuberto feel) */
+  --color-paper-2: #F2F1EE;      /* panel/card subtle layer, soft cream gray */
   /* Cobalt token kept defined but NOT used in UI per James req 30 Mei 2026.
      Monochrome ink/paper only. Reactivate by referencing text-signal/bg-signal in components. */
   --color-signal: #1E4FFF;       /* cobalt accent - reserved (inactive) */
   --color-signal-fg: #FFFFFF;
-  --color-line: #C9C7C5;         /* border halus, di atas paper */
+  --color-line: #E5E4E0;         /* border halus, visible on near-white paper */
   --color-muted: #6B6A66;        /* caption, footer text */
   --color-success: #2A8C5F;
   --color-warn: #C6543D;

@@ -1,0 +1,82 @@
+---
+/**
+ * FloatingContact - fixed bottom-right circle with rotating "contact" text
+ * around perimeter + "JT" monogram in center.
+ *
+ * Awwwards/Cuberto pattern, but vanilla CSS only (zero JS):
+ * - SVG textPath for circular text (browser-native)
+ * - CSS @keyframes for rotation (GPU-only transform)
+ * - Honors prefers-reduced-motion (animation: none)
+ * - Hidden on small mobile (< sm) to preserve thumb zone
+ */
+interface Props {
+  lang?: "id" | "en";
+}
+const { lang = "id" } = Astro.props;
+
+const href = lang === "en" ? "/en/contact" : "/contact";
+const aria = lang === "en" ? "Contact Arkivest" : "Hubungi Arkivest";
+
+// Repeat label so circle is filled (5 reps × ~9 chars = 45 chars fits 38px radius circle nicely)
+const labelLoop = "contact · contact · contact · contact · contact · ";
+---
+
+<a
+  href={href}
+  class="floating-contact group fixed bottom-5 right-5 z-40 hidden h-20 w-20 sm:block md:bottom-8 md:right-8 md:h-24 md:w-24"
+  aria-label={aria}
+>
+  <div class="relative h-full w-full">
+    {/* Rotating ring (text on path) */}
+    <svg
+      viewBox="0 0 100 100"
+      class="floating-contact__ring absolute inset-0 h-full w-full text-ink"
+      aria-hidden="true"
+    >
+      <defs>
+        <path
+          id="fc-circle"
+          d="M50,50 m-38,0 a38,38 0 1,1 76,0 a38,38 0 1,1 -76,0"
+          fill="none"
+        />
+      </defs>
+      <text
+        font-family="Geist Mono, ui-monospace, monospace"
+        font-size="9"
+        fill="currentColor"
+        letter-spacing="1.5"
+      >
+        <textPath href="#fc-circle">{labelLoop}</textPath>
+      </text>
+    </svg>
+
+    {/* Center monogram disc */}
+    <div
+      class="absolute inset-0 m-auto flex h-12 w-12 items-center justify-center rounded-full bg-ink font-mono text-body-sm font-bold tracking-tight text-paper shadow-[0_8px_24px_-12px_rgba(25,24,24,0.4)] transition-transform duration-300 group-hover:scale-110 md:h-14 md:w-14 md:text-body"
+    >
+      JT
+    </div>
+  </div>
+</a>
+
+<style>
+  @keyframes fc-spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  .floating-contact__ring {
+    animation: fc-spin 18s linear infinite;
+    transform-origin: 50% 50%;
+    will-change: transform;
+  }
+
+  /* Pause rotation on hover for legibility */
+  .floating-contact:hover .floating-contact__ring {
+    animation-play-state: paused;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .floating-contact__ring { animation: none; }
+  }
+</style>

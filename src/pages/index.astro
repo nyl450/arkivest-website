@@ -6,7 +6,6 @@ const title = "Arkivest - Web studio yang serius untuk usaha yang siap scale";
 const description =
   "Studio web untuk usaha yang siap scale online. Custom build, security dipraktikkan, SEO terukur. Bukti karya: Wearscrubs. Mulai Rp 5 juta.";
 
-// Rotating headline words (ID)
 const words = ["Sistem Bisnis", "Web Modern", "E-commerce", "Dashboard Admin", "Brand Digital"];
 
 const pilars = [
@@ -30,35 +29,39 @@ const pilars = [
   },
 ];
 
-// 8 karya - tier honest framing (Arkivest case / Freelance / Built at PT X)
+// 8 karya - Cuberto-style with brand-color placeholders.
+// bg: honest brand-vibe guess per project (Wearscrubs is real, others are educated guesses).
+// Swap with real screenshot via /public/work/{slug}.webp later.
 const projects = [
   {
     slug: "wearscrubs",
     href: "/work/wearscrubs",
     eyebrow: "Arkivest case · Live",
     title: "Wearscrubs",
-    subtitle: "Dari spreadsheet manual istri admin ke toko scrubs dokter yang hidup.",
-    stack: "Astro · Node · Supabase · Railway",
+    subtitle: "Toko scrubs dokter dgn dashboard intuitif untuk admin non-teknis.",
     domain: "wearscrubs.id",
-    accent: true,
+    bg: "#1c1c1c",
+    monoColor: "rgba(255,255,255,0.08)",
   },
   {
     slug: "mitra-niaga",
     href: "/work",
     eyebrow: "Freelance · 2024",
     title: "PT Mitra Niaga Madani",
-    subtitle: "Profil perusahaan + product showcase distributor.",
-    stack: "HTML · CSS · JavaScript",
-    domain: "—",
+    subtitle: "Profil + product showcase distributor.",
+    domain: "mitraniaga.id",
+    bg: "#2D4A3E",
+    monoColor: "rgba(255,255,255,0.1)",
   },
   {
     slug: "salon-andoyun",
     href: "/work",
     eyebrow: "Freelance · 2024",
     title: "Salon Ando & Yun",
-    subtitle: "Layanan + booking untuk salon premium di Tangerang.",
-    stack: "HTML · CSS · JavaScript",
-    domain: "—",
+    subtitle: "Booking + service catalog untuk salon premium.",
+    domain: "salonandoyun.com",
+    bg: "#B89492",
+    monoColor: "rgba(255,255,255,0.18)",
   },
   {
     slug: "la-demoiselle",
@@ -66,44 +69,89 @@ const projects = [
     eyebrow: "Freelance · 2024",
     title: "La Demoiselle",
     subtitle: "Editorial brand site untuk lini wedding & lifestyle.",
-    stack: "HTML · CSS · JavaScript",
-    domain: "—",
+    domain: "lademoiselle.id",
+    bg: "#D8C4A8",
+    monoColor: "rgba(25,24,24,0.08)",
   },
   {
     slug: "dcimage",
     href: "/work",
     eyebrow: "Lead Dev di PT DCI · 2023",
     title: "Digital Communication Image",
-    subtitle: "Redesign corporate + integrasi CMS internal.",
-    stack: "WordPress · PHP · jQuery",
+    subtitle: "Redesign corporate + CMS internal.",
     domain: "dcimage.id",
+    bg: "#C5572D",
+    monoColor: "rgba(255,255,255,0.12)",
   },
   {
     slug: "arthavest",
     href: "/work",
-    eyebrow: "Built di PT Arthavest TBK · 2021",
+    eyebrow: "PT Arthavest TBK · 2021",
     title: "Arthavest TBK",
-    subtitle: "Investor relations site + listing real estate.",
-    stack: "Laravel · MySQL · Bootstrap",
+    subtitle: "Investor relations + listing real estate.",
     domain: "arthavest.com",
+    bg: "#2B3654",
+    monoColor: "rgba(255,255,255,0.1)",
   },
   {
     slug: "digisign",
     href: "/work",
-    eyebrow: "Built di PT Solusi Net · 2019",
+    eyebrow: "PT Solusi Net · 2019",
     title: "Digisign",
     subtitle: "Marketing site untuk SaaS e-signature.",
-    stack: "CodeIgniter · MySQL",
     domain: "digisign.id",
+    bg: "#4A6B85",
+    monoColor: "rgba(255,255,255,0.12)",
   },
   {
     slug: "griya-gadai",
     href: "/work",
-    eyebrow: "Built di PT Griya Gadai · 2018",
+    eyebrow: "PT Griya Gadai · 2018",
     title: "Griya Gadai Indonesia",
-    subtitle: "Multi-branch pegadaian dgn locator + simulasi.",
-    stack: "CodeIgniter · MySQL",
+    subtitle: "Multi-branch pegadaian + locator + simulasi.",
     domain: "griya-gadai.co.id",
+    bg: "#6B2E2A",
+    monoColor: "rgba(255,255,255,0.12)",
+  },
+];
+
+// 3 capability services (Option C: no pricing on homepage)
+const services = [
+  {
+    no: "01",
+    title: "Sistem & E-commerce",
+    desc: "Toko online, dashboard admin, inventory, payment, ongkir. Custom logic untuk alur bisnis yang tidak template.",
+    bullets: [
+      "Multi-role admin + audit trail",
+      "Payment gateway + checkout custom",
+      "Stock management + PO/custom flow",
+      "WhatsApp integration",
+    ],
+    tone: "dark",
+  },
+  {
+    no: "02",
+    title: "Web Editorial & Brand",
+    desc: "Marketing site, corporate profile, portfolio. Premium feel, performance budget ketat, SEO matang sejak hari pertama.",
+    bullets: [
+      "Bilingual ID-EN sejak start",
+      "Structured data + hreflang",
+      "LCP <2.5s, JS <80KB gz",
+      "OG image + schema lengkap",
+    ],
+    tone: "light",
+  },
+  {
+    no: "03",
+    title: "Dashboard & Sistem Custom",
+    desc: "Admin panel intuitif untuk non-teknis, CRM ringan, broadcast tools, sistem internal. Built untuk dipakai, bukan dipajang.",
+    bullets: [
+      "Role-based access control",
+      "Audit log + history tracking",
+      "Reporting + export",
+      "API-ready untuk integrasi",
+    ],
+    tone: "light",
   },
 ];
 ---
@@ -136,7 +184,7 @@ const projects = [
     </div>
   </section>
 
-  {/* ============ HERO IMAGE (Lumio seamless break - real asset hero.png 2520×1080) ============ */}
+  {/* ============ HERO IMAGE ============ */}
   <section class="pb-16 lg:pb-24">
     <div class="mx-auto max-w-7xl px-6 lg:px-10">
       <div
@@ -155,110 +203,200 @@ const projects = [
     </div>
   </section>
 
-  {/* ============ STACK (FloatingTools central anchor) ============ */}
+  {/* ============ PENDEKATAN (FloatingTools) ============ */}
   <FloatingTools lang="id" />
 
-  {/* ============ KARYA (Showcase - horizontal slide multi project) ============ */}
-  <section id="work" class="bg-ink py-20 text-paper lg:py-32">
-    <div class="mx-auto max-w-7xl px-6 lg:px-10">
-      <div
-        class="reveal flex flex-wrap items-end justify-between gap-6 border-b border-paper/10 pb-8"
+  {/* ============ MID-PAGE LUMIO TEXT MOMENT ============
+       3 draft options (ARK propose, James pick):
+
+       Option 1 (Philosophy - manifesto):
+         "Setiap kode harus punya alasan untuk ada."
+         sub: "Bukan tagline. Itu cara kami memutuskan apa yang masuk
+               dan apa yang tidak ke project Anda."
+
+       Option 2 (Mission - benefit-led, ACTIVE):
+         "Bisnis yang serius layak punya platform yang sama seriusnya."
+         sub: "Kami bangun sistem yang akan bertahan, scale, dan tetap
+               masuk akal dipakai admin Anda."
+
+       Option 3 (Contrarian - distinctive):
+         "Template hari ini, regret tahun depan."
+         sub: "Kami bangun fondasi yang tidak harus dilempar saat
+               bisnis Anda tumbuh."
+       =================================================== */}
+  <section class="py-32 lg:py-48">
+    <div class="mx-auto max-w-4xl px-6 text-center lg:px-10">
+      <p
+        class="reveal text-balance text-[clamp(2rem,5vw,3.75rem)] font-semibold leading-[1.1] tracking-[-0.025em]"
       >
+        Bisnis yang serius layak punya platform yang sama seriusnya.
+      </p>
+      <p
+        class="reveal reveal-delay-1 mx-auto mt-8 max-w-2xl text-balance text-body-lg leading-[1.55] text-ink/60"
+      >
+        Kami bangun sistem yang akan bertahan, scale, dan tetap masuk akal
+        dipakai admin Anda.
+      </p>
+    </div>
+  </section>
+
+  {/* ============ KARYA (Cuberto-style, 2-col grid, dark, rounded-top) ============ */}
+  <section
+    id="work"
+    class="relative rounded-t-[3rem] bg-ink pb-24 pt-20 text-paper lg:rounded-t-[4rem] lg:pb-32 lg:pt-28"
+  >
+    <div class="relative mx-auto max-w-7xl px-6 lg:px-10">
+      <div class="reveal flex flex-wrap items-end justify-between gap-6 pb-12 lg:pb-16">
         <div>
           <p
             class="font-mono text-caption uppercase tracking-[0.18em] text-paper/40"
           >
             Karya · {projects.length} project
           </p>
-          <h2 class="mt-4 text-h2 font-semibold tracking-tight lg:text-h1">
-            Yang sudah kami kirim.
+          <h2
+            class="mt-4 text-[clamp(2.5rem,6vw,5rem)] font-semibold tracking-tight"
+          >
+            Featured projects.
           </h2>
         </div>
-        <div class="hidden items-center gap-3 md:flex">
-          <button
-            type="button"
-            data-karya-prev
-            class="inline-flex h-11 w-11 items-center justify-center rounded-full border border-paper/20 text-paper transition hover:border-paper/60 hover:bg-paper/5"
-            aria-label="Previous"
-          >←</button>
-          <button
-            type="button"
-            data-karya-next
-            class="inline-flex h-11 w-11 items-center justify-center rounded-full border border-paper/20 text-paper transition hover:border-paper/60 hover:bg-paper/5"
-            aria-label="Next"
-          >→</button>
-        </div>
+        <p class="max-w-md text-body text-paper/60">
+          Dari toko scrubs dokter sampai sistem investor relations. Kami bangun
+          sistem yang dipakai admin nyata, bukan demo board.
+        </p>
       </div>
 
-      {/* Horizontal scroll snap row - works on all breakpoints */}
-      <div
-        class="snap-row mt-12 flex gap-6 overflow-x-auto pb-6 lg:gap-8"
-        data-karya-track
-      >
+      <div class="grid gap-x-8 gap-y-16 md:grid-cols-2 lg:gap-x-10 lg:gap-y-20">
         {
           projects.map((p) => (
-            <a
-              href={p.href}
-              class="reveal group block shrink-0 basis-[88%] md:basis-[58%] lg:basis-[48%]"
-            >
-              {/* Image area (top) */}
-              <div class="relative aspect-[16/10] overflow-hidden rounded-3xl border border-paper/10 bg-paper/5 transition duration-500 group-hover:border-paper/30">
-                <div class="absolute inset-0 flex items-center justify-center">
-                  <p class="font-mono text-caption text-paper/30">
-                    [screenshot {p.domain !== "—" ? p.domain : p.title}]
-                  </p>
+            <a href={p.href} class="reveal group block">
+              <div
+                class="relative aspect-[4/5] overflow-hidden rounded-3xl p-8 transition duration-500 group-hover:scale-[1.01] lg:rounded-[2rem] lg:p-10"
+                style={`background-color: ${p.bg}`}
+              >
+                <div class="flex h-full flex-col justify-between">
+                  <div class="flex items-start justify-between gap-4">
+                    <p class="font-mono text-caption uppercase tracking-[0.18em] text-paper/50">
+                      {p.eyebrow}
+                    </p>
+                    <span class="font-mono text-caption uppercase tracking-widest text-paper/40">
+                      ↗
+                    </span>
+                  </div>
+                  <div class="relative">
+                    <span
+                      class="select-none text-[clamp(7rem,22vw,16rem)] font-bold leading-[0.85] tracking-tighter"
+                      style={`color: ${p.monoColor}`}
+                    >
+                      {p.title.charAt(0)}
+                    </span>
+                  </div>
                 </div>
-                <div
-                  class="absolute inset-0 bg-gradient-to-tr from-paper/10 via-transparent to-transparent opacity-0 transition duration-700 group-hover:opacity-100"
-                />
-                {p.accent && (
-                  <span class="absolute left-4 top-4 inline-flex items-center gap-1.5 rounded-full bg-paper px-2.5 py-1 font-mono text-[10px] uppercase tracking-widest text-ink">
-                    <span class="h-1.5 w-1.5 rounded-full bg-ink" />
-                    Featured
-                  </span>
-                )}
+                <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 transition duration-700 group-hover:opacity-100" />
               </div>
-
-              {/* Text section (bottom) */}
-              <div class="mt-6 grid gap-6 md:grid-cols-[2fr_1fr] md:items-end">
+              <div class="mt-6 flex items-start justify-between gap-6">
                 <div>
-                  <p class="font-mono text-caption uppercase tracking-[0.18em] text-paper/40">
-                    {p.eyebrow}
-                  </p>
-                  <h3 class="mt-3 text-h3 font-semibold tracking-tight lg:text-[clamp(1.5rem,2.5vw,2.25rem)]">
+                  <h3 class="text-h4 font-semibold tracking-tight text-paper lg:text-h3">
                     {p.title}
                   </h3>
-                  <p class="mt-3 max-w-md text-body text-paper/70">
+                  <p class="mt-2 max-w-md text-body-sm text-paper/60">
                     {p.subtitle}
                   </p>
                 </div>
-                <dl class="grid grid-cols-1 gap-3 border-t border-paper/10 pt-4 text-body-sm md:border-l md:border-t-0 md:pl-6 md:pt-0">
-                  <div>
-                    <dt class="font-mono text-caption text-paper/40">Stack</dt>
-                    <dd class="mt-1 text-paper/85">{p.stack}</dd>
-                  </div>
-                  <div>
-                    <dt class="font-mono text-caption text-paper/40">Live</dt>
-                    <dd class="mt-1 font-mono text-paper/85">{p.domain}</dd>
-                  </div>
-                </dl>
+                <span class="shrink-0 font-mono text-caption text-paper/40">
+                  {p.domain}
+                </span>
               </div>
             </a>
           ))
         }
       </div>
-
-      <p
-        class="reveal mt-10 max-w-2xl font-mono text-caption text-paper/40"
-      >
-        Geser ke kanan untuk lihat semua. Karya korporat (Arthavest, Digisign,
-        Griya Gadai, DCImage) dikerjakan saat James memimpin tim dev di
-        perusahaan tersebut.
-      </p>
     </div>
   </section>
 
-  {/* ============ PILARS (3 pilar - di akhir per user req) ============ */}
+  {/* ============ OUR SERVICES (capability-only, rounded-top emerges from karya dark) ============ */}
+  <section
+    class="relative -mt-12 rounded-t-[3rem] bg-paper pb-24 pt-24 lg:-mt-16 lg:rounded-t-[4rem] lg:pb-32 lg:pt-32"
+  >
+    <div class="mx-auto max-w-7xl px-6 lg:px-10">
+      <div class="reveal grid gap-12 lg:grid-cols-[2fr_1fr] lg:items-end">
+        <h2
+          class="text-[clamp(3rem,8vw,7rem)] font-semibold leading-[0.95] tracking-[-0.03em]"
+        >
+          Our<br />services
+        </h2>
+        <p class="max-w-md text-body-lg text-ink/65">
+          Dari sistem e-commerce sampai dashboard admin custom. Kami bangun
+          produk digital yang dipakai, bukan dipajang.
+        </p>
+      </div>
+
+      <div class="mt-20 grid gap-6 md:grid-cols-2 lg:mt-28 lg:gap-8">
+        {
+          services.map((s, i) => {
+            const isDark = s.tone === "dark";
+            const colSpan = i === 0 ? "md:col-span-2" : "";
+            return (
+              <article
+                class:list={[
+                  "reveal relative overflow-hidden rounded-3xl p-10 lg:rounded-[2rem] lg:p-12",
+                  isDark
+                    ? "bg-ink text-paper"
+                    : "border border-ink/8 bg-paper-2 text-ink",
+                  colSpan,
+                ]}
+              >
+                <p
+                  class:list={[
+                    "font-mono text-caption uppercase tracking-[0.18em]",
+                    isDark ? "text-paper/40" : "text-ink/40",
+                  ]}
+                >
+                  {s.no} / Layanan
+                </p>
+                <h3
+                  class="mt-6 text-[clamp(1.75rem,3.5vw,2.75rem)] font-semibold leading-[1.1] tracking-tight"
+                >
+                  {s.title}
+                </h3>
+                <p
+                  class:list={[
+                    "mt-5 max-w-xl text-body-lg",
+                    isDark ? "text-paper/70" : "text-ink/65",
+                  ]}
+                >
+                  {s.desc}
+                </p>
+                <ul
+                  class:list={[
+                    "mt-8 grid gap-3 border-t pt-6 text-body-sm font-medium md:grid-cols-2",
+                    isDark
+                      ? "border-paper/10 text-paper/80"
+                      : "border-ink/10 text-ink/75",
+                  ]}
+                >
+                  {
+                    s.bullets.map((b) => (
+                      <li class="flex items-start gap-2">
+                        <span
+                          class:list={[
+                            "mt-2 inline-block h-1 w-1 shrink-0 rounded-full",
+                            isDark ? "bg-paper/50" : "bg-ink/40",
+                          ]}
+                        />
+                        {b}
+                      </li>
+                    ))
+                  }
+                </ul>
+              </article>
+            );
+          })
+        }
+      </div>
+    </div>
+  </section>
+
+  {/* ============ PILARS ============ */}
   <section class="py-20 lg:py-32">
     <div class="mx-auto max-w-7xl px-6 lg:px-10">
       <div class="reveal grid gap-10 md:grid-cols-[1fr_2fr]">
@@ -339,7 +477,6 @@ const projects = [
 </Base>
 
 <script>
-  // Rotating hero word: vanilla swap-by-class (~700B, no lib)
   const rotator = document.querySelector<HTMLElement>(".rotator");
   if (
     rotator &&
@@ -362,34 +499,11 @@ const projects = [
       }, 2200);
     }
   }
-
-  // Karya horizontal slide arrow nav
-  const track = document.querySelector<HTMLElement>("[data-karya-track]");
-  const prevBtn = document.querySelector<HTMLButtonElement>("[data-karya-prev]");
-  const nextBtn = document.querySelector<HTMLButtonElement>("[data-karya-next]");
-  if (track && prevBtn && nextBtn) {
-    const scrollByCard = (dir: 1 | -1) => {
-      const card = track.querySelector<HTMLElement>("a");
-      if (!card) return;
-      const step = card.getBoundingClientRect().width + 24; // gap-6
-      track.scrollBy({ left: step * dir, behavior: "smooth" });
-    };
-    prevBtn.addEventListener("click", () => scrollByCard(-1));
-    nextBtn.addEventListener("click", () => scrollByCard(1));
-  }
 </script>
 
 <style>
-  /* Rotating hero word */
-  .rotator {
-    overflow: hidden;
-    vertical-align: bottom;
-  }
-  .rotator-sizer {
-    visibility: hidden;
-    pointer-events: none;
-    display: inline-block;
-  }
+  .rotator { overflow: hidden; vertical-align: bottom; }
+  .rotator-sizer { visibility: hidden; pointer-events: none; display: inline-block; }
   .word {
     position: absolute;
     inset: 0;
@@ -402,15 +516,7 @@ const projects = [
       opacity 500ms cubic-bezier(0.22, 1, 0.36, 1),
       transform 500ms cubic-bezier(0.22, 1, 0.36, 1);
   }
-  .word.is-active {
-    opacity: 1;
-    transform: translate3d(0, 0, 0);
-  }
-  .word.is-prev {
-    opacity: 0;
-    transform: translate3d(0, -100%, 0);
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .word { transition: none; }
-  }
+  .word.is-active { opacity: 1; transform: translate3d(0, 0, 0); }
+  .word.is-prev { opacity: 0; transform: translate3d(0, -100%, 0); }
+  @media (prefers-reduced-motion: reduce) { .word { transition: none; } }
 </style>

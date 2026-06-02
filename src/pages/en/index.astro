@@ -6,7 +6,6 @@ const title = "Arkivest - A serious web studio for businesses ready to scale";
 const description =
   "A web studio for businesses ready to scale online. Custom build, security practiced, SEO measured. Proof of work: Wearscrubs. Starts at IDR 5M.";
 
-// Rotating headline words (EN)
 const words = ["Business Systems", "Modern Web", "E-commerce", "Admin Dashboards", "Digital Brands"];
 
 const pilars = [
@@ -36,28 +35,30 @@ const projects = [
     href: "/en/work/wearscrubs",
     eyebrow: "Arkivest case · Live",
     title: "Wearscrubs",
-    subtitle: "From the admin spouse's spreadsheet to a live doctor-scrubs shop.",
-    stack: "Astro · Node · Supabase · Railway",
+    subtitle: "Doctor-scrubs shop with an intuitive admin for non-technical users.",
     domain: "wearscrubs.id",
-    accent: true,
+    bg: "#1c1c1c",
+    monoColor: "rgba(255,255,255,0.08)",
   },
   {
     slug: "mitra-niaga",
     href: "/en/work",
     eyebrow: "Freelance · 2024",
     title: "PT Mitra Niaga Madani",
-    subtitle: "Corporate profile + product showcase for a distributor.",
-    stack: "HTML · CSS · JavaScript",
-    domain: "—",
+    subtitle: "Corporate profile + product showcase.",
+    domain: "mitraniaga.id",
+    bg: "#2D4A3E",
+    monoColor: "rgba(255,255,255,0.1)",
   },
   {
     slug: "salon-andoyun",
     href: "/en/work",
     eyebrow: "Freelance · 2024",
     title: "Salon Ando & Yun",
-    subtitle: "Services + booking for a premium salon in Tangerang.",
-    stack: "HTML · CSS · JavaScript",
-    domain: "—",
+    subtitle: "Booking + service catalog for a premium salon.",
+    domain: "salonandoyun.com",
+    bg: "#B89492",
+    monoColor: "rgba(255,255,255,0.18)",
   },
   {
     slug: "la-demoiselle",
@@ -65,44 +66,88 @@ const projects = [
     eyebrow: "Freelance · 2024",
     title: "La Demoiselle",
     subtitle: "Editorial brand site for a wedding & lifestyle line.",
-    stack: "HTML · CSS · JavaScript",
-    domain: "—",
+    domain: "lademoiselle.id",
+    bg: "#D8C4A8",
+    monoColor: "rgba(25,24,24,0.08)",
   },
   {
     slug: "dcimage",
     href: "/en/work",
     eyebrow: "Lead Dev at PT DCI · 2023",
     title: "Digital Communication Image",
-    subtitle: "Corporate redesign + internal CMS integration.",
-    stack: "WordPress · PHP · jQuery",
+    subtitle: "Corporate redesign + internal CMS.",
     domain: "dcimage.id",
+    bg: "#C5572D",
+    monoColor: "rgba(255,255,255,0.12)",
   },
   {
     slug: "arthavest",
     href: "/en/work",
-    eyebrow: "Built at PT Arthavest TBK · 2021",
+    eyebrow: "PT Arthavest TBK · 2021",
     title: "Arthavest TBK",
-    subtitle: "Investor relations site + real-estate listings.",
-    stack: "Laravel · MySQL · Bootstrap",
+    subtitle: "Investor relations + real-estate listings.",
     domain: "arthavest.com",
+    bg: "#2B3654",
+    monoColor: "rgba(255,255,255,0.1)",
   },
   {
     slug: "digisign",
     href: "/en/work",
-    eyebrow: "Built at PT Solusi Net · 2019",
+    eyebrow: "PT Solusi Net · 2019",
     title: "Digisign",
     subtitle: "Marketing site for an e-signature SaaS.",
-    stack: "CodeIgniter · MySQL",
     domain: "digisign.id",
+    bg: "#4A6B85",
+    monoColor: "rgba(255,255,255,0.12)",
   },
   {
     slug: "griya-gadai",
     href: "/en/work",
-    eyebrow: "Built at PT Griya Gadai · 2018",
+    eyebrow: "PT Griya Gadai · 2018",
     title: "Griya Gadai Indonesia",
     subtitle: "Multi-branch pawnshop with locator + simulator.",
-    stack: "CodeIgniter · MySQL",
     domain: "griya-gadai.co.id",
+    bg: "#6B2E2A",
+    monoColor: "rgba(255,255,255,0.12)",
+  },
+];
+
+const services = [
+  {
+    no: "01",
+    title: "Systems & E-commerce",
+    desc: "Online stores, admin dashboards, inventory, payment, shipping. Custom logic for business flows that aren't templates.",
+    bullets: [
+      "Multi-role admin + audit trail",
+      "Payment gateway + custom checkout",
+      "Stock management + PO/custom flow",
+      "WhatsApp integration",
+    ],
+    tone: "dark",
+  },
+  {
+    no: "02",
+    title: "Editorial Web & Brand",
+    desc: "Marketing sites, corporate profiles, portfolios. Premium feel, tight performance budget, mature SEO from day one.",
+    bullets: [
+      "Bilingual ID-EN from start",
+      "Structured data + hreflang",
+      "LCP <2.5s, JS <80KB gz",
+      "OG image + complete schema",
+    ],
+    tone: "light",
+  },
+  {
+    no: "03",
+    title: "Dashboards & Custom Systems",
+    desc: "Intuitive admin panels for non-technical teams, light CRM, broadcast tools, internal systems. Built to be used, not displayed.",
+    bullets: [
+      "Role-based access control",
+      "Audit log + history tracking",
+      "Reporting + export",
+      "API-ready for integrations",
+    ],
+    tone: "light",
   },
 ];
 ---
@@ -134,7 +179,7 @@ const projects = [
     </div>
   </section>
 
-  {/* ============ HERO IMAGE (real asset hero.png 2520×1080) ============ */}
+  {/* ============ HERO IMAGE ============ */}
   <section class="pb-16 lg:pb-24">
     <div class="mx-auto max-w-7xl px-6 lg:px-10">
       <div
@@ -153,102 +198,179 @@ const projects = [
     </div>
   </section>
 
-  {/* ============ STACK ============ */}
+  {/* ============ APPROACH (FloatingTools) ============ */}
   <FloatingTools lang="en" />
 
-  {/* ============ KARYA ============ */}
-  <section id="work" class="bg-ink py-20 text-paper lg:py-32">
-    <div class="mx-auto max-w-7xl px-6 lg:px-10">
-      <div
-        class="reveal flex flex-wrap items-end justify-between gap-6 border-b border-paper/10 pb-8"
+  {/* ============ MID-PAGE LUMIO TEXT MOMENT ============ */}
+  <section class="py-32 lg:py-48">
+    <div class="mx-auto max-w-4xl px-6 text-center lg:px-10">
+      <p
+        class="reveal text-balance text-[clamp(2rem,5vw,3.75rem)] font-semibold leading-[1.1] tracking-[-0.025em]"
       >
+        Serious businesses deserve platforms that are just as serious.
+      </p>
+      <p
+        class="reveal reveal-delay-1 mx-auto mt-8 max-w-2xl text-balance text-body-lg leading-[1.55] text-ink/60"
+      >
+        We build systems that last, scale, and stay sensible for the people
+        running them every day.
+      </p>
+    </div>
+  </section>
+
+  {/* ============ KARYA (Cuberto-style) ============ */}
+  <section
+    id="work"
+    class="relative rounded-t-[3rem] bg-ink pb-24 pt-20 text-paper lg:rounded-t-[4rem] lg:pb-32 lg:pt-28"
+  >
+    <div class="relative mx-auto max-w-7xl px-6 lg:px-10">
+      <div class="reveal flex flex-wrap items-end justify-between gap-6 pb-12 lg:pb-16">
         <div>
           <p
             class="font-mono text-caption uppercase tracking-[0.18em] text-paper/40"
           >
             Work · {projects.length} projects
           </p>
-          <h2 class="mt-4 text-h2 font-semibold tracking-tight lg:text-h1">
-            What we've shipped.
+          <h2
+            class="mt-4 text-[clamp(2.5rem,6vw,5rem)] font-semibold tracking-tight"
+          >
+            Featured projects.
           </h2>
         </div>
-        <div class="hidden items-center gap-3 md:flex">
-          <button
-            type="button"
-            data-karya-prev
-            class="inline-flex h-11 w-11 items-center justify-center rounded-full border border-paper/20 text-paper transition hover:border-paper/60 hover:bg-paper/5"
-            aria-label="Previous"
-          >←</button>
-          <button
-            type="button"
-            data-karya-next
-            class="inline-flex h-11 w-11 items-center justify-center rounded-full border border-paper/20 text-paper transition hover:border-paper/60 hover:bg-paper/5"
-            aria-label="Next"
-          >→</button>
-        </div>
+        <p class="max-w-md text-body text-paper/60">
+          From a doctor-scrubs shop to an investor-relations system. We build
+          systems used by real admins, not demo boards.
+        </p>
       </div>
 
-      <div
-        class="snap-row mt-12 flex gap-6 overflow-x-auto pb-6 lg:gap-8"
-        data-karya-track
-      >
+      <div class="grid gap-x-8 gap-y-16 md:grid-cols-2 lg:gap-x-10 lg:gap-y-20">
         {
           projects.map((p) => (
-            <a
-              href={p.href}
-              class="reveal group block shrink-0 basis-[88%] md:basis-[58%] lg:basis-[48%]"
-            >
-              <div class="relative aspect-[16/10] overflow-hidden rounded-3xl border border-paper/10 bg-paper/5 transition duration-500 group-hover:border-paper/30">
-                <div class="absolute inset-0 flex items-center justify-center">
-                  <p class="font-mono text-caption text-paper/30">
-                    [screenshot {p.domain !== "—" ? p.domain : p.title}]
-                  </p>
+            <a href={p.href} class="reveal group block">
+              <div
+                class="relative aspect-[4/5] overflow-hidden rounded-3xl p-8 transition duration-500 group-hover:scale-[1.01] lg:rounded-[2rem] lg:p-10"
+                style={`background-color: ${p.bg}`}
+              >
+                <div class="flex h-full flex-col justify-between">
+                  <div class="flex items-start justify-between gap-4">
+                    <p class="font-mono text-caption uppercase tracking-[0.18em] text-paper/50">
+                      {p.eyebrow}
+                    </p>
+                    <span class="font-mono text-caption uppercase tracking-widest text-paper/40">
+                      ↗
+                    </span>
+                  </div>
+                  <div class="relative">
+                    <span
+                      class="select-none text-[clamp(7rem,22vw,16rem)] font-bold leading-[0.85] tracking-tighter"
+                      style={`color: ${p.monoColor}`}
+                    >
+                      {p.title.charAt(0)}
+                    </span>
+                  </div>
                 </div>
-                <div
-                  class="absolute inset-0 bg-gradient-to-tr from-paper/10 via-transparent to-transparent opacity-0 transition duration-700 group-hover:opacity-100"
-                />
-                {p.accent && (
-                  <span class="absolute left-4 top-4 inline-flex items-center gap-1.5 rounded-full bg-paper px-2.5 py-1 font-mono text-[10px] uppercase tracking-widest text-ink">
-                    <span class="h-1.5 w-1.5 rounded-full bg-ink" />
-                    Featured
-                  </span>
-                )}
+                <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 transition duration-700 group-hover:opacity-100" />
               </div>
-
-              <div class="mt-6 grid gap-6 md:grid-cols-[2fr_1fr] md:items-end">
+              <div class="mt-6 flex items-start justify-between gap-6">
                 <div>
-                  <p class="font-mono text-caption uppercase tracking-[0.18em] text-paper/40">
-                    {p.eyebrow}
-                  </p>
-                  <h3 class="mt-3 text-h3 font-semibold tracking-tight lg:text-[clamp(1.5rem,2.5vw,2.25rem)]">
+                  <h3 class="text-h4 font-semibold tracking-tight text-paper lg:text-h3">
                     {p.title}
                   </h3>
-                  <p class="mt-3 max-w-md text-body text-paper/70">
+                  <p class="mt-2 max-w-md text-body-sm text-paper/60">
                     {p.subtitle}
                   </p>
                 </div>
-                <dl class="grid grid-cols-1 gap-3 border-t border-paper/10 pt-4 text-body-sm md:border-l md:border-t-0 md:pl-6 md:pt-0">
-                  <div>
-                    <dt class="font-mono text-caption text-paper/40">Stack</dt>
-                    <dd class="mt-1 text-paper/85">{p.stack}</dd>
-                  </div>
-                  <div>
-                    <dt class="font-mono text-caption text-paper/40">Live</dt>
-                    <dd class="mt-1 font-mono text-paper/85">{p.domain}</dd>
-                  </div>
-                </dl>
+                <span class="shrink-0 font-mono text-caption text-paper/40">
+                  {p.domain}
+                </span>
               </div>
             </a>
           ))
         }
       </div>
+    </div>
+  </section>
 
-      <p
-        class="reveal mt-10 max-w-2xl font-mono text-caption text-paper/40"
-      >
-        Swipe right to see all. Corporate work (Arthavest, Digisign, Griya
-        Gadai, DCImage) was built while James led dev teams at those companies.
-      </p>
+  {/* ============ OUR SERVICES (capability-only) ============ */}
+  <section
+    class="relative -mt-12 rounded-t-[3rem] bg-paper pb-24 pt-24 lg:-mt-16 lg:rounded-t-[4rem] lg:pb-32 lg:pt-32"
+  >
+    <div class="mx-auto max-w-7xl px-6 lg:px-10">
+      <div class="reveal grid gap-12 lg:grid-cols-[2fr_1fr] lg:items-end">
+        <h2
+          class="text-[clamp(3rem,8vw,7rem)] font-semibold leading-[0.95] tracking-[-0.03em]"
+        >
+          Our<br />services
+        </h2>
+        <p class="max-w-md text-body-lg text-ink/65">
+          From e-commerce systems to custom admin dashboards. We build digital
+          products meant to be used, not displayed.
+        </p>
+      </div>
+
+      <div class="mt-20 grid gap-6 md:grid-cols-2 lg:mt-28 lg:gap-8">
+        {
+          services.map((s, i) => {
+            const isDark = s.tone === "dark";
+            const colSpan = i === 0 ? "md:col-span-2" : "";
+            return (
+              <article
+                class:list={[
+                  "reveal relative overflow-hidden rounded-3xl p-10 lg:rounded-[2rem] lg:p-12",
+                  isDark
+                    ? "bg-ink text-paper"
+                    : "border border-ink/8 bg-paper-2 text-ink",
+                  colSpan,
+                ]}
+              >
+                <p
+                  class:list={[
+                    "font-mono text-caption uppercase tracking-[0.18em]",
+                    isDark ? "text-paper/40" : "text-ink/40",
+                  ]}
+                >
+                  {s.no} / Service
+                </p>
+                <h3
+                  class="mt-6 text-[clamp(1.75rem,3.5vw,2.75rem)] font-semibold leading-[1.1] tracking-tight"
+                >
+                  {s.title}
+                </h3>
+                <p
+                  class:list={[
+                    "mt-5 max-w-xl text-body-lg",
+                    isDark ? "text-paper/70" : "text-ink/65",
+                  ]}
+                >
+                  {s.desc}
+                </p>
+                <ul
+                  class:list={[
+                    "mt-8 grid gap-3 border-t pt-6 text-body-sm font-medium md:grid-cols-2",
+                    isDark
+                      ? "border-paper/10 text-paper/80"
+                      : "border-ink/10 text-ink/75",
+                  ]}
+                >
+                  {
+                    s.bullets.map((b) => (
+                      <li class="flex items-start gap-2">
+                        <span
+                          class:list={[
+                            "mt-2 inline-block h-1 w-1 shrink-0 rounded-full",
+                            isDark ? "bg-paper/50" : "bg-ink/40",
+                          ]}
+                        />
+                        {b}
+                      </li>
+                    ))
+                  }
+                </ul>
+              </article>
+            );
+          })
+        }
+      </div>
     </div>
   </section>
 
@@ -333,7 +455,6 @@ const projects = [
 </Base>
 
 <script>
-  // Rotating hero word
   const rotator = document.querySelector<HTMLElement>(".rotator");
   if (
     rotator &&
@@ -356,33 +477,11 @@ const projects = [
       }, 2200);
     }
   }
-
-  // Karya horizontal slide arrow nav
-  const track = document.querySelector<HTMLElement>("[data-karya-track]");
-  const prevBtn = document.querySelector<HTMLButtonElement>("[data-karya-prev]");
-  const nextBtn = document.querySelector<HTMLButtonElement>("[data-karya-next]");
-  if (track && prevBtn && nextBtn) {
-    const scrollByCard = (dir: 1 | -1) => {
-      const card = track.querySelector<HTMLElement>("a");
-      if (!card) return;
-      const step = card.getBoundingClientRect().width + 24;
-      track.scrollBy({ left: step * dir, behavior: "smooth" });
-    };
-    prevBtn.addEventListener("click", () => scrollByCard(-1));
-    nextBtn.addEventListener("click", () => scrollByCard(1));
-  }
 </script>
 
 <style>
-  .rotator {
-    overflow: hidden;
-    vertical-align: bottom;
-  }
-  .rotator-sizer {
-    visibility: hidden;
-    pointer-events: none;
-    display: inline-block;
-  }
+  .rotator { overflow: hidden; vertical-align: bottom; }
+  .rotator-sizer { visibility: hidden; pointer-events: none; display: inline-block; }
   .word {
     position: absolute;
     inset: 0;
@@ -395,15 +494,7 @@ const projects = [
       opacity 500ms cubic-bezier(0.22, 1, 0.36, 1),
       transform 500ms cubic-bezier(0.22, 1, 0.36, 1);
   }
-  .word.is-active {
-    opacity: 1;
-    transform: translate3d(0, 0, 0);
-  }
-  .word.is-prev {
-    opacity: 0;
-    transform: translate3d(0, -100%, 0);
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .word { transition: none; }
-  }
+  .word.is-active { opacity: 1; transform: translate3d(0, 0, 0); }
+  .word.is-prev { opacity: 0; transform: translate3d(0, -100%, 0); }
+  @media (prefers-reduced-motion: reduce) { .word { transition: none; } }
 </style>
