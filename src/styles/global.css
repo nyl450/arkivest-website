@@ -22,7 +22,7 @@
   --color-signal: #1E4FFF;       /* cobalt accent - reserved (inactive) */
   --color-signal-fg: #FFFFFF;
   --color-line: #E5E4E0;         /* border halus, visible on near-white paper */
-  --color-muted: #6B6A66;        /* caption, footer text */
+  --color-muted: #2A2926;        /* label/caption - near-ink (grey->black pass, James 2 Jun) */
   --color-success: #2A8C5F;
   --color-warn: #C6543D;
 
@@ -107,7 +107,7 @@
 @layer utilities {
   .reveal {
     opacity: 0;
-    transform: translate3d(0, 24px, 0);
+    transform: translate3d(0, 32px, 0);
     transition:
       opacity 700ms var(--ease-out-expo),
       transform 700ms var(--ease-out-expo);
@@ -137,4 +137,67 @@
   }
   .snap-row::-webkit-scrollbar { display: none; }
   .snap-row > * { scroll-snap-align: start; }
+}
+
+/* =============================================================
+   Aurora hero backdrop - monochrome, vanilla CSS, 0 JS.
+   Ported from a React/Framer/shadcn snippet to pure CSS so it
+   fits the no-React, 0-JS-bundle stack. Ink tones only - no
+   cobalt, no AI-purple gradient. Honors prefers-reduced-motion.
+   ============================================================= */
+@keyframes aurora {
+  from { background-position: 50% 50%, 50% 50%; }
+  to   { background-position: 350% 50%, 350% 50%; }
+}
+
+.aurora-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+.aurora-bg::before,
+.aurora-bg::after {
+  content: "";
+  position: absolute;
+  inset: -15%;
+  --aurora-base: repeating-linear-gradient(100deg, #fdfdfd 0%, #fdfdfd 7%, transparent 10%, transparent 12%, #fdfdfd 16%);
+  --aurora-bands: repeating-linear-gradient(100deg, #191818 10%, #9b9994 15%, #2b2a28 20%, #c2c0bb 25%, #191818 30%);
+  background-image: var(--aurora-base), var(--aurora-bands);
+  background-size: 300% 200%;
+  background-position: 50% 50%, 50% 50%;
+  filter: blur(36px);
+  opacity: 0.28;
+  mix-blend-mode: multiply;
+  -webkit-mask-image: radial-gradient(ellipse 80% 70% at 92% 0%, #000 8%, transparent 62%);
+  mask-image: radial-gradient(ellipse 80% 70% at 92% 0%, #000 8%, transparent 62%);
+}
+.aurora-bg::after {
+  background-size: 200% 100%;
+  animation: aurora 60s linear infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .aurora-bg::after { animation: none; }
+}
+
+/* =============================================================
+   Scroll-driven parallax drift - native CSS scroll timeline,
+   0 JS. Progressive enhancement: only runs where supported
+   (Chromium, Android). Safari/Firefox/iOS degrade to static.
+   Apply .drift to an <img> inside an overflow-hidden frame.
+   ============================================================= */
+@keyframes drift-y {
+  from { transform: translateY(-3%) scale(1.08); }
+  to   { transform: translateY(3%) scale(1.08); }
+}
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .drift {
+      animation: drift-y linear;
+      animation-timeline: view();
+      animation-range: cover;
+      will-change: transform;
+    }
+  }
 }

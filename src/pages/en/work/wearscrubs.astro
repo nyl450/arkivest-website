@@ -142,13 +142,13 @@ const breadcrumbLd = {
         {
           facts.map((f) => (
             <div>
-              <p class="font-mono text-caption uppercase tracking-[0.18em] text-ink/45">{f.k}</p>
+              <p class="font-mono text-caption uppercase tracking-[0.18em] text-ink/70">{f.k}</p>
               <p class="mt-2 text-body font-medium text-ink/80">{f.v}</p>
             </div>
           ))
         }
         <div>
-          <p class="font-mono text-caption uppercase tracking-[0.18em] text-ink/45">Live</p>
+          <p class="font-mono text-caption uppercase tracking-[0.18em] text-ink/70">Live</p>
           <a
             href={LIVE}
             target="_blank"
@@ -229,7 +229,7 @@ const breadcrumbLd = {
   <section class="relative rounded-t-[3rem] bg-ink pb-24 pt-20 text-paper lg:rounded-t-[4rem] lg:pb-32 lg:pt-28">
     <div class="mx-auto max-w-7xl px-6 lg:px-10">
       <div class="reveal grid gap-8 md:grid-cols-[1fr_2fr]">
-        <p class="font-mono text-caption uppercase tracking-[0.18em] text-paper/40">Decisions</p>
+        <p class="font-mono text-caption uppercase tracking-[0.18em] text-paper/55">Decisions</p>
         <h2 class="max-w-2xl text-[clamp(2rem,4vw,3.25rem)] font-semibold leading-[1.1] tracking-tight">
           Four decisions that shaped the system.
         </h2>
@@ -240,7 +240,7 @@ const breadcrumbLd = {
           decisions.map((d) => (
             <article class="reveal grid gap-8 border-t border-paper/10 pt-12 md:grid-cols-12 lg:pt-16">
               <div class="md:col-span-4">
-                <p class="font-mono text-caption text-paper/45">{d.no} / {d.label}</p>
+                <p class="font-mono text-caption text-paper/55">{d.no} / {d.label}</p>
               </div>
               <div class="md:col-span-8">
                 <h3 class="max-w-2xl text-h3 font-semibold tracking-tight lg:text-[clamp(1.5rem,2.5vw,2.25rem)] lg:leading-[1.15]">
@@ -288,7 +288,7 @@ const breadcrumbLd = {
         }
       </div>
 
-      <p class="reveal mt-12 max-w-2xl text-body-sm text-ink/45">
+      <p class="reveal mt-12 max-w-2xl text-body-sm text-ink/70">
         The admin dashboard isn't shown because it sits behind a login. The core
         of it: real-time inventory, WhatsApp ordering, pre-order and custom size,
         size exchange with consistent stock, and an audit trail at every step.
@@ -312,13 +312,13 @@ const breadcrumbLd = {
             <div class="reveal flex flex-col bg-paper p-8 lg:p-10">
               <p class="text-[clamp(2.5rem,5vw,3.75rem)] font-semibold leading-none tracking-[-0.02em]">{m.v}</p>
               <p class="mt-4 text-body font-medium text-ink/80">{m.k}</p>
-              <p class="mt-2 text-body-sm text-ink/55">{m.d}</p>
+              <p class="mt-2 text-body-sm text-ink/75">{m.d}</p>
             </div>
           ))
         }
       </div>
 
-      <p class="reveal mt-8 max-w-2xl text-body-sm text-ink/50">
+      <p class="reveal mt-8 max-w-2xl text-body-sm text-ink/75">
         Live at {""}
         <a href={LIVE} target="_blank" rel="noopener" class="underline decoration-ink/20 underline-offset-4 transition hover:decoration-ink">www.wearscrubs.id</a>
         {" "}with full SSL. Stock, price, and order status authoritative on the server.

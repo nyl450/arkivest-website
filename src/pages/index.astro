@@ -158,8 +158,9 @@ const services = [
 
 <Base title={title} description={description} lang="id">
   {/* ============ HERO ============ */}
-  <section class="relative pt-20 pb-12 lg:pt-28 lg:pb-20">
-    <div class="mx-auto w-full max-w-7xl px-6 lg:px-10">
+  <section class="relative overflow-hidden pt-20 pb-12 lg:pt-28 lg:pb-20">
+    <div class="aurora-bg" aria-hidden="true"></div>
+    <div class="relative z-10 mx-auto w-full max-w-7xl px-6 lg:px-10">
       <h1
         class="mx-auto max-w-4xl text-center text-[clamp(2.5rem,8.5vw,6.5rem)] font-semibold leading-[1.02] tracking-[-0.03em]"
       >
@@ -195,7 +196,7 @@ const services = [
           alt="Arkivest studio hero"
           width="2520"
           height="1080"
-          class="absolute inset-0 h-full w-full object-cover"
+          class="absolute inset-0 h-full w-full object-cover drift"
           loading="eager"
           fetchpriority="high"
         />
@@ -249,7 +250,7 @@ const services = [
       <div class="reveal flex flex-wrap items-end justify-between gap-6 pb-12 lg:pb-16">
         <div>
           <p
-            class="font-mono text-caption uppercase tracking-[0.18em] text-paper/40"
+            class="font-mono text-caption uppercase tracking-[0.18em] text-paper/55"
           >
             Karya · {projects.length} project
           </p>
@@ -267,8 +268,8 @@ const services = [
 
       <div class="grid gap-x-8 gap-y-16 md:grid-cols-2 lg:gap-x-10 lg:gap-y-20">
         {
-          projects.map((p) => (
-            <a href={p.href} class="reveal group block">
+          projects.map((p, i) => (
+            <a href={p.href} class:list={["reveal group block", i % 2 === 1 && "md:mt-16 lg:mt-28"]}>
               <div
                 class="relative aspect-[4/5] overflow-hidden rounded-3xl p-8 transition duration-500 group-hover:scale-[1.01] lg:rounded-[2rem] lg:p-10"
                 style={`background-color: ${p.bg}`}
@@ -278,7 +279,7 @@ const services = [
                     <p class="font-mono text-caption uppercase tracking-[0.18em] text-paper/50">
                       {p.eyebrow}
                     </p>
-                    <span class="font-mono text-caption uppercase tracking-widest text-paper/40">
+                    <span class="font-mono text-caption uppercase tracking-widest text-paper/55">
                       ↗
                     </span>
                   </div>
@@ -302,7 +303,7 @@ const services = [
                     {p.subtitle}
                   </p>
                 </div>
-                <span class="shrink-0 font-mono text-caption text-paper/40">
+                <span class="shrink-0 font-mono text-caption text-paper/55">
                   {p.domain}
                 </span>
               </div>
@@ -348,7 +349,7 @@ const services = [
                 <p
                   class:list={[
                     "font-mono text-caption uppercase tracking-[0.18em]",
-                    isDark ? "text-paper/40" : "text-ink/40",
+                    isDark ? "text-paper/55" : "text-ink/70",
                   ]}
                 >
                   {s.no} / Layanan
@@ -380,7 +381,7 @@ const services = [
                         <span
                           class:list={[
                             "mt-2 inline-block h-1 w-1 shrink-0 rounded-full",
-                            isDark ? "bg-paper/50" : "bg-ink/40",
+                            isDark ? "bg-paper/50" : "bg-ink/70",
                           ]}
                         />
                         {b}
@@ -415,7 +416,7 @@ const services = [
           pilars.map((p) => (
             <article class="reveal grid gap-8 border-t border-ink/10 pt-12 md:grid-cols-12 lg:pt-16">
               <div class="md:col-span-3">
-                <p class="font-mono text-caption text-ink/45">
+                <p class="font-mono text-caption text-ink/70">
                   {p.no} / {p.label}
                 </p>
               </div>
