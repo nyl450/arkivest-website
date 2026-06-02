@@ -145,39 +145,51 @@
    fits the no-React, 0-JS-bundle stack. Ink tones only - no
    cobalt, no AI-purple gradient. Honors prefers-reduced-motion.
    ============================================================= */
-@keyframes aurora {
-  from { background-position: 50% 50%, 50% 50%; }
-  to   { background-position: 350% 50%, 350% 50%; }
-}
-
 .aurora-bg {
   position: absolute;
   inset: 0;
   z-index: 0;
   overflow: hidden;
   pointer-events: none;
+  /* Fade the whole field into the hero, concentrated top-right */
+  -webkit-mask-image: radial-gradient(ellipse 95% 85% at 82% -8%, #000 22%, transparent 72%);
+  mask-image: radial-gradient(ellipse 95% 85% at 82% -8%, #000 22%, transparent 72%);
 }
+/* Two soft ink clouds drifting via transform (GPU only, per Emil's
+   "animate transform/opacity" rule). Ambient constant motion -> linear. */
 .aurora-bg::before,
 .aurora-bg::after {
   content: "";
   position: absolute;
-  inset: -15%;
-  --aurora-base: repeating-linear-gradient(100deg, #fdfdfd 0%, #fdfdfd 7%, transparent 10%, transparent 12%, #fdfdfd 16%);
-  --aurora-bands: repeating-linear-gradient(100deg, #191818 10%, #9b9994 15%, #2b2a28 20%, #c2c0bb 25%, #191818 30%);
-  background-image: var(--aurora-base), var(--aurora-bands);
-  background-size: 300% 200%;
-  background-position: 50% 50%, 50% 50%;
-  filter: blur(36px);
-  opacity: 0.28;
-  mix-blend-mode: multiply;
-  -webkit-mask-image: radial-gradient(ellipse 80% 70% at 92% 0%, #000 8%, transparent 62%);
-  mask-image: radial-gradient(ellipse 80% 70% at 92% 0%, #000 8%, transparent 62%);
+  inset: -45%;
+  background-repeat: no-repeat;
+  filter: blur(56px);
+  will-change: transform;
+}
+.aurora-bg::before {
+  background:
+    radial-gradient(42% 55% at 72% 22%, rgba(25, 24, 24, 0.62), transparent 68%),
+    radial-gradient(34% 44% at 92% 4%, rgba(43, 42, 40, 0.5), transparent 70%);
+  animation: aurora-a 22s linear infinite;
 }
 .aurora-bg::after {
-  background-size: 200% 100%;
-  animation: aurora 60s linear infinite;
+  background:
+    radial-gradient(46% 52% at 84% 8%, rgba(25, 24, 24, 0.42), transparent 70%),
+    radial-gradient(30% 40% at 62% 18%, rgba(70, 68, 64, 0.4), transparent 72%);
+  animation: aurora-b 30s linear infinite;
+}
+@keyframes aurora-a {
+  0%   { transform: translate3d(0, 0, 0) rotate(0deg); }
+  50%  { transform: translate3d(-7%, 5%, 0) rotate(9deg); }
+  100% { transform: translate3d(0, 0, 0) rotate(0deg); }
+}
+@keyframes aurora-b {
+  0%   { transform: translate3d(0, 0, 0) rotate(0deg); }
+  50%  { transform: translate3d(6%, -4%, 0) rotate(-7deg); }
+  100% { transform: translate3d(0, 0, 0) rotate(0deg); }
 }
 @media (prefers-reduced-motion: reduce) {
+  .aurora-bg::before,
   .aurora-bg::after { animation: none; }
 }
 
@@ -188,8 +200,8 @@
    Apply .drift to an <img> inside an overflow-hidden frame.
    ============================================================= */
 @keyframes drift-y {
-  from { transform: translateY(-3%) scale(1.08); }
-  to   { transform: translateY(3%) scale(1.08); }
+  from { transform: translateY(-10%) scale(1.2); }
+  to   { transform: translateY(10%) scale(1.2); }
 }
 @media (prefers-reduced-motion: no-preference) {
   @supports (animation-timeline: view()) {
