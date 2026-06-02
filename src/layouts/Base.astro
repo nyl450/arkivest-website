@@ -72,6 +72,9 @@ const altEN = new URL(enPath, SITE).toString();
           "Web studio Indonesia. Bangun website siap konversi untuk UKM yang serius. Stack modern, security dipraktikkan, SEO terukur.",
       })}
     />
+
+    {/* Per-page head injection (extra structured data, preloads, etc.) */}
+    <slot name="head" />
   </head>
   <body class="bg-paper text-ink antialiased">
     <Header lang={lang} />

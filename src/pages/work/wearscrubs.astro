@@ -1,0 +1,383 @@
+---
+import Base from "@layouts/Base.astro";
+import { Picture } from "astro:assets";
+import homeImg from "@/assets/work/wearscrubs/home.png";
+import catalogImg from "@/assets/work/wearscrubs/catalog.png";
+import productImg from "@/assets/work/wearscrubs/product.png";
+import storyImg from "@/assets/work/wearscrubs/story.png";
+
+const title = "Wearscrubs - Studi kasus e-commerce scrubs dokter | Arkivest";
+const description =
+  "Bagaimana Arkivest mengubah pengelolaan order manual spreadsheet jadi dashboard intuitif yang dipakai admin non-teknis. Security, stok atomik, performa terukur.";
+
+const SITE = "https://arkivest.id";
+const LIVE = "https://www.wearscrubs.id";
+
+// Meta kerja - end to end, jujur
+const facts = [
+  { k: "Peran", v: "Desain, build, security, deploy" },
+  { k: "Tahun", v: "2026" },
+  { k: "Status", v: "Live, full SSL" },
+];
+const stack = ["HTML/CSS/JS", "Tailwind", "Node.js", "Express", "PostgreSQL", "Supabase", "Railway"];
+
+const decisions = [
+  {
+    no: "01",
+    label: "Dashboard untuk non-teknis",
+    title: "Admin harus bisa pakai tanpa training.",
+    body: "Admin Wearscrubs adalah istri owner, bukan operator gudang. Alur dimodelkan sesuai realita kerjanya: pre-order saat stok habis, custom size off-katalog, bordir hanya untuk atasan, foto bukti opsional di langkah tertentu untuk hemat storage. Setiap langkah mencatat siapa yang melakukan dan kapan.",
+  },
+  {
+    no: "02",
+    label: "Security dipraktikkan",
+    title: "Bukan checklist, bukti yang dijalankan.",
+    body: "Row-Level Security di 11 tabel publik (kebocoran anon-key dites lalu ditutup). JWT plus bcrypt, rate limiter login 5 percobaan per 15 menit. Bukti bayar pindah ke bucket privat dengan signed URL kedaluwarsa 1 jam. Harga dan status order otoritatif di server, tidak pernah dipercaya dari klien.",
+  },
+  {
+    no: "03",
+    label: "Stok yang tidak pernah salah",
+    title: "Transaksi atomik, bukan tebakan.",
+    body: "Setiap mutasi stok jalan dalam transaksi dengan row lock, jadi dua proses tidak bisa memotong stok yang sama. Pre-order dialokasikan FIFO dan hanya untuk order yang sudah dibayar. Cancel, edit, dan tukar size semuanya membalikkan pergerakan stok dengan benar. Integritas data diverifikasi: nol baris orphan, negatif, atau duplikat.",
+  },
+  {
+    no: "04",
+    label: "Performa dan SEO terukur",
+    title: "Cepat di 4G, ditemukan di Google.",
+    body: "Aset gambar dipangkas dari 527 MB ke 27 MB dengan WebP. Tailwind CDN diganti CSS statis terkompilasi sekitar 12 KB gzip. SEO digarap sampai meta: title unik berkeyword, structured data Product dan FAQ, hreflang ID-EN, sitemap, dan halaman FAQ yang sebelumnya kosong kini terisi konten asli.",
+  },
+];
+
+const builds = [
+  {
+    img: homeImg,
+    alt: "Halaman depan Wearscrubs - hero tiga panel dengan koleksi atasan, celana, dan cap scrub",
+    cap: "Storefront. Hero tiga panel, dark theme premium, navigasi pill mengambang.",
+    eager: true,
+  },
+  {
+    img: catalogImg,
+    alt: "Halaman kategori Atasan Scrub - grid produk dengan filter panjang lengan, ukuran, harga, dan swatch warna",
+    cap: "Katalog. Filter panjang lengan dan ukuran, harga, swatch warna per produk.",
+    eager: false,
+  },
+  {
+    img: productImg,
+    alt: "Halaman detail produk Minna - galeri foto produk dengan sertifikasi kain HeiQ Pure",
+    cap: "Detail produk. Galeri, varian, bordir nama/logo untuk atasan, sertifikasi kain.",
+    eager: false,
+  },
+  {
+    img: storyImg,
+    alt: "Halaman Cerita Kami Wearscrubs - editorial tentang mendefinisikan ulang pakaian medis",
+    cap: "Cerita Kami. Halaman editorial bilingual ID-EN, sama matangnya dengan storefront.",
+    eager: false,
+  },
+];
+
+const metrics = [
+  { v: "-95%", k: "berat aset gambar", d: "527 MB ke 27 MB dengan WebP" },
+  { v: "~12 KB", k: "CSS terkirim (gzip)", d: "dari Tailwind CDN ke statis terkompilasi" },
+  { v: "11", k: "tabel dengan RLS aktif", d: "anon-key terblok dari data sensitif" },
+  { v: "0", k: "data orphan / negatif", d: "integritas DB diverifikasi penuh" },
+];
+
+const honest = [
+  {
+    title: "Kompresi gambar harus diverifikasi mata, bukan cuma angka.",
+    body: "Percobaan pertama pakai PNG palette in-place. Ukuran turun drastis, tapi foto produk jadi pucat. Di-revert ke WebP truecolor. Pelajaran: metrik ukuran file tidak cukup, hasil visual tetap harus dilihat.",
+  },
+  {
+    title: "Ongkir presisi penuh masih bertahap.",
+    body: "Mulai dari flat rate kasar, naik ke lima zona interim yang sudah live, dengan target akhir tarif per-kecamatan lewat API kurir. Bagian terakhir menunggu approval API pihak ketiga. Kami pilih go-live dengan solusi yang benar dulu daripada menunda demi yang sempurna.",
+  },
+];
+
+const ld = {
+  "@context": "https://schema.org",
+  "@type": "CreativeWork",
+  name: "Wearscrubs",
+  headline: "Wearscrubs - studi kasus e-commerce scrubs dokter",
+  description,
+  url: `${SITE}/work/wearscrubs`,
+  creator: { "@type": "Organization", name: "Arkivest", url: SITE },
+  about: "E-commerce, dashboard admin, security, performa web",
+  dateCreated: "2026",
+};
+const breadcrumbLd = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Karya", item: `${SITE}/work` },
+    { "@type": "ListItem", position: 2, name: "Wearscrubs", item: `${SITE}/work/wearscrubs` },
+  ],
+};
+---
+
+<Base title={title} description={description} lang="id">
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(ld)} />
+    <script type="application/ld+json" set:html={JSON.stringify(breadcrumbLd)} />
+  </Fragment>
+
+  {/* ============ HERO ============ */}
+  <section class="pt-16 pb-8 lg:pt-24 lg:pb-12">
+    <div class="mx-auto max-w-7xl px-6 lg:px-10">
+      <nav class="reveal flex items-center gap-2 font-mono text-caption uppercase tracking-[0.18em] text-muted" aria-label="Breadcrumb">
+        <a href="/work" class="transition hover:text-ink">Karya</a>
+        <span aria-hidden="true">/</span>
+        <span class="text-ink/70">Wearscrubs</span>
+      </nav>
+
+      <h1 class="reveal mt-10 max-w-5xl text-[clamp(2.25rem,6vw,4.75rem)] font-semibold leading-[1.05] tracking-[-0.025em]">
+        Toko scrubs dokter dengan dashboard yang dipakai admin nyata, bukan demo board.
+      </h1>
+
+      <p class="reveal reveal-delay-1 mt-8 max-w-2xl text-body-lg leading-[1.55] text-ink/65">
+        Pengelolaan order pindah dari spreadsheet manual ke satu dashboard yang
+        bisa dipakai tanpa training. Security dipraktikkan, stok tidak pernah
+        salah, performa ringan di 4G.
+      </p>
+
+      <div class="reveal reveal-delay-2 mt-12 grid gap-8 border-t border-ink/10 pt-10 sm:grid-cols-2 lg:grid-cols-4">
+        {
+          facts.map((f) => (
+            <div>
+              <p class="font-mono text-caption uppercase tracking-[0.18em] text-ink/45">{f.k}</p>
+              <p class="mt-2 text-body font-medium text-ink/80">{f.v}</p>
+            </div>
+          ))
+        }
+        <div>
+          <p class="font-mono text-caption uppercase tracking-[0.18em] text-ink/45">Live</p>
+          <a
+            href={LIVE}
+            target="_blank"
+            rel="noopener"
+            class="group mt-2 inline-flex items-center gap-1.5 text-body font-medium text-ink/80 transition hover:text-ink"
+          >
+            wearscrubs.id
+            <span class="inline-block transition-transform duration-300 group-hover:translate-x-0.5" aria-hidden="true">↗</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="reveal mt-8 flex flex-wrap gap-2">
+        {
+          stack.map((s) => (
+            <span class="rounded-full border border-ink/12 px-3.5 py-1.5 font-mono text-caption text-ink/60">
+              {s}
+            </span>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {/* ============ COVER IMAGE ============ */}
+  <section class="pb-8 lg:pb-12">
+    <div class="mx-auto max-w-7xl px-6 lg:px-10">
+      <div class="reveal relative aspect-[16/10] overflow-hidden rounded-[2rem] bg-ink shadow-[0_40px_80px_-40px_rgba(25,24,24,0.4)] lg:aspect-[2/1] lg:rounded-[2.5rem]">
+        <Picture
+          src={homeImg}
+          formats={["avif", "webp"]}
+          widths={[768, 1280, 1920]}
+          sizes="(min-width: 1280px) 1216px, 100vw"
+          alt="Halaman depan Wearscrubs - storefront premium tiga panel"
+          loading="eager"
+          class="absolute inset-0 h-full w-full object-cover object-top"
+        />
+      </div>
+    </div>
+  </section>
+
+  {/* ============ THE BRIEF ============ */}
+  <section class="py-20 lg:py-28">
+    <div class="mx-auto max-w-7xl px-6 lg:px-10">
+      <div class="grid gap-12 lg:grid-cols-[1fr_1.6fr]">
+        <div class="reveal">
+          <p class="font-mono text-caption uppercase tracking-[0.18em] text-muted">Brief</p>
+          <h2 class="mt-5 text-h2 font-semibold tracking-tight lg:text-[clamp(2rem,3.5vw,3rem)] lg:leading-[1.1]">
+            Spreadsheet sudah tidak cukup.
+          </h2>
+        </div>
+        <div class="reveal reveal-delay-1 space-y-6 text-body-lg leading-[1.6] text-ink/70">
+          <p>
+            Wearscrubs menjual scrubs untuk dokter. Order, invoice, dan koordinasi
+            dengan penjahit dikelola admin lewat spreadsheet manual dan WhatsApp.
+            Begitu volume naik, cara itu rapuh: stok tidak sinkron, riwayat
+            hilang, satu kesalahan ketik bisa mengirim barang yang belum jadi.
+          </p>
+          <p>
+            Permintaannya bukan sekadar toko online. Yang dibutuhkan adalah satu
+            sistem: storefront yang layak jual, dan dashboard yang cukup intuitif
+            untuk dipakai admin non-teknis setiap hari tanpa pelatihan.
+          </p>
+          <p class="text-ink/60">
+            Lingkup: e-commerce publik bilingual ID-EN, dashboard admin penuh
+            (produk, inventori, order, pergerakan stok, order via WhatsApp,
+            pre-order, custom size, tukar size, invoice PDF), security, performa,
+            sampai go-live di domain sendiri. Dikerjakan iteratif lewat enam fase:
+            audit bug, polish konten, SEO, performa, security, onboarding admin.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {/* ============ DECISIONS ============ */}
+  <section class="relative rounded-t-[3rem] bg-ink pb-24 pt-20 text-paper lg:rounded-t-[4rem] lg:pb-32 lg:pt-28">
+    <div class="mx-auto max-w-7xl px-6 lg:px-10">
+      <div class="reveal grid gap-8 md:grid-cols-[1fr_2fr]">
+        <p class="font-mono text-caption uppercase tracking-[0.18em] text-paper/40">Keputusan</p>
+        <h2 class="max-w-2xl text-[clamp(2rem,4vw,3.25rem)] font-semibold leading-[1.1] tracking-tight">
+          Empat keputusan yang membentuk sistem ini.
+        </h2>
+      </div>
+
+      <div class="mt-20 space-y-16 lg:space-y-24">
+        {
+          decisions.map((d) => (
+            <article class="reveal grid gap-8 border-t border-paper/10 pt-12 md:grid-cols-12 lg:pt-16">
+              <div class="md:col-span-4">
+                <p class="font-mono text-caption text-paper/45">{d.no} / {d.label}</p>
+              </div>
+              <div class="md:col-span-8">
+                <h3 class="max-w-2xl text-h3 font-semibold tracking-tight lg:text-[clamp(1.5rem,2.5vw,2.25rem)] lg:leading-[1.15]">
+                  {d.title}
+                </h3>
+                <p class="mt-6 max-w-2xl text-body-lg leading-[1.6] text-paper/70">{d.body}</p>
+              </div>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {/* ============ BUILD (real screenshots) ============ */}
+  <section class="relative -mt-12 rounded-t-[3rem] bg-paper pb-24 pt-24 lg:-mt-16 lg:rounded-t-[4rem] lg:pb-32 lg:pt-32">
+    <div class="mx-auto max-w-7xl px-6 lg:px-10">
+      <div class="reveal grid gap-8 lg:grid-cols-[2fr_1fr] lg:items-end">
+        <h2 class="text-[clamp(2.5rem,6vw,5rem)] font-semibold leading-[0.98] tracking-[-0.03em]">
+          Yang<br />dibangun.
+        </h2>
+        <p class="max-w-md text-body-lg text-ink/65">
+          Tangkapan layar asli dari situs live. Bukan mockup, bukan render.
+        </p>
+      </div>
+
+      <div class="mt-16 grid gap-8 md:grid-cols-2 lg:mt-24 lg:gap-10">
+        {
+          builds.map((b) => (
+            <figure class="reveal">
+              <div class="relative aspect-[4/3] overflow-hidden rounded-3xl border border-ink/8 bg-paper-2 lg:rounded-[2rem]">
+                <Picture
+                  src={b.img}
+                  formats={["avif", "webp"]}
+                  widths={[640, 1024, 1440]}
+                  sizes="(min-width: 768px) 50vw, 100vw"
+                  alt={b.alt}
+                  loading={b.eager ? "eager" : "lazy"}
+                  class="absolute inset-0 h-full w-full object-cover object-top"
+                />
+              </div>
+              <figcaption class="mt-4 text-body-sm text-ink/60">{b.cap}</figcaption>
+            </figure>
+          ))
+        }
+      </div>
+
+      <p class="reveal mt-12 max-w-2xl text-body-sm text-ink/45">
+        Dashboard admin tidak ditampilkan karena berada di balik login. Inti
+        kerjanya: inventori real-time, order via WhatsApp, pre-order dan custom
+        size, tukar size dengan stok yang konsisten, dan jejak audit di setiap
+        langkah.
+      </p>
+    </div>
+  </section>
+
+  {/* ============ RESULT ============ */}
+  <section class="py-20 lg:py-32">
+    <div class="mx-auto max-w-7xl px-6 lg:px-10">
+      <div class="reveal grid gap-8 md:grid-cols-[1fr_2fr]">
+        <p class="font-mono text-caption uppercase tracking-[0.18em] text-muted">Hasil</p>
+        <h2 class="max-w-2xl text-h2 font-semibold tracking-tight lg:text-[clamp(2rem,4vw,3.25rem)] lg:leading-[1.1]">
+          Angka yang bisa diverifikasi, bukan klaim.
+        </h2>
+      </div>
+
+      <div class="mt-16 grid gap-px overflow-hidden rounded-[2rem] border border-ink/10 bg-ink/10 sm:grid-cols-2 lg:mt-20 lg:grid-cols-4">
+        {
+          metrics.map((m) => (
+            <div class="reveal flex flex-col bg-paper p-8 lg:p-10">
+              <p class="text-[clamp(2.5rem,5vw,3.75rem)] font-semibold leading-none tracking-[-0.02em]">{m.v}</p>
+              <p class="mt-4 text-body font-medium text-ink/80">{m.k}</p>
+              <p class="mt-2 text-body-sm text-ink/55">{m.d}</p>
+            </div>
+          ))
+        }
+      </div>
+
+      <p class="reveal mt-8 max-w-2xl text-body-sm text-ink/50">
+        Live di {""}
+        <a href={LIVE} target="_blank" rel="noopener" class="underline decoration-ink/20 underline-offset-4 transition hover:decoration-ink">www.wearscrubs.id</a>
+        {" "}dengan SSL penuh. Stok, harga, dan status order otoritatif di server.
+      </p>
+    </div>
+  </section>
+
+  {/* ============ WHAT WE'D DO DIFFERENTLY ============ */}
+  <section class="pb-20 lg:pb-28">
+    <div class="mx-auto max-w-7xl px-6 lg:px-10">
+      <div class="reveal grid gap-8 md:grid-cols-[1fr_2fr]">
+        <p class="font-mono text-caption uppercase tracking-[0.18em] text-muted">Jujur</p>
+        <h2 class="max-w-2xl text-h2 font-semibold tracking-tight lg:text-[clamp(2rem,4vw,3.25rem)] lg:leading-[1.1]">
+          Yang akan kami lakukan beda.
+        </h2>
+      </div>
+
+      <div class="mt-16 grid gap-10 md:grid-cols-2 lg:mt-20 lg:gap-16">
+        {
+          honest.map((h) => (
+            <article class="reveal border-t border-ink/10 pt-8">
+              <h3 class="max-w-md text-h4 font-semibold tracking-tight lg:text-h3">{h.title}</h3>
+              <p class="mt-5 max-w-md text-body-lg leading-[1.6] text-ink/70">{h.body}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {/* ============ CTA ============ */}
+  <section>
+    <div class="mx-auto max-w-5xl px-6 lg:px-10">
+      <div class="reveal relative overflow-hidden rounded-[2.5rem] border border-ink/10 p-12 lg:p-20">
+        <p class="font-mono text-caption uppercase tracking-[0.18em] text-muted">Mulai</p>
+        <h2 class="mt-6 max-w-3xl text-[clamp(2rem,5.5vw,4.5rem)] font-semibold leading-[1.02] tracking-[-0.02em]">
+          Punya produk, butuh sistem yang sama seriusnya?
+        </h2>
+        <p class="mt-8 max-w-xl text-body-lg text-ink/70">
+          Mulai Rp 5 juta. Timeline jelas. Kode jadi milik Anda. Maintenance opsional.
+        </p>
+        <div class="mt-12 flex flex-wrap items-center gap-3">
+          <a
+            href="/contact"
+            class="group inline-flex items-center gap-3 rounded-2xl bg-ink px-8 py-4 text-body font-medium text-paper transition hover:bg-ink/85"
+          >
+            Diskusi project
+            <span class="inline-block transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true">→</span>
+          </a>
+          <a
+            href="https://wa.me/6287887172220?text=Halo%20Arkivest%2C%20saya%20lihat%20studi%20kasus%20Wearscrubs"
+            class="rounded-full border border-ink/15 px-8 py-4 text-body font-medium text-ink transition hover:border-ink hover:bg-ink/5"
+            rel="noopener"
+          >
+            WhatsApp langsung
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>

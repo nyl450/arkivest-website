@@ -1,0 +1,382 @@
+---
+import Base from "@layouts/Base.astro";
+import { Picture } from "astro:assets";
+import homeImg from "@/assets/work/wearscrubs/home.png";
+import catalogImg from "@/assets/work/wearscrubs/catalog.png";
+import productImg from "@/assets/work/wearscrubs/product.png";
+import storyImg from "@/assets/work/wearscrubs/story.png";
+
+const title = "Wearscrubs - E-commerce case study for medical scrubs | Arkivest";
+const description =
+  "How Arkivest turned manual spreadsheet order handling into an intuitive dashboard a non-technical admin runs daily. Security, atomic stock, measured performance.";
+
+const SITE = "https://arkivest.id";
+const LIVE = "https://www.wearscrubs.id";
+
+const facts = [
+  { k: "Role", v: "Design, build, security, deploy" },
+  { k: "Year", v: "2026" },
+  { k: "Status", v: "Live, full SSL" },
+];
+const stack = ["HTML/CSS/JS", "Tailwind", "Node.js", "Express", "PostgreSQL", "Supabase", "Railway"];
+
+const decisions = [
+  {
+    no: "01",
+    label: "A dashboard for non-technical hands",
+    title: "The admin must use it without training.",
+    body: "The Wearscrubs admin is the owner's wife, not a warehouse operator. The flow is modeled on how she actually works: pre-orders when stock runs out, off-catalog custom sizes, embroidery only for tops, optional proof photos at certain steps to save storage. Every step records who did it and when.",
+  },
+  {
+    no: "02",
+    label: "Security, practiced",
+    title: "Not a checklist - evidence that runs.",
+    body: "Row-Level Security on 11 public tables (the anon-key leak was tested, then closed). JWT plus bcrypt, login rate limiter at 5 attempts per 15 minutes. Payment proofs moved to a private bucket with signed URLs that expire in 1 hour. Price and order status are authoritative on the server, never trusted from the client.",
+  },
+  {
+    no: "03",
+    label: "Stock that never lies",
+    title: "Atomic transactions, not guesswork.",
+    body: "Every stock mutation runs inside a transaction with a row lock, so two processes can't decrement the same stock. Pre-orders are allocated FIFO and only for paid orders. Cancel, edit, and size exchange all reverse stock movements correctly. Data integrity verified: zero orphan, negative, or duplicate rows.",
+  },
+  {
+    no: "04",
+    label: "Measured performance and SEO",
+    title: "Fast on 4G, found on Google.",
+    body: "Image assets trimmed from 527 MB to 27 MB with WebP. The Tailwind CDN was replaced with compiled static CSS, roughly 12 KB gzipped. SEO worked down to the meta: unique keyworded titles, Product and FAQ structured data, ID-EN hreflang, sitemap, and an FAQ page that was previously empty now filled with real content.",
+  },
+];
+
+const builds = [
+  {
+    img: homeImg,
+    alt: "Wearscrubs storefront - three-panel hero with scrub tops, pants, and caps collections",
+    cap: "Storefront. Three-panel hero, premium dark theme, floating pill nav.",
+    eager: true,
+  },
+  {
+    img: catalogImg,
+    alt: "Scrub tops category page - product grid with sleeve-length filter, size, price, and color swatches",
+    cap: "Catalog. Sleeve and size filters, prices, per-product color swatches.",
+    eager: false,
+  },
+  {
+    img: productImg,
+    alt: "Minna product detail page - product photo gallery with HeiQ Pure fabric certification",
+    cap: "Product detail. Gallery, variants, name/logo embroidery for tops, fabric certification.",
+    eager: false,
+  },
+  {
+    img: storyImg,
+    alt: "Wearscrubs About Us page - editorial about redefining medical apparel",
+    cap: "About Us. Bilingual ID-EN editorial page, as polished as the storefront.",
+    eager: false,
+  },
+];
+
+const metrics = [
+  { v: "-95%", k: "image asset weight", d: "527 MB down to 27 MB with WebP" },
+  { v: "~12 KB", k: "CSS shipped (gzip)", d: "from Tailwind CDN to compiled static" },
+  { v: "11", k: "tables with RLS on", d: "anon-key blocked from sensitive data" },
+  { v: "0", k: "orphan / negative rows", d: "DB integrity fully verified" },
+];
+
+const honest = [
+  {
+    title: "Image compression has to be judged by eye, not just numbers.",
+    body: "The first attempt used in-place PNG palette. File size dropped sharply, but product photos turned washed-out. Reverted to truecolor WebP. The lesson: file-size metrics aren't enough, the visual result still has to be looked at.",
+  },
+  {
+    title: "Full shipping precision is still phased.",
+    body: "It started with a rough flat rate, moved up to a five-zone interim that is already live, with the end goal of per-district rates via a courier API. That last part waits on a third-party API approval. We chose to go live with a correct solution first rather than stall for the perfect one.",
+  },
+];
+
+const ld = {
+  "@context": "https://schema.org",
+  "@type": "CreativeWork",
+  name: "Wearscrubs",
+  headline: "Wearscrubs - e-commerce case study for medical scrubs",
+  description,
+  url: `${SITE}/en/work/wearscrubs`,
+  creator: { "@type": "Organization", name: "Arkivest", url: SITE },
+  about: "E-commerce, admin dashboard, security, web performance",
+  dateCreated: "2026",
+};
+const breadcrumbLd = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Work", item: `${SITE}/en/work` },
+    { "@type": "ListItem", position: 2, name: "Wearscrubs", item: `${SITE}/en/work/wearscrubs` },
+  ],
+};
+---
+
+<Base title={title} description={description} lang="en">
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(ld)} />
+    <script type="application/ld+json" set:html={JSON.stringify(breadcrumbLd)} />
+  </Fragment>
+
+  {/* ============ HERO ============ */}
+  <section class="pt-16 pb-8 lg:pt-24 lg:pb-12">
+    <div class="mx-auto max-w-7xl px-6 lg:px-10">
+      <nav class="reveal flex items-center gap-2 font-mono text-caption uppercase tracking-[0.18em] text-muted" aria-label="Breadcrumb">
+        <a href="/en/work" class="transition hover:text-ink">Work</a>
+        <span aria-hidden="true">/</span>
+        <span class="text-ink/70">Wearscrubs</span>
+      </nav>
+
+      <h1 class="reveal mt-10 max-w-5xl text-[clamp(2.25rem,6vw,4.75rem)] font-semibold leading-[1.05] tracking-[-0.025em]">
+        A scrubs store with a dashboard a real admin runs, not a demo board.
+      </h1>
+
+      <p class="reveal reveal-delay-1 mt-8 max-w-2xl text-body-lg leading-[1.55] text-ink/65">
+        Order handling moved from a manual spreadsheet to one dashboard that
+        works without training. Security practiced, stock that never lies,
+        performance light on 4G.
+      </p>
+
+      <div class="reveal reveal-delay-2 mt-12 grid gap-8 border-t border-ink/10 pt-10 sm:grid-cols-2 lg:grid-cols-4">
+        {
+          facts.map((f) => (
+            <div>
+              <p class="font-mono text-caption uppercase tracking-[0.18em] text-ink/45">{f.k}</p>
+              <p class="mt-2 text-body font-medium text-ink/80">{f.v}</p>
+            </div>
+          ))
+        }
+        <div>
+          <p class="font-mono text-caption uppercase tracking-[0.18em] text-ink/45">Live</p>
+          <a
+            href={LIVE}
+            target="_blank"
+            rel="noopener"
+            class="group mt-2 inline-flex items-center gap-1.5 text-body font-medium text-ink/80 transition hover:text-ink"
+          >
+            wearscrubs.id
+            <span class="inline-block transition-transform duration-300 group-hover:translate-x-0.5" aria-hidden="true">↗</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="reveal mt-8 flex flex-wrap gap-2">
+        {
+          stack.map((s) => (
+            <span class="rounded-full border border-ink/12 px-3.5 py-1.5 font-mono text-caption text-ink/60">
+              {s}
+            </span>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {/* ============ COVER IMAGE ============ */}
+  <section class="pb-8 lg:pb-12">
+    <div class="mx-auto max-w-7xl px-6 lg:px-10">
+      <div class="reveal relative aspect-[16/10] overflow-hidden rounded-[2rem] bg-ink shadow-[0_40px_80px_-40px_rgba(25,24,24,0.4)] lg:aspect-[2/1] lg:rounded-[2.5rem]">
+        <Picture
+          src={homeImg}
+          formats={["avif", "webp"]}
+          widths={[768, 1280, 1920]}
+          sizes="(min-width: 1280px) 1216px, 100vw"
+          alt="Wearscrubs storefront - premium three-panel hero"
+          loading="eager"
+          class="absolute inset-0 h-full w-full object-cover object-top"
+        />
+      </div>
+    </div>
+  </section>
+
+  {/* ============ THE BRIEF ============ */}
+  <section class="py-20 lg:py-28">
+    <div class="mx-auto max-w-7xl px-6 lg:px-10">
+      <div class="grid gap-12 lg:grid-cols-[1fr_1.6fr]">
+        <div class="reveal">
+          <p class="font-mono text-caption uppercase tracking-[0.18em] text-muted">Brief</p>
+          <h2 class="mt-5 text-h2 font-semibold tracking-tight lg:text-[clamp(2rem,3.5vw,3rem)] lg:leading-[1.1]">
+            The spreadsheet stopped being enough.
+          </h2>
+        </div>
+        <div class="reveal reveal-delay-1 space-y-6 text-body-lg leading-[1.6] text-ink/70">
+          <p>
+            Wearscrubs sells scrubs for doctors. Orders, invoices, and tailor
+            coordination were run by the admin through a manual spreadsheet and
+            WhatsApp. As volume grew, that broke down: stock fell out of sync,
+            history got lost, one typo could ship goods that weren't made yet.
+          </p>
+          <p>
+            The ask wasn't just an online store. What was needed was one system:
+            a storefront worth selling on, and a dashboard intuitive enough for a
+            non-technical admin to use every day without training.
+          </p>
+          <p class="text-ink/60">
+            Scope: a bilingual ID-EN public store, a full admin dashboard
+            (products, inventory, orders, stock movements, WhatsApp ordering,
+            pre-order, custom size, size exchange, PDF invoices), security,
+            performance, and go-live on its own domain. Built iteratively across
+            six phases: bug audit, content polish, SEO, performance, security,
+            admin onboarding.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {/* ============ DECISIONS ============ */}
+  <section class="relative rounded-t-[3rem] bg-ink pb-24 pt-20 text-paper lg:rounded-t-[4rem] lg:pb-32 lg:pt-28">
+    <div class="mx-auto max-w-7xl px-6 lg:px-10">
+      <div class="reveal grid gap-8 md:grid-cols-[1fr_2fr]">
+        <p class="font-mono text-caption uppercase tracking-[0.18em] text-paper/40">Decisions</p>
+        <h2 class="max-w-2xl text-[clamp(2rem,4vw,3.25rem)] font-semibold leading-[1.1] tracking-tight">
+          Four decisions that shaped the system.
+        </h2>
+      </div>
+
+      <div class="mt-20 space-y-16 lg:space-y-24">
+        {
+          decisions.map((d) => (
+            <article class="reveal grid gap-8 border-t border-paper/10 pt-12 md:grid-cols-12 lg:pt-16">
+              <div class="md:col-span-4">
+                <p class="font-mono text-caption text-paper/45">{d.no} / {d.label}</p>
+              </div>
+              <div class="md:col-span-8">
+                <h3 class="max-w-2xl text-h3 font-semibold tracking-tight lg:text-[clamp(1.5rem,2.5vw,2.25rem)] lg:leading-[1.15]">
+                  {d.title}
+                </h3>
+                <p class="mt-6 max-w-2xl text-body-lg leading-[1.6] text-paper/70">{d.body}</p>
+              </div>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {/* ============ BUILD (real screenshots) ============ */}
+  <section class="relative -mt-12 rounded-t-[3rem] bg-paper pb-24 pt-24 lg:-mt-16 lg:rounded-t-[4rem] lg:pb-32 lg:pt-32">
+    <div class="mx-auto max-w-7xl px-6 lg:px-10">
+      <div class="reveal grid gap-8 lg:grid-cols-[2fr_1fr] lg:items-end">
+        <h2 class="text-[clamp(2.5rem,6vw,5rem)] font-semibold leading-[0.98] tracking-[-0.03em]">
+          What we<br />built.
+        </h2>
+        <p class="max-w-md text-body-lg text-ink/65">
+          Real screenshots from the live site. No mockups, no renders.
+        </p>
+      </div>
+
+      <div class="mt-16 grid gap-8 md:grid-cols-2 lg:mt-24 lg:gap-10">
+        {
+          builds.map((b) => (
+            <figure class="reveal">
+              <div class="relative aspect-[4/3] overflow-hidden rounded-3xl border border-ink/8 bg-paper-2 lg:rounded-[2rem]">
+                <Picture
+                  src={b.img}
+                  formats={["avif", "webp"]}
+                  widths={[640, 1024, 1440]}
+                  sizes="(min-width: 768px) 50vw, 100vw"
+                  alt={b.alt}
+                  loading={b.eager ? "eager" : "lazy"}
+                  class="absolute inset-0 h-full w-full object-cover object-top"
+                />
+              </div>
+              <figcaption class="mt-4 text-body-sm text-ink/60">{b.cap}</figcaption>
+            </figure>
+          ))
+        }
+      </div>
+
+      <p class="reveal mt-12 max-w-2xl text-body-sm text-ink/45">
+        The admin dashboard isn't shown because it sits behind a login. The core
+        of it: real-time inventory, WhatsApp ordering, pre-order and custom size,
+        size exchange with consistent stock, and an audit trail at every step.
+      </p>
+    </div>
+  </section>
+
+  {/* ============ RESULT ============ */}
+  <section class="py-20 lg:py-32">
+    <div class="mx-auto max-w-7xl px-6 lg:px-10">
+      <div class="reveal grid gap-8 md:grid-cols-[1fr_2fr]">
+        <p class="font-mono text-caption uppercase tracking-[0.18em] text-muted">Result</p>
+        <h2 class="max-w-2xl text-h2 font-semibold tracking-tight lg:text-[clamp(2rem,4vw,3.25rem)] lg:leading-[1.1]">
+          Numbers you can verify, not claims.
+        </h2>
+      </div>
+
+      <div class="mt-16 grid gap-px overflow-hidden rounded-[2rem] border border-ink/10 bg-ink/10 sm:grid-cols-2 lg:mt-20 lg:grid-cols-4">
+        {
+          metrics.map((m) => (
+            <div class="reveal flex flex-col bg-paper p-8 lg:p-10">
+              <p class="text-[clamp(2.5rem,5vw,3.75rem)] font-semibold leading-none tracking-[-0.02em]">{m.v}</p>
+              <p class="mt-4 text-body font-medium text-ink/80">{m.k}</p>
+              <p class="mt-2 text-body-sm text-ink/55">{m.d}</p>
+            </div>
+          ))
+        }
+      </div>
+
+      <p class="reveal mt-8 max-w-2xl text-body-sm text-ink/50">
+        Live at {""}
+        <a href={LIVE} target="_blank" rel="noopener" class="underline decoration-ink/20 underline-offset-4 transition hover:decoration-ink">www.wearscrubs.id</a>
+        {" "}with full SSL. Stock, price, and order status authoritative on the server.
+      </p>
+    </div>
+  </section>
+
+  {/* ============ WHAT WE'D DO DIFFERENTLY ============ */}
+  <section class="pb-20 lg:pb-28">
+    <div class="mx-auto max-w-7xl px-6 lg:px-10">
+      <div class="reveal grid gap-8 md:grid-cols-[1fr_2fr]">
+        <p class="font-mono text-caption uppercase tracking-[0.18em] text-muted">Honest</p>
+        <h2 class="max-w-2xl text-h2 font-semibold tracking-tight lg:text-[clamp(2rem,4vw,3.25rem)] lg:leading-[1.1]">
+          What we'd do differently.
+        </h2>
+      </div>
+
+      <div class="mt-16 grid gap-10 md:grid-cols-2 lg:mt-20 lg:gap-16">
+        {
+          honest.map((h) => (
+            <article class="reveal border-t border-ink/10 pt-8">
+              <h3 class="max-w-md text-h4 font-semibold tracking-tight lg:text-h3">{h.title}</h3>
+              <p class="mt-5 max-w-md text-body-lg leading-[1.6] text-ink/70">{h.body}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {/* ============ CTA ============ */}
+  <section>
+    <div class="mx-auto max-w-5xl px-6 lg:px-10">
+      <div class="reveal relative overflow-hidden rounded-[2.5rem] border border-ink/10 p-12 lg:p-20">
+        <p class="font-mono text-caption uppercase tracking-[0.18em] text-muted">Start</p>
+        <h2 class="mt-6 max-w-3xl text-[clamp(2rem,5.5vw,4.5rem)] font-semibold leading-[1.02] tracking-[-0.02em]">
+          Have a product, need a system just as serious?
+        </h2>
+        <p class="mt-8 max-w-xl text-body-lg text-ink/70">
+          From Rp 5 million. Clear timeline. The code is yours. Maintenance optional.
+        </p>
+        <div class="mt-12 flex flex-wrap items-center gap-3">
+          <a
+            href="/en/contact"
+            class="group inline-flex items-center gap-3 rounded-2xl bg-ink px-8 py-4 text-body font-medium text-paper transition hover:bg-ink/85"
+          >
+            Discuss a project
+            <span class="inline-block transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true">→</span>
+          </a>
+          <a
+            href="https://wa.me/6287887172220?text=Hi%20Arkivest%2C%20I%20saw%20the%20Wearscrubs%20case%20study"
+            class="rounded-full border border-ink/15 px-8 py-4 text-body font-medium text-ink transition hover:border-ink hover:bg-ink/5"
+            rel="noopener"
+          >
+            WhatsApp directly
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>
