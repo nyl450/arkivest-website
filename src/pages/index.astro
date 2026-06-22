@@ -164,8 +164,7 @@ const services = [
        height. Wave mask is centered on the join between text and image,
        so ambient texture is visible around the headline AND around the
        hero image (left/right of the dark image card, above + below). */}
-  <div class="scroll-stack-wrapper">
-  <div class="hero-stack stack-pin relative overflow-hidden bg-paper">
+  <div class="hero-stack relative overflow-hidden">
     <HeroWave />
 
     {/* HERO TEXT */}
@@ -208,14 +207,8 @@ const services = [
     </section>
   </div>
 
-  {/* ============ PENDEKATAN (FloatingTools) ============
-       Wrapped in .stack-emerge so it rises with scale+rotate as the
-       hero above shrinks back. bg-ink so it reads as the dark "card"
-       sliding up over the paper hero. */}
-  <div class="stack-emerge bg-ink">
-    <FloatingTools lang="id" />
-  </div>
-  </div>{/* /scroll-stack-wrapper */}
+  {/* ============ PENDEKATAN (FloatingTools) ============ */}
+  <FloatingTools lang="id" />
 
   {/* ============ MID-PAGE LUMIO TEXT MOMENT ============
        3 draft options (ARK propose, James pick):
