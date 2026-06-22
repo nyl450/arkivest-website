@@ -33,13 +33,28 @@
 
 <style>
   canvas[data-hero-wave] {
-    /* Mask field into hero - concentrated top-right, fades to paper at edges.
-       Matches the placement aurora-bg used so layout intent is preserved. */
-    -webkit-mask-image: radial-gradient(ellipse 100% 90% at 75% 10%, #000 30%, transparent 80%);
-    mask-image: radial-gradient(ellipse 100% 90% at 75% 10%, #000 30%, transparent 80%);
+    /* Mask field centered in hero with soft falloff. Top edge MUST fade
+       to pure transparent so header (paper bg above) blends seamlessly
+       into the hero section - no visible band at the transition. Bottom
+       also fades so the headline rotator sits clean and content below
+       starts on plain paper. */
+    -webkit-mask-image: radial-gradient(
+      ellipse 75% 65% at 50% 55%,
+      #000 0%,
+      rgba(0, 0, 0, 0.85) 35%,
+      transparent 90%
+    );
+    mask-image: radial-gradient(
+      ellipse 75% 65% at 50% 55%,
+      #000 0%,
+      rgba(0, 0, 0, 0.85) 35%,
+      transparent 90%
+    );
     pointer-events: none;
-    /* Subtle overall opacity - the wave is ambient texture, not foreground */
-    opacity: 0.85;
+    /* Lower opacity - the wave is ambient texture sitting under the
+       headline, not the foreground. Combined with mask, edges feather
+       to pure paper for seamless join with header above. */
+    opacity: 0.75;
   }
 </style>
 
