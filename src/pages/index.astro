@@ -1,6 +1,7 @@
 ---
 import Base from "@layouts/Base.astro";
 import FloatingTools from "@components/FloatingTools.astro";
+import HeroWave from "@components/HeroWave.astro";
 
 const title = "Arkivest - Web studio yang serius untuk usaha yang siap scale";
 const description =
@@ -159,7 +160,7 @@ const services = [
 <Base title={title} description={description} lang="id">
   {/* ============ HERO ============ */}
   <section class="relative overflow-hidden pt-20 pb-12 lg:pt-28 lg:pb-20">
-    <div class="aurora-bg" aria-hidden="true"></div>
+    <HeroWave />
     <div class="relative z-10 mx-auto w-full max-w-7xl px-6 lg:px-10">
       <h1
         class="mx-auto max-w-4xl text-center text-[clamp(2.5rem,8.5vw,6.5rem)] font-semibold leading-[1.02] tracking-[-0.03em]"
