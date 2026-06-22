@@ -156,7 +156,8 @@ const services = [
 
 <Base title={title} description={description} lang="en">
   {/* ============ HERO + HERO IMAGE (shared wave backdrop) ============ */}
-  <div class="hero-stack relative overflow-hidden">
+  <div class="scroll-stack-wrapper">
+  <div class="hero-stack stack-pin relative overflow-hidden bg-paper">
     <HeroWave />
 
     {/* HERO TEXT */}
@@ -199,7 +200,10 @@ const services = [
   </div>
 
   {/* ============ APPROACH (FloatingTools) ============ */}
-  <FloatingTools lang="en" />
+  <div class="stack-emerge bg-ink">
+    <FloatingTools lang="en" />
+  </div>
+  </div>{/* /scroll-stack-wrapper */}
 
   {/* ============ MID-PAGE LUMIO TEXT MOMENT ============ */}
   <section class="py-32 lg:py-48">
