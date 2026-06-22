@@ -1,0 +1,205 @@
+---
+/**
+ * GooeyText - Two-text morphing animation with SVG threshold filter.
+ *
+ * Port of https://21st.dev/community/components/victorwelander/
+ * gooey-text-morphing/default from React/TSX to vanilla JS Astro
+ * component. Zero React, zero framework bundle JS.
+ *
+ * How the gooey effect works:
+ *   - Two overlapping <span> with the current + next word
+ *   - During morph: text1 increases blur + decreases opacity, text2 the
+ *     opposite. Both layers passed through an SVG threshold colormatrix
+ *     filter that clamps semi-transparent pixels either fully visible
+ *     or fully hidden -> blurred letter edges become hard "droplet"
+ *     blobs that merge and split as the morph progresses.
+ *
+ * IMPORTANT: text MUST be rendered with full alpha (solid color, no CSS
+ * opacity modifier like text-ink/65) or the threshold will erase it.
+ * The JS animation manipulates opacity dynamically during the morph -
+ * the CSS opacity must start at 1 for that math to work.
+ *
+ * prefers-reduced-motion: renders the first text only, no animation
+ * loop, no SVG filter attached - degrade gracefully to plain static text.
+ */
+export interface Props {
+  texts: string[];
+  morphTime?: number;
+  cooldownTime?: number;
+  class?: string;
+}
+
+const {
+  texts,
+  morphTime = 1,
+  cooldownTime = 0.5,
+  class: className = "",
+} = Astro.props as Props;
+
+// Sizer = longest word so the container reserves enough box width for any
+// state of the morph (no layout shift when text swaps).
+const sizerText = texts.reduce((a, b) => (a.length > b.length ? a : b), "");
+---
+
+<div
+  class:list={["gooey-text relative inline-block align-baseline", className]}
+  data-texts={JSON.stringify(texts)}
+  data-morph-time={morphTime}
+  data-cooldown-time={cooldownTime}
+>
+  {/* SVG threshold filter defs - kept inline so the filter id is in scope */}
+  <svg class="absolute h-0 w-0" aria-hidden="true" focusable="false">
+    <defs>
+      <filter id="goo-threshold">
+        <feColorMatrix
+          in="SourceGraphic"
+          type="matrix"
+          values="1 0 0 0 0
+                  0 1 0 0 0
+                  0 0 1 0 0
+                  0 0 0 255 -140"
+        />
+      </filter>
+    </defs>
+  </svg>
+
+  {/* Stage container with the gooey filter. inline-block so it respects
+      parent's text-align (we sit inside a center-aligned h1). leading-[1.15]
+      gives breathing room for italic descenders (g, y, j) so they don't
+      clip - the user reported clipping on the old rotator with leading-1. */}
+  <span
+    class="goo-stage relative inline-block leading-[1.15] overflow-visible"
+    style="filter: url(#goo-threshold);"
+  >
+    {/* Invisible sizer reserves the box dimensions */}
+    <span class="goo-sizer invisible whitespace-nowrap">{sizerText}</span>
+    {/* Two absolutely-positioned layers - JS drives their opacity + blur */}
+    <span
+      class="goo-text goo-text-1 absolute inset-0 flex items-center justify-center text-ink"
+      aria-hidden="true">{texts[texts.length - 1]}</span>
+    <span
+      class="goo-text goo-text-2 absolute inset-0 flex items-center justify-center text-ink"
+    >{texts[0]}</span>
+  </span>
+</div>
+
+<script>
+  type GooeyTextEl = HTMLElement & {
+    __gooeyStarted?: boolean;
+  };
+
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  document.querySelectorAll<GooeyTextEl>(".gooey-text").forEach((root) => {
+    if (root.__gooeyStarted) return;
+    root.__gooeyStarted = true;
+
+    const textsAttr = root.dataset.texts || "[]";
+    let texts: string[] = [];
+    try {
+      texts = JSON.parse(textsAttr);
+    } catch {
+      texts = [];
+    }
+    if (!texts.length) return;
+
+    const morphTime = parseFloat(root.dataset.morphTime || "1");
+    const cooldownTime = parseFloat(root.dataset.cooldownTime || "0.5");
+
+    const text1 = root.querySelector<HTMLSpanElement>(".goo-text-1");
+    const text2 = root.querySelector<HTMLSpanElement>(".goo-text-2");
+    const stage = root.querySelector<HTMLSpanElement>(".goo-stage");
+    if (!text1 || !text2 || !stage) return;
+
+    // Reduced-motion path: detach the SVG filter entirely (so static text
+    // renders at full alpha, no threshold clip) and show only one word.
+    if (reducedMotion) {
+      stage.style.filter = "none";
+      text1.style.opacity = "0";
+      text2.textContent = texts[0];
+      text2.style.opacity = "1";
+      return;
+    }
+
+    let textIndex = texts.length - 1;
+    let time = performance.now();
+    let morph = 0;
+    let cooldown = cooldownTime;
+
+    const setMorph = (fraction: number) => {
+      text2.style.filter = `blur(${Math.min(8 / fraction - 8, 100)}px)`;
+      text2.style.opacity = `${Math.pow(fraction, 0.4) * 100}%`;
+      const inv = 1 - fraction;
+      text1.style.filter = `blur(${Math.min(8 / inv - 8, 100)}px)`;
+      text1.style.opacity = `${Math.pow(inv, 0.4) * 100}%`;
+    };
+
+    const doCooldown = () => {
+      morph = 0;
+      text2.style.filter = "";
+      text2.style.opacity = "100%";
+      text1.style.filter = "";
+      text1.style.opacity = "0%";
+    };
+
+    const doMorph = () => {
+      morph -= cooldown;
+      cooldown = 0;
+      let fraction = morph / morphTime;
+      if (fraction > 1) {
+        cooldown = cooldownTime;
+        fraction = 1;
+      }
+      setMorph(fraction);
+    };
+
+    // Set initial words (text1 = last in array, text2 = first - matches the
+    // original component's bootstrap so first morph transitions from
+    // last->first naturally).
+    text1.textContent = texts[textIndex % texts.length];
+    text2.textContent = texts[(textIndex + 1) % texts.length];
+
+    let rafId = 0;
+    let visible = true;
+
+    const tick = () => {
+      rafId = requestAnimationFrame(tick);
+      if (!visible) return;
+      const now = performance.now();
+      const shouldIncrementIndex = cooldown > 0;
+      const dt = (now - time) / 1000;
+      time = now;
+      cooldown -= dt;
+
+      if (cooldown <= 0) {
+        if (shouldIncrementIndex) {
+          textIndex = (textIndex + 1) % texts.length;
+          text1.textContent = texts[textIndex % texts.length];
+          text2.textContent = texts[(textIndex + 1) % texts.length];
+        }
+        doMorph();
+      } else {
+        doCooldown();
+      }
+    };
+    rafId = requestAnimationFrame(tick);
+
+    // Pause when scrolled off-screen (battery + CPU)
+    if ("IntersectionObserver" in window) {
+      const io = new IntersectionObserver(
+        (entries) => entries.forEach((e) => {
+          visible = e.isIntersecting;
+          // Reset clock when becoming visible so dt doesn't spike after
+          // a long invisible stretch (would otherwise jump frames).
+          if (visible) time = performance.now();
+        }),
+        { threshold: 0 }
+      );
+      io.observe(root);
+    }
+
+    document.addEventListener("astro:before-swap", () => {
+      cancelAnimationFrame(rafId);
+    }, { once: true });
+  });
+</script>
